@@ -443,6 +443,7 @@
         setSession('userEmail', email);
         setSession('userName', name);
         setSession('isAuthenticated', true);
+        setSession('isNewUser', true);  // Mark as new user for welcome message
         setSession('signupTime', new Date().toISOString());
 
         // Redirect to offer page
@@ -463,6 +464,7 @@
         setSession('userEmail', 'user@example.com');
         setSession('userName', 'Google User');
         setSession('isAuthenticated', true);
+        setSession('isNewUser', true);  // Mark as new user for welcome message
         setSession('loginMethod', 'google');
         window.location.href = '2-offer-page.html';
       }, 800);

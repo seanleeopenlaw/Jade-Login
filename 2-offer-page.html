@@ -84,8 +84,8 @@
     <div class="max-w-2xl w-full">
       <!-- Welcome Header -->
       <div class="text-center mb-8 fade-in">
-        <p class="text-base text-muted mb-2">Welcome back!</p>
-        <p class="text-sm text-muted mb-6">You've successfully logged in to JADE.</p>
+        <p class="text-base text-muted mb-2" id="welcome-greeting">Welcome!</p>
+        <p class="text-sm text-muted mb-6" id="welcome-subtext">Welcome to JADE.</p>
         <div class="offer-badge mx-auto mb-6" role="status">
           🎁 Special Offer
         </div>
@@ -207,6 +207,23 @@
         // If parsing fails, use as-is
         document.getElementById('user-email').textContent = userEmail;
       }
+    }
+
+    // Check if this is a new user and customize welcome message
+    const isNewUser = getSession('isNewUser');
+    const userName = getSession('userName');
+
+    if (isNewUser) {
+      // Welcome message for new signups
+      document.getElementById('welcome-greeting').textContent = userName ? `Welcome, ${userName}!` : 'Welcome to JADE!';
+      document.getElementById('welcome-subtext').textContent = "Thank you for creating your account. We're excited to have you!";
+
+      // Clear the isNewUser flag after showing the message
+      sessionStorage.removeItem('isNewUser');
+    } else {
+      // Welcome back message for returning users
+      document.getElementById('welcome-greeting').textContent = 'Welcome back!';
+      document.getElementById('welcome-subtext').textContent = "You've successfully logged in to JADE.";
     }
 
     // Mark that user has seen the offer
