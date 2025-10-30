@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - JADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --background: #f7f9fc;
+      --foreground: #374151;
+      --card: #ffffff;
+      --card-foreground: #374151;
+      --primary: #089444;
+      --primary-foreground: #ffffff;
+      --secondary: #e0f2fe;
+      --secondary-foreground: #4b5563;
+      --muted: #f3f4f6;
+      --muted-foreground: #6b7280;
+      --accent: #e0f2fe;
+      --accent-foreground: #374151;
+      --border: #e5e7eb;
+      --input: #e5e7eb;
+      --ring: #089444;
+      --font-sans: 'DM Sans', sans-serif;
+      --font-serif: 'Lora', serif;
+      --radius: 0.5rem;
+      --shadow-sm: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 1px 2px -2px hsl(0 0% 0% / 0.10);
+      --shadow-md: 0px 8px 16px -2px hsl(0 0% 0% / 0.12), 0px 2px 4px -3px hsl(0 0% 0% / 0.12);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--background);
+      color: var(--foreground);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card {
+      background-color: var(--card);
+      color: var(--card-foreground);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+    }
+
+    .text-primary { color: var(--primary); }
+    .bg-primary { background-color: var(--primary); color: var(--primary-foreground); }
+    .text-muted { color: var(--muted-foreground); }
+    .border-color { border-color: var(--border); }
+
+    .btn-primary {
+      padding: 0.875rem 1.5rem;
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+      width: 100%;
+      font-family: var(--font-sans);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(8, 148, 68, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.5rem;
+      background-color: var(--card);
+      color: var(--foreground);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      transition: all 0.2s;
+      width: 100%;
+      font-family: var(--font-sans);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--muted);
+      border-color: var(--primary);
+    }
+
+    .input-field {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background-color: var(--card);
+      color: var(--foreground);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(8, 148, 68, 0.1);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--muted-foreground);
+      margin: 1.5rem 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .divider::before {
+      margin-right: 1rem;
+    }
+
+    .divider::after {
+      margin-left: 1rem;
+    }
+
+    .link-primary {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .link-primary:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: start;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .checkbox-input {
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.125rem;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .password-strength {
+      height: 4px;
+      background-color: var(--muted);
+      border-radius: 2px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      transition: width 0.3s, background-color 0.3s;
+      width: 0;
+      background-color: #ef4444;
+    }
+
+    .password-strength-bar.weak {
+      width: 33%;
+      background-color: #ef4444;
+    }
+
+    .password-strength-bar.medium {
+      width: 66%;
+      background-color: #f59e0b;
+    }
+
+    .password-strength-bar.strong {
+      width: 100%;
+      background-color: #22c55e;
+    }
+
+    .info-box {
+      background-color: var(--accent);
+      border: 1px solid rgba(8, 148, 68, 0.2);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.4s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="border-b border-color bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="jade_logo.svg" alt="JADE" class="h-8" />
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="link-primary text-sm">Help</a>
+        <a href="#" class="link-primary text-sm">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="max-w-md w-full fade-in">
+      <!-- Headline -->
+      <div class="text-center mb-8">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
+          Create your account
+        </h2>
+        <p class="text-lg text-muted mb-4">
+          Start your legal research journey
+        </p>
+
+        <!-- Why Login Info Box -->
+        <div class="info-box text-left">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 text-primary">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <p class="text-sm font-semibold text-foreground mb-1">Why we require login</p>
+            <p class="text-xs text-muted">
+              To ensure the best JADE experience and protect our content from AI bots and unfair use, we now require login. This helps us maintain our mission of providing open access to legal information fairly and safely for all.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Signup Card -->
+      <div class="card p-6 sm:p-8">
+        <form id="signup-form" class="space-y-4">
+          <!-- Name Input -->
+          <div>
+            <label for="name" class="block text-sm font-medium mb-2">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="input-field"
+              placeholder="John Doe"
+              required
+              autocomplete="name"
+            />
+          </div>
+
+          <!-- Email Input -->
+          <div>
+            <label for="email" class="block text-sm font-medium mb-2">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="input-field"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <!-- Password Input -->
+          <div>
+            <label for="password" class="block text-sm font-medium mb-2">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="input-field"
+              placeholder="••••••••"
+              required
+              autocomplete="new-password"
+            />
+            <div class="password-strength">
+              <div id="strength-bar" class="password-strength-bar"></div>
+            </div>
+            <p class="text-xs text-muted mt-1">
+              Must be at least 8 characters with uppercase, lowercase, and number
+            </p>
+          </div>
+
+          <!-- Terms Checkbox -->
+          <label class="checkbox-label text-sm">
+            <input
+              type="checkbox"
+              id="terms"
+              name="terms"
+              class="checkbox-input"
+              required
+            />
+            <span class="text-muted">
+              I agree to the <a href="#" class="link-primary">Terms of Service</a> and <a href="#" class="link-primary">Privacy Policy</a>
+            </span>
+          </label>
+
+          <!-- Signup Button -->
+          <button type="submit" id="submit-btn" class="btn-primary">
+            Create Account
+          </button>
+
+          <!-- Login Link -->
+          <div class="text-center text-sm">
+            <span class="text-muted">Already have an account?</span>
+            <a href="1-gated-landing.html" class="link-primary ml-1">Log in</a>
+          </div>
+        </form>
+
+        <!-- Divider -->
+        <div class="divider">or</div>
+
+        <!-- Google Sign Up -->
+        <button type="button" class="btn-secondary">
+          <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Sign up with Google
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-color bg-white py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-center gap-4 text-sm text-muted">
+        <a href="#" class="link-primary">Terms</a>
+        <span>·</span>
+        <a href="#" class="link-primary">Privacy</a>
+        <span>·</span>
+        <a href="#" class="link-primary">Contact</a>
+      </div>
+      <p class="text-center text-xs text-muted mt-3">
+        © 2025 JADE. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    'use strict';
+
+    const passwordInput = document.getElementById('password');
+    const strengthBar = document.getElementById('strength-bar');
+
+    // Check password strength
+    function checkPasswordStrength(password) {
+      let strength = 0;
+
+      if (password.length >= 8) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[a-z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+
+      // Update strength bar
+      strengthBar.className = 'password-strength-bar';
+      if (strength === 0) {
+        strengthBar.style.width = '0';
+      } else if (strength <= 2) {
+        strengthBar.classList.add('weak');
+      } else if (strength === 3) {
+        strengthBar.classList.add('medium');
+      } else {
+        strengthBar.classList.add('strong');
+      }
+    }
+
+    // Event listener for password input
+    passwordInput.addEventListener('input', () => {
+      checkPasswordStrength(passwordInput.value);
+    });
+
+    // Form submission handler
+    document.getElementById('signup-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const termsAccepted = document.getElementById('terms').checked;
+
+      if (!termsAccepted) {
+        alert('Please accept the Terms of Service and Privacy Policy');
+        return;
+      }
+
+      console.log('Signup attempt:', { name, email });
+
+      // Show loading state
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.textContent = 'Creating account...';
+      submitBtn.disabled = true;
+
+      // Simulate API call - Create account and redirect to Offer Page
+      setTimeout(() => {
+        // In production, this would:
+        // 1. Create account via FusionAuth
+        // 2. Send verification email
+        // 3. Create session
+        // 4. Redirect to offer page
+        window.location.href = '2-offer-page.html';
+      }, 1500);
+    });
+
+    // Sign up with Google handler
+    document.querySelector('.btn-secondary').addEventListener('click', () => {
+      console.log('Google SSO signup initiated');
+      setTimeout(() => {
+        window.location.href = '2-offer-page.html';
+      }, 800);
+    });
+  </script>
+</body>
+</html>

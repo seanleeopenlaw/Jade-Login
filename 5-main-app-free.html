@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JADE - Legal Research</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --background: #f7f9fc;
+      --foreground: #374151;
+      --card: #ffffff;
+      --card-foreground: #374151;
+      --primary: #089444;
+      --primary-foreground: #ffffff;
+      --muted: #f3f4f6;
+      --muted-foreground: #6b7280;
+      --accent: #e0f2fe;
+      --border: #e5e7eb;
+      --teal: #1e6b7b;
+      --font-sans: 'DM Sans', sans-serif;
+      --font-serif: 'Lora', serif;
+      --radius: 0.25rem;
+      --shadow-sm: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--background);
+      color: var(--foreground);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header-top {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.5rem 0;
+    }
+
+    .header-main {
+      background-color: white;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-link {
+      color: var(--foreground);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      transition: background-color 0.2s;
+    }
+
+    .nav-link:hover {
+      background-color: var(--muted);
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      max-width: 600px;
+      margin: 0 1.5rem;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius) 0 0 var(--radius);
+      font-size: 0.875rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-btn {
+      padding: 0.5rem 1rem;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .search-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Upgrade Banner */
+    .upgrade-banner {
+      background-color: var(--teal);
+      color: white;
+      padding: 0.875rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: slideDown 0.4s ease-out;
+    }
+
+    .upgrade-banner.hidden {
+      display: none;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .btn-learn-more {
+      padding: 0.5rem 1.25rem;
+      background-color: #fbbf24;
+      color: #1f2937;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-learn-more:hover {
+      background-color: #f59e0b;
+    }
+
+    .btn-close {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.25rem;
+      margin-left: 1rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .btn-close:hover {
+      opacity: 1;
+    }
+
+    /* Layout */
+    .main-container {
+      display: flex;
+      flex: 1;
+      max-width: 100%;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: white;
+      border-right: 1px solid var(--border);
+      padding: 1rem 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted-foreground);
+      padding: 0 1rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .sidebar-link {
+      display: block;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      color: var(--foreground);
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .sidebar-link:hover {
+      background-color: var(--muted);
+    }
+
+    .sidebar-link.active {
+      background-color: var(--accent);
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    /* Main Content */
+    .content-area {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+
+    .results-header {
+      background-color: white;
+      border: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      border-radius: var(--radius);
+    }
+
+    .result-item {
+      background-color: white;
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 0.75rem;
+      border-radius: var(--radius);
+      transition: box-shadow 0.2s;
+    }
+
+    .result-item:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .result-title {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      display: block;
+    }
+
+    .result-title:hover {
+      text-decoration: underline;
+    }
+
+    .result-meta {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+      margin-bottom: 0.75rem;
+    }
+
+    .result-excerpt {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--foreground);
+    }
+
+    .locked-overlay {
+      position: relative;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .locked-badge {
+      display: inline-block;
+      background-color: #fbbf24;
+      color: #1f2937;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius);
+      margin-left: 0.5rem;
+    }
+
+    .link-primary {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .link-primary:hover {
+      text-decoration: underline;
+    }
+
+    .user-badge {
+      display: inline-block;
+      background-color: white;
+      color: var(--primary);
+      font-size: 0.625rem;
+      font-weight: 700;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius);
+      margin-left: 0.5rem;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <!-- Top Header with Logo and Search -->
+    <div class="header-top">
+      <div class="max-w-full px-4 flex items-center justify-between">
+        <div class="flex items-center">
+          <img src="jade_logo.svg" alt="JADE" class="h-6" style="filter: brightness(0) invert(1);" />
+        </div>
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Start typing case name, legislation or keyword"
+          />
+          <button class="search-btn">search now</button>
+        </div>
+        <div class="flex items-center gap-3 text-sm ml-auto">
+          <span>user@example.com</span>
+          <span class="user-badge">FREE</span>
+          <a href="#" class="text-white hover:underline">Sign Out</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="header-main">
+      <div class="max-w-full px-4 flex items-center">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Jade Browser</a>
+        <a href="#" class="nav-link">Citator</a>
+        <a href="#" class="nav-link">My Jade</a>
+        <a href="#" class="nav-link">Panels</a>
+        <a href="#" class="nav-link">Feedback</a>
+        <a href="#" class="nav-link">Help</a>
+        <div style="flex: 1;"></div>
+        <a href="#" class="link-primary text-sm px-3 py-2">Talk to an editor</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Upgrade Banner -->
+  <div id="upgrade-banner" class="upgrade-banner">
+    <div class="flex items-center flex-1">
+      <span>🎁 <strong>Limited Time Offer:</strong> Get 30 days free + 30% off JADE Professional. Expires December 31, 2025.</span>
+    </div>
+    <div class="flex items-center">
+      <button class="btn-learn-more" onclick="window.location.href='2-offer-page.html'">
+        Subscribe Now
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Browse collections</div>
+        <a href="#" class="sidebar-link active">Judgments</a>
+        <a href="#" class="sidebar-link">By topic</a>
+        <a href="#" class="sidebar-link">By citation</a>
+        <a href="#" class="sidebar-link">By court</a>
+        <a href="#" class="sidebar-link">By tag</a>
+        <a href="#" class="sidebar-link">By cloud</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Other</div>
+        <a href="#" class="sidebar-link">Advanced</a>
+        <a href="#" class="sidebar-link">Court documents</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+      <!-- Results Header -->
+      <div class="results-header">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-semibold">Search results</h2>
+          <div class="text-xs text-muted-foreground">
+            <span>You are on page 1 of 406 with 8112 results for: Court: HCA, Order by: Date (reverse)</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <button class="link-primary">Edit this search</button>
+          <span class="text-muted-foreground">•</span>
+          <button class="link-primary">Hide year filters</button>
+        </div>
+      </div>
+
+      <!-- Search Results -->
+      <div class="result-item">
+        <a href="#" class="result-title">Plaintiff M27/2025 v Minister for Immigration and Multicultural Affairs</a>
+        <div class="result-meta">[2025] HCA 90 (15 October 2025) (Gageler CJ, Gordon and Beech-Jones JJ)</div>
+        <p class="result-excerpt">
+          Immigration – Visas – Where plaintiff applied for protection (subclass 866) visa – Where document in application for visa included English text and images with Mandarin characters – Where Minister's delegate requested further information under s 56 of Migration Act 1958 (Cth) – Where plaintiff did not provide translation of content relied on – Where delegate refused application for protection visa...
+        </p>
+      </div>
+
+      <div class="result-item">
+        <a href="#" class="result-title">El Global 12he 12iv Ltd v Commissioner of State Revenue</a>
+        <div class="result-meta">[2025] HCA 39 (15 October 2025) (Gageler CJ, Gordon, Edelman, Steward, Gleeson, Jagot and Beech-Jones JJ)</div>
+        <p class="result-excerpt">
+          Constitutional law (Cth) – Legislative power – Inconsistency between Commonwealth and State laws – External affairs – Acquisition of property on just terms – Where rate of land tax imposed by State law on non-residents and foreign-owned or controlled entities higher than rate of land tax imposed on other residents and entities – Where Commonwealth law would force of law to international agreements...
+        </p>
+      </div>
+
+      <div class="result-item locked-overlay">
+        <a href="#" class="result-title">
+          Farmer v Minister for Home Affairs
+          <span class="locked-badge">🔒 PRO</span>
+        </a>
+        <div class="result-meta">[2025] HCA 38 (18 October 2025) (Gageler CJ, Gordon, Edelman, Steward, Gleeson, Jagot and Beech-Jones JJ)</div>
+        <p class="result-excerpt">
+          Constitutional law (Cth) – Legislative power – Inconsistency between Commonwealth and State laws – Where s 501(3A)(d)(iv) of the Migration Act 1958 (Cth) provides that person does not pass character test if risk they would, if allowed to enter Australia, "incite discord in the Australian community or in a segment of that community" – Where Minister for Home Affairs ("Minister") refused visa to controversial political commentator on basis of s 501(6)(d)(iv)...
+        </p>
+      </div>
+
+      <div class="result-item locked-overlay">
+        <a href="#" class="result-title">
+          CD v The Commonwealth of Australia, CD v Director of Public Prosecutions (SA)
+          <span class="locked-badge">🔒 PRO</span>
+        </a>
+        <div class="result-meta">[2025] HCA 37 (04 October 2025) (Gageler CJ, Gordon, Edelman, Steward, Gleeson, Jagot and Beech-Jones JJ)</div>
+        <p class="result-excerpt">
+          Constitutional law (Cth) – Judicial power of Commonwealth – Admissibility of evidence – Where information and records obtained pursuant to warrants – Where Surveillance Legislation (Confirmation of Application) Act 2024 (Cth) ("Confirmation of Application Act") deems information and records obtained under specified warrants to have been lawfully obtained...
+        </p>
+      </div>
+
+      <div class="result-item locked-overlay">
+        <a href="#" class="result-title">
+          Plaintiff S22/2025 v Minister for Immigration and Multicultural Affairs
+          <span class="locked-badge">🔒 PRO</span>
+        </a>
+        <div class="result-meta">[2025] HCA 36 (03 September 2025) (Gageler CJ, Edelman and Jagot JJ)</div>
+        <p class="result-excerpt">
+          Immigration – Visas – Cancellation of visa – Where plaintiff TPV mandatorily cancelled under s 501(3A) of the Migration Act 1968 (Cth) ("Act") following conviction and imprisonment for offence – Whether plaintiff released from immigration detention – Whether plaintiff released when...
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    'use strict';
+    // Banner is always visible - no dismiss functionality
+  </script>
+</body>
+</html>

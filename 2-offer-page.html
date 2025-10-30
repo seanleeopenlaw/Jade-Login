@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to JADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --background: #f7f9fc;
+      --foreground: #374151;
+      --card: #ffffff;
+      --card-foreground: #374151;
+      --primary: #089444;
+      --primary-foreground: #ffffff;
+      --muted: #f3f4f6;
+      --muted-foreground: #6b7280;
+      --accent: #e0f2fe;
+      --border: #e5e7eb;
+      --font-sans: 'DM Sans', sans-serif;
+      --font-serif: 'Lora', serif;
+      --radius: 0.5rem;
+      --shadow-md: 0px 8px 16px -2px hsl(0 0% 0% / 0.12), 0px 2px 4px -3px hsl(0 0% 0% / 0.12);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--background);
+      color: var(--foreground);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card {
+      background-color: var(--card);
+      color: var(--card-foreground);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+    }
+
+    .text-primary { color: var(--primary); }
+    .bg-primary { background-color: var(--primary); color: var(--primary-foreground); }
+    .text-muted { color: var(--muted-foreground); }
+    .border-color { border-color: var(--border); }
+
+    .btn-primary {
+      padding: 1rem 2rem;
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.125rem;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(8, 148, 68, 0.3);
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.5rem;
+      background-color: transparent;
+      color: var(--muted-foreground);
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+      text-decoration: underline;
+      width: 100%;
+    }
+
+    .btn-secondary:hover {
+      color: var(--foreground);
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .benefit-item:last-child {
+      border-bottom: none;
+    }
+
+    .benefit-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary) 0%, #067038 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .offer-badge {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(135deg, #089444 0%, #067038 100%);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      font-size: 0.875rem;
+      box-shadow: 0 4px 12px rgba(8, 148, 68, 0.3);
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    .fade-in-delay {
+      animation: fadeIn 0.6s ease-in 0.2s both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="border-b border-color bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="jade_logo.svg" alt="JADE" class="h-8" />
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-sm text-muted">user@example.com</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="max-w-2xl w-full">
+      <!-- Welcome Header -->
+      <div class="text-center mb-8 fade-in">
+        <p class="text-base text-muted mb-2">Welcome back!</p>
+        <p class="text-sm text-muted mb-6">You've successfully logged in to JADE.</p>
+        <div class="offer-badge mx-auto mb-6">
+          🎁 Special Offer
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="font-family: var(--font-serif); line-height: 1.2;">
+          Start a <span class="text-primary">30-day free trial</span> of JADE Professional
+        </h2>
+        <p class="text-lg font-semibold text-foreground mb-2">
+          Then get <span class="text-primary">30% off</span> your first subscription
+        </p>
+        <p class="text-base text-muted">
+          ⏰ This offer expires on <strong>December 31, 2025</strong>
+        </p>
+      </div>
+
+      <!-- Benefits Card -->
+      <div class="card p-6 sm:p-8 mb-8 fade-in-delay">
+        <h3 class="text-lg font-semibold mb-6">✅ Unlock full research tools:</h3>
+
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            ✓
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1">Full citator access</h4>
+            <p class="text-sm text-muted">Complete citation analysis and case relationships</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            ✓
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1">Advanced research tools</h4>
+            <p class="text-sm text-muted">Powerful search filters and research features</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            ✓
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1">PDF downloads</h4>
+            <p class="text-sm text-muted">Download cases and documents for offline access</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            ✓
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold mb-1">Save & annotate</h4>
+            <p class="text-sm text-muted">Build your research library with notes and highlights</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="space-y-3 fade-in-delay">
+        <button id="upgrade-btn" class="btn-primary">
+          Subscribe Now — 30 Days Free + 30% Off
+        </button>
+        <button id="dismiss-btn" class="btn-secondary">
+          No thanks, continue with basic access
+        </button>
+      </div>
+
+      <!-- Offer Details -->
+      <div class="text-center mt-8 fade-in-delay">
+        <div class="card p-6" style="background-color: var(--accent); border-color: var(--primary);">
+          <p class="text-sm font-semibold text-foreground mb-4">
+            How it works:
+          </p>
+          <ul class="text-sm text-left text-foreground space-y-3">
+            <li class="flex items-start gap-2">
+              <span class="text-primary font-bold">1.</span>
+              <span>Subscribe now to <strong>start your 30-day free trial</strong> immediately with full access to JADE Professional</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-primary font-bold">2.</span>
+              <span>After 30 days, <strong>billing automatically begins</strong> at 30% off the regular price</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-primary font-bold">3.</span>
+              <span>Your <strong>30% discount is locked in</strong> until December 31, 2025</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-primary font-bold">4.</span>
+              <span><strong>Cancel anytime</strong> before trial ends to avoid charges</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    'use strict';
+
+    // Upgrade button handler
+    document.getElementById('upgrade-btn').addEventListener('click', () => {
+      const btn = document.getElementById('upgrade-btn');
+      btn.textContent = 'Loading...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        window.location.href = '3-plan-selection.html';
+      }, 800);
+    });
+
+    // Dismiss button handler
+    document.getElementById('dismiss-btn').addEventListener('click', () => {
+      const btn = document.getElementById('dismiss-btn');
+      btn.textContent = 'Continuing...';
+      btn.disabled = true;
+
+      // Set flag to show user dismissed the offer
+      localStorage.setItem('offerDismissed', 'true');
+
+      setTimeout(() => {
+        window.location.href = '5-main-app-free.html';
+      }, 800);
+    });
+  </script>
+</body>
+</html>
