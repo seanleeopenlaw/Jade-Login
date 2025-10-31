@@ -282,7 +282,7 @@
         }
 
         if (plan === 'free') {
-          window.location.href = '5-main-app-free.html';
+          window.location.href = '4-main-app-free.html';
           return;
         }
 
@@ -370,7 +370,7 @@
       setSession('subscriptionPrice', PLANS[selectedPlan][billingPeriod].discounted);
 
       setTimeout(() => {
-        window.location.href = '4-subscription-complete.html';
+        window.location.href = '3-subscription-complete.html';
       }, 1200);
     });
 
@@ -382,7 +382,7 @@
       localStorage.setItem('subscriptionReminderDate', reminderDate.toISOString());
 
       // Go to free app with reminder flag
-      window.location.href = '5-main-app-free.html?reminder=set';
+      window.location.href = '4-main-app-free.html?reminder=set';
     });
 
     // Don't show again button
@@ -391,7 +391,7 @@
       localStorage.setItem('hideSubscriptionOffer', 'true');
 
       // Go to free app
-      window.location.href = '5-main-app-free.html';
+      window.location.href = '4-main-app-free.html';
     });
 
     // Initialize
