@@ -11,9 +11,6 @@
   <link rel="stylesheet" href="css/jade.css">
 </head>
 <body class="jade-theme">
-  <!-- Skip Link -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
   <!-- Header -->
   <header>
     <!-- Top Header -->
@@ -34,7 +31,6 @@
     <div class="max-w-6xl mx-auto">
       <!-- Welcome Message (for new users) -->
       <div class="text-center mb-8 fade-in" id="welcome-section">
-        <p class="text-base jade-text-muted mb-2" id="welcome-greeting"></p>
         <div class="offer-badge mx-auto">
           🎁 Limited Time Offer
         </div>
@@ -252,18 +248,14 @@
       document.getElementById('user-email').textContent = userEmail;
     }
 
-    // Show welcome message for new users only
+    // Show welcome section
     const welcomeSection = document.getElementById('welcome-section');
-    const welcomeGreeting = document.getElementById('welcome-greeting');
-
-    if (isNewUser) {
-      welcomeGreeting.textContent = userName ? `Welcome, ${userName}!` : 'Welcome to JADE!';
-      sessionStorage.removeItem('isNewUser'); // Clear flag
-    } else {
-      // Don't show "Welcome back" text for returning users
-      welcomeGreeting.textContent = '';
-    }
     welcomeSection.style.display = 'block';
+
+    // Clear new user flag if present
+    if (isNewUser) {
+      sessionStorage.removeItem('isNewUser');
+    }
 
     // Mark that user has seen offer
     localStorage.setItem('hasSeenOffer', 'true');
