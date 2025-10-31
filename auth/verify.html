@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifying Sign-In - JADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/common.css">
+
+  <style>
+    .spinner {
+      border: 3px solid var(--muted);
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .error-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto;
+      color: var(--error);
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <header class="border-b border-color bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-8" />
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="max-w-md w-full text-center">
+
+      <!-- Loading State -->
+      <div id="loading-state" class="fade-in">
+        <div class="spinner mb-6"></div>
+        <h1 class="text-2xl font-bold mb-3" style="font-family: var(--font-serif);">
+          Verifying your sign-in link...
+        </h1>
+        <p class="text-muted">Please wait a moment</p>
+      </div>
+
+      <!-- Success State -->
+      <div id="success-state" style="display: none;" class="fade-in">
+        <div class="success-icon mb-6">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h1 class="text-2xl font-bold mb-3" style="font-family: var(--font-serif); color: var(--primary);">
+          Sign-in successful!
+        </h1>
+        <p class="text-muted mb-4">Redirecting you to JADE...</p>
+      </div>
+
+      <!-- Error State -->
+      <div id="error-state" style="display: none;" class="fade-in">
+        <div class="error-icon mb-6">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h1 class="text-2xl font-bold mb-3" style="font-family: var(--font-serif);">
+          Unable to verify sign-in link
+        </h1>
+        <p class="text-muted mb-6" id="error-message">
+          This link may have expired or is invalid
+        </p>
+        <a href="step1-email.html" class="btn-primary inline-block">
+          Request a new sign-in link
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-color bg-white py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-center gap-4 text-sm text-muted">
+        <a href="#" class="link-primary">Terms</a>
+        <span>·</span>
+        <a href="#" class="link-primary">Privacy</a>
+      </div>
+      <p class="text-center text-xs text-muted mt-3">© 2025 JADE. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/magic-link.js"></script>
+  <script>
+    'use strict';
+
+    // Parse URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const email = urlParams.get('email');
+
+    const loadingState = document.getElementById('loading-state');
+    const successState = document.getElementById('success-state');
+    const errorState = document.getElementById('error-state');
+    const errorMessage = document.getElementById('error-message');
+
+    function showError(message) {
+      loadingState.style.display = 'none';
+      errorMessage.textContent = message;
+      errorState.style.display = 'block';
+    }
+
+    function showSuccess() {
+      loadingState.style.display = 'none';
+      successState.style.display = 'block';
+    }
+
+    // Verify token
+    async function verifyAndLogin() {
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      if (!token || !email) {
+        showError('Invalid sign-in link. Please request a new one.');
+        return;
+      }
+
+      // Verify token
+      const result = verifyMagicLinkToken(decodeURIComponent(email), token);
+
+      if (!result.valid) {
+        showError(result.error);
+        return;
+      }
+
+      // Success! Create session
+      setSession('userEmail', result.email);
+      setSession('isAuthenticated', true);
+      setSession('authMethod', 'magic-link');
+      setSession('loginTime', new Date().toISOString());
+
+      // Check if new user (simple check: no previous login)
+      const previousLogin = localStorage.getItem('hasLoggedInBefore');
+      if (!previousLogin) {
+        setSession('isNewUser', true);
+        localStorage.setItem('hasLoggedInBefore', 'true');
+      }
+
+      showSuccess();
+
+      // Redirect after short delay
+      setTimeout(() => {
+        window.location.href = '../2-offer-page.html';
+      }, 1500);
+    }
+
+    // Start verification
+    verifyAndLogin();
+  </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Your Email - JADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+  <header class="border-b border-color bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-8" />
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="max-w-md w-full fade-in text-center">
+      <!-- Success Icon -->
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-accent rounded-full mb-6">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-primary">
+          <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.7088 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
+        Check your email
+      </h1>
+
+      <p class="text-lg text-foreground mb-2">
+        We sent a sign-in link to
+      </p>
+      <p class="text-lg font-semibold text-primary mb-6" id="sent-email"></p>
+
+      <div class="card p-6 mb-6 text-left">
+        <p class="text-sm text-muted mb-4">
+          📧 Click the link in the email to sign in to JADE
+        </p>
+        <p class="text-sm text-muted mb-4">
+          ⏱️ The link will expire in <strong>15 minutes</strong>
+        </p>
+        <p class="text-sm text-muted">
+          🔍 Can't find the email? Check your spam folder
+        </p>
+      </div>
+
+      <!-- For demo: Show magic link directly -->
+      <div class="card p-6 mb-6 bg-accent border-primary">
+        <p class="text-xs font-semibold text-foreground mb-2">🧪 DEMO MODE</p>
+        <p class="text-xs text-muted mb-3">In production, you'd click the link in your email. For demo, click below:</p>
+        <a href="#" id="demo-magic-link" class="btn-primary text-sm py-2">
+          Click here to simulate magic link
+        </a>
+      </div>
+
+      <div class="space-y-3">
+        <button type="button" class="btn-secondary" id="resend-btn">
+          Resend sign-in link
+        </button>
+        <div>
+          <a href="step1-email.html" class="link-primary text-sm">
+            Back to change email
+          </a>
+        </div>
+      </div>
+
+      <p class="text-xs text-muted mt-6" id="resend-timer"></p>
+    </div>
+  </main>
+
+  <footer class="border-t border-color bg-white py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-center gap-4 text-sm text-muted">
+        <a href="#" class="link-primary">Terms</a>
+        <span>·</span>
+        <a href="#" class="link-primary">Privacy</a>
+      </div>
+      <p class="text-center text-xs text-muted mt-3">© 2025 JADE. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/magic-link.js"></script>
+  <script>
+    'use strict';
+
+    const pendingLink = getSession('pendingMagicLink');
+    const email = getSession('authEmail');
+
+    if (!pendingLink || !email) {
+      window.location.href = 'step1-email.html';
+    }
+
+    document.getElementById('sent-email').textContent = email;
+
+    // Set demo magic link
+    const demoLink = document.getElementById('demo-magic-link');
+    demoLink.href = pendingLink.magicLink;
+
+    // Resend logic with cooldown
+    let canResend = false;
+    let cooldownSeconds = 60;
+
+    function updateResendButton() {
+      const btn = document.getElementById('resend-btn');
+      const timer = document.getElementById('resend-timer');
+
+      if (canResend) {
+        btn.disabled = false;
+        btn.textContent = 'Resend sign-in link';
+        timer.textContent = '';
+      } else {
+        btn.disabled = true;
+        btn.textContent = `Resend in ${cooldownSeconds}s`;
+        timer.textContent = `You can request a new link in ${cooldownSeconds} seconds`;
+      }
+    }
+
+    // Start cooldown
+    const cooldownInterval = setInterval(() => {
+      cooldownSeconds--;
+      updateResendButton();
+
+      if (cooldownSeconds <= 0) {
+        canResend = true;
+        updateResendButton();
+        clearInterval(cooldownInterval);
+      }
+    }, 1000);
+
+    updateResendButton();
+
+    // Resend handler
+    document.getElementById('resend-btn').addEventListener('click', async () => {
+      if (!canResend) return;
+
+      const btn = document.getElementById('resend-btn');
+      showLoading(btn, 'Sending...');
+
+      const result = createMagicLinkToken(email);
+
+      if (result.error) {
+        hideLoading(btn);
+        alert(result.error);
+        return;
+      }
+
+      await sendMagicLinkEmail(email, result.magicLink);
+      setSession('pendingMagicLink', result);
+
+      // Update demo link
+      demoLink.href = result.magicLink;
+
+      hideLoading(btn);
+
+      // Restart cooldown
+      canResend = false;
+      cooldownSeconds = 60;
+      updateResendButton();
+    });
+  </script>
+</body>
+</html>
