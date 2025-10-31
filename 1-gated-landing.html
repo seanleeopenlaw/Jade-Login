@@ -300,7 +300,7 @@
         const hasSeenOffer = localStorage.getItem('hasSeenOffer');
 
         if (!hasSeenOffer || offerDismissed !== 'true') {
-          window.location.href = '2-offer-page.html';
+          window.location.href = '3-plan-selection.html';
         } else {
           window.location.href = '5-main-app-free.html';
         }
@@ -320,7 +320,7 @@
         setSession('userEmail', 'user@example.com');
         setSession('isAuthenticated', true);
         setSession('loginMethod', 'google');
-        window.location.href = '2-offer-page.html';
+        window.location.href = '3-plan-selection.html';
       }, 800);
     });
 

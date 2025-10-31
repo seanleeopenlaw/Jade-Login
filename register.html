@@ -446,8 +446,8 @@
         setSession('isNewUser', true);  // Mark as new user for welcome message
         setSession('signupTime', new Date().toISOString());
 
-        // Redirect to offer page
-        window.location.href = '2-offer-page.html';
+        // Redirect to plan selection page
+        window.location.href = '3-plan-selection.html';
       } catch (error) {
         hideLoading(signupBtn);
         showError('Account creation failed. Please try again.');
@@ -466,7 +466,7 @@
         setSession('isAuthenticated', true);
         setSession('isNewUser', true);  // Mark as new user for welcome message
         setSession('loginMethod', 'google');
-        window.location.href = '2-offer-page.html';
+        window.location.href = '3-plan-selection.html';
       }, 800);
     });
 

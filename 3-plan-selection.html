@@ -8,52 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
 
   <style>
-    :root {
-      --background: #f7f9fc;
-      --foreground: #374151;
-      --card: #ffffff;
-      --card-foreground: #374151;
-      --primary: #089444;
-      --primary-foreground: #ffffff;
-      --secondary: #e0f2fe;
-      --muted: #f3f4f6;
-      --muted-foreground: #6b7280;
-      --accent: #e0f2fe;
-      --border: #e5e7eb;
-      --font-sans: 'DM Sans', sans-serif;
-      --font-serif: 'Lora', serif;
-      --font-mono: 'IBM Plex Mono', monospace;
-      --radius: 0.5rem;
-      --shadow-md: 0px 8px 16px -2px hsl(0 0% 0% / 0.12), 0px 2px 4px -3px hsl(0 0% 0% / 0.12);
-      --shadow-lg: 0px 16px 32px -4px hsl(0 0% 0% / 0.15), 0px 4px 8px -4px hsl(0 0% 0% / 0.15);
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--background);
-      color: var(--foreground);
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card {
-      background-color: var(--card);
-      color: var(--card-foreground);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-md);
-    }
-
-    .text-primary { color: var(--primary); }
-    .bg-primary { background-color: var(--primary); color: var(--primary-foreground); }
-    .text-muted { color: var(--muted-foreground); }
-    .border-color { border-color: var(--border); }
-
     .plan-card {
       background-color: var(--card);
       border: 2px solid var(--border);
@@ -109,30 +66,17 @@
       box-shadow: 0 4px 12px rgba(8, 148, 68, 0.4);
     }
 
-    .btn-primary {
-      padding: 0.875rem 2rem;
-      background-color: var(--primary);
-      color: var(--primary-foreground);
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 1.125rem;
-      transition: all 0.2s;
-      font-family: var(--font-sans);
-      width: 100%;
-    }
-
-    .btn-primary:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
+    .offer-badge {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(135deg, #089444 0%, #067038 100%);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      font-size: 0.875rem;
       box-shadow: 0 4px 12px rgba(8, 148, 68, 0.3);
-    }
-
-    .btn-primary:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
+      margin-bottom: 1.5rem;
     }
 
     .feature-list {
@@ -156,21 +100,6 @@
       color: var(--primary);
       font-weight: 700;
       font-size: 14px;
-    }
-
-    .fade-in {
-      animation: fadeIn 0.5s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .toggle-btn {
@@ -208,29 +137,41 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="border-b border-color bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <div class="flex items-center">
-        <img src="jade_logo.svg" alt="JADE" class="h-8" />
+        <img src="jade_logo.svg" alt="JADE Legal Research" class="h-8" />
       </div>
       <div class="flex items-center gap-3">
-        <span class="text-sm text-muted">user@example.com</span>
+        <span class="text-sm text-muted" id="user-email">user@example.com</span>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
   <main class="flex-1 px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <div class="max-w-6xl mx-auto">
-      <!-- Header -->
+      <!-- Welcome Message (for new users) -->
+      <div class="text-center mb-8 fade-in" id="welcome-section">
+        <p class="text-base text-muted mb-2" id="welcome-greeting"></p>
+        <div class="offer-badge mx-auto">
+          🎁 Special Offer
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
+          Start with a <span class="text-primary">30-day free trial</span>
+        </h1>
+        <p class="text-lg font-semibold text-foreground mb-2">
+          Then get <span class="text-primary">30% off</span> for a limited time
+        </p>
+        <p class="text-sm text-muted mb-4">
+          💳 $0 due today — No payment required for 30 days
+        </p>
+      </div>
+
+      <!-- Plan Selection Header -->
       <div class="text-center mb-12 fade-in">
-        <h2 class="text-4xl sm:text-5xl font-bold mb-4" style="font-family: var(--font-serif); line-height: 1.2;">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="font-family: var(--font-serif); line-height: 1.2;">
           Choose your <span class="text-primary">plan</span>
         </h2>
-        <p class="text-lg text-muted mb-6">
-          Get <span class="font-semibold text-primary">30% off</span> for a limited time.
-        </p>
 
         <!-- Billing Toggle -->
         <div class="inline-flex" role="radiogroup" aria-label="Billing period">
@@ -248,7 +189,7 @@
             role="radio"
             aria-checked="true"
           >
-            Annual <span class="text-xs ml-1">(Save 13%)</span>
+            Annual <span class="text-xs ml-1">(30% off)</span>
           </button>
         </div>
       </div>
@@ -292,11 +233,11 @@
 
           <div class="mb-6">
             <div class="flex items-baseline gap-2 mb-1">
-              <span class="text-sm text-muted line-through" style="font-family: var(--font-mono);">$995</span>
-              <span class="text-4xl font-bold text-primary" style="font-family: var(--font-mono);">$696.50</span>
-              <span class="text-muted">/year</span>
+              <span class="text-sm text-muted line-through" style="font-family: var(--font-mono);" id="pro-original">$995</span>
+              <span class="text-4xl font-bold text-primary" style="font-family: var(--font-mono);" id="pro-price">$696.50</span>
+              <span class="text-muted" id="pro-period">/year</span>
             </div>
-            <p class="text-xs text-muted">30% off + 13% annual savings • $58/month</p>
+            <p class="text-xs text-muted" id="pro-savings">30% off • $58/month</p>
           </div>
 
           <div class="mb-6">
@@ -354,43 +295,36 @@
         <div class="flex items-center justify-between mb-6">
           <div>
             <h3 class="text-base font-semibold mb-1">Selected Plan</h3>
-            <p class="text-sm text-muted">JADE Professional Annual</p>
+            <p class="text-sm text-muted" id="summary-plan-name">JADE Professional Annual</p>
           </div>
           <div class="text-right">
-            <div class="text-2xl font-bold" style="font-family: var(--font-mono); color: var(--foreground);">$696.50</div>
-            <p class="text-xs text-muted">per year</p>
+            <div class="text-2xl font-bold" style="font-family: var(--font-mono); color: var(--foreground);" id="summary-price">$696.50</div>
+            <p class="text-xs text-muted" id="summary-period">per year</p>
           </div>
         </div>
 
         <div class="space-y-3 mb-6 pb-4 border-b border-color">
-          <div class="flex items-center justify-between text-sm" id="monthly-equiv-line">
-            <span class="text-muted">Monthly rate × 12:</span>
-            <span class="text-muted" style="font-family: var(--font-mono);">$1,140/year</span>
-          </div>
-          <div class="flex items-center justify-between text-sm font-semibold" id="annual-savings-line" style="color: #dc2626;">
-            <span>Annual billing discount (13%):</span>
-            <span style="font-family: var(--font-mono);">-$145</span>
-          </div>
           <div class="flex items-center justify-between text-sm">
             <span class="text-muted">Original price:</span>
-            <span class="line-through text-muted" style="font-family: var(--font-mono);">$995/year</span>
+            <span class="line-through text-muted" style="font-family: var(--font-mono);" id="breakdown-original">$995/year</span>
           </div>
           <div class="flex items-center justify-between text-sm font-semibold" style="color: #dc2626;">
-            <span>Promotional discount (30%):</span>
-            <span style="font-family: var(--font-mono);">-$298.50</span>
+            <span id="discount-label">Promotional discount (30%):</span>
+            <span style="font-family: var(--font-mono);" id="discount-amount">-$298.50</span>
           </div>
         </div>
 
         <div class="flex items-center justify-between mb-6">
           <span class="font-bold text-base">Total due today:</span>
-          <span class="text-3xl font-bold text-primary" style="font-family: var(--font-mono);">$696.50</span>
+          <span class="text-3xl font-bold text-primary" style="font-family: var(--font-mono);" id="total-price">$696.50</span>
         </div>
 
         <button id="subscribe-btn" class="btn-primary">
-          Subscribe to JADE Professional
+          Start 30-Day Free Trial
         </button>
 
         <p class="text-xs text-center text-muted mt-4">
+          💳 $0 charged today • Cancel anytime during trial<br>
           By subscribing, you agree to our <a href="#" class="text-primary hover:underline">Terms</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a>.
         </p>
       </div>
@@ -398,7 +332,6 @@
     </div>
   </main>
 
-  <!-- Footer -->
   <footer class="border-t border-color bg-white py-6 mt-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-center gap-4 text-sm text-muted">
@@ -414,8 +347,34 @@
     </div>
   </footer>
 
+  <script src="js/utils.js"></script>
   <script>
     'use strict';
+
+    // Load user data
+    const userEmail = getSession('userEmail');
+    const isNewUser = getSession('isNewUser');
+    const userName = getSession('userName');
+
+    if (userEmail) {
+      document.getElementById('user-email').textContent = userEmail;
+    }
+
+    // Show welcome message for new users
+    const welcomeSection = document.getElementById('welcome-section');
+    const welcomeGreeting = document.getElementById('welcome-greeting');
+
+    if (isNewUser) {
+      welcomeGreeting.textContent = userName ? `Welcome, ${userName}!` : 'Welcome to JADE!';
+      welcomeSection.style.display = 'block';
+      sessionStorage.removeItem('isNewUser'); // Clear flag
+    } else {
+      welcomeGreeting.textContent = 'Welcome back!';
+      welcomeSection.style.display = 'block';
+    }
+
+    // Mark that user has seen offer
+    localStorage.setItem('hasSeenOffer', 'true');
 
     // State
     let selectedPlan = 'professional';
@@ -423,8 +382,8 @@
 
     const PLANS = {
       professional: {
-        monthly: { original: 95, discounted: 66.50 },
-        annual: { original: 995, discounted: 696.50 }
+        monthly: { original: 95, discounted: 95 },  // No discount for monthly
+        annual: { original: 995, discounted: 696.50 }  // 30% off for annual
       }
     };
 
@@ -470,76 +429,70 @@
     });
 
     function updatePricing() {
-      document.querySelectorAll('.plan-card').forEach(card => {
-        const plan = card.dataset.plan;
-        if (plan === 'enterprise' || plan === 'free') return;
+      const pricing = PLANS.professional[billingPeriod];
+      const hasDiscount = billingPeriod === 'annual';
 
-        const pricing = PLANS[plan][billingPeriod];
-        const priceElement = card.querySelector('.text-4xl');
-        const originalElement = card.querySelector('.line-through');
-        const periodElement = card.querySelector('.flex.items-baseline .text-muted:not(.line-through)');
-        const savingsText = card.querySelector('.text-xs.text-muted');
+      document.getElementById('pro-original').textContent = `$${pricing.original}`;
+      document.getElementById('pro-price').textContent = `$${pricing.discounted}`;
+      document.getElementById('pro-period').textContent = billingPeriod === 'annual' ? '/year' : '/month';
 
-        if (priceElement) priceElement.textContent = `$${pricing.discounted}`;
-        if (originalElement) originalElement.textContent = `$${pricing.original}`;
-
-        const savings = pricing.original - pricing.discounted;
-        const period = billingPeriod === 'annual' ? 'year' : 'month';
-        const monthlyEquiv = billingPeriod === 'annual' ? Math.round(pricing.discounted / 12) : '';
-
-        if (periodElement) periodElement.textContent = `/${period}`;
-        if (savingsText) {
-          savingsText.textContent = billingPeriod === 'annual'
-            ? `30% off + 13% annual savings • $${monthlyEquiv}/month`
-            : `30% off • $${pricing.discounted}/${period}`;
-        }
-      });
+      if (hasDiscount) {
+        const monthlyEquiv = Math.round(pricing.discounted / 12);
+        document.getElementById('pro-savings').textContent = `30% off • $${monthlyEquiv}/month`;
+        document.getElementById('pro-original').style.display = 'inline';
+      } else {
+        document.getElementById('pro-savings').textContent = 'Billed monthly';
+        document.getElementById('pro-original').style.display = 'none';
+      }
     }
 
     function updateSummary() {
       const pricing = PLANS[selectedPlan][billingPeriod];
-      const promoDiscount = pricing.original - pricing.discounted;
+      const discount = pricing.original - pricing.discounted;
       const period = billingPeriod === 'annual' ? 'year' : 'month';
       const periodCap = billingPeriod === 'annual' ? 'Annual' : 'Monthly';
+      const hasDiscount = billingPeriod === 'annual';
 
-      // Update header
-      document.querySelector('.card h3 + p').textContent = `JADE Professional ${periodCap}`;
-      document.querySelector('.card .text-2xl').textContent = `$${pricing.discounted}`;
-      document.querySelector('.card .text-xs.text-muted').textContent = `per ${period}`;
-
-      // Show/hide annual savings lines
-      const monthlyEquivLine = document.getElementById('monthly-equiv-line');
-      const annualSavingsLine = document.getElementById('annual-savings-line');
-
-      if (billingPeriod === 'annual') {
-        monthlyEquivLine.style.display = 'flex';
-        annualSavingsLine.style.display = 'flex';
-      } else {
-        monthlyEquivLine.style.display = 'none';
-        annualSavingsLine.style.display = 'none';
-      }
+      // Update summary header
+      document.getElementById('summary-plan-name').textContent = `JADE Professional ${periodCap}`;
+      document.getElementById('summary-price').textContent = `$${pricing.discounted}`;
+      document.getElementById('summary-period').textContent = `per ${period}`;
 
       // Update breakdown
-      document.querySelector('.space-y-3 .line-through').textContent = `$${pricing.original}/${period}`;
+      document.getElementById('breakdown-original').textContent = `$${pricing.original}/${period}`;
+      document.getElementById('total-price').textContent = `$${pricing.discounted}`;
 
-      const promoDiscountElements = document.querySelectorAll('.space-y-3 > div');
-      const promoDiscountLine = promoDiscountElements[promoDiscountElements.length - 1];
-      promoDiscountLine.querySelector('span:last-child').textContent = `-$${promoDiscount.toFixed(2)}`;
+      // Show/hide discount line
+      const discountLabel = document.getElementById('discount-label');
+      const discountAmount = document.getElementById('discount-amount');
 
-      // Update total
-      document.querySelector('.card .text-3xl').textContent = `$${pricing.discounted}`;
+      if (hasDiscount) {
+        discountLabel.parentElement.style.display = 'flex';
+        discountLabel.textContent = 'Promotional discount (30%):';
+        discountAmount.textContent = `-$${discount.toFixed(2)}`;
+      } else {
+        discountLabel.parentElement.style.display = 'none';
+      }
     }
 
     // Subscribe button
     document.getElementById('subscribe-btn').addEventListener('click', () => {
       const btn = document.getElementById('subscribe-btn');
-      btn.textContent = 'Processing...';
-      btn.disabled = true;
+      showLoading(btn, 'Processing...');
+
+      // Store subscription details
+      setSession('subscriptionPlan', selectedPlan);
+      setSession('billingPeriod', billingPeriod);
+      setSession('subscriptionPrice', PLANS[selectedPlan][billingPeriod].discounted);
 
       setTimeout(() => {
         window.location.href = '4-subscription-complete.html';
       }, 1200);
     });
+
+    // Initialize
+    updatePricing();
+    updateSummary();
   </script>
 </body>
 </html>
