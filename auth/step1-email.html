@@ -7,12 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/common.css">
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/jade.css">
 </head>
-<body>
+<body class="jade-theme">
   <!-- Header -->
-  <header class="border-b border-color bg-white">
+  <header class="border-b jade-border-color bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <div class="flex items-center">
         <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-8" />
@@ -24,14 +24,14 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+  <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <div class="max-w-md w-full fade-in">
       <!-- Headline -->
       <div class="text-center mb-8">
         <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
           Sign in to JADE
         </h1>
-        <p class="text-base text-muted">
+        <p class="text-base jade-text-muted">
           Enter your work email to continue
         </p>
       </div>
@@ -67,7 +67,7 @@
               aria-describedby="email-error email-hint"
             />
             <span id="email-error" class="error-text" style="display: none; color: var(--error); font-size: 0.875rem; margin-top: 0.25rem;"></span>
-            <p id="email-hint" class="text-xs text-muted mt-1">
+            <p id="email-hint" class="text-xs jade-text-muted mt-1">
               We'll check if your organization uses single sign-on
             </p>
           </div>
@@ -90,8 +90,8 @@
       </div>
 
       <!-- Info Box -->
-      <div class="mt-6 p-4 bg-accent rounded-lg border border-primary text-center">
-        <p class="text-xs text-muted">
+      <div class="mt-6 p-4 bg-accent rounded-lg border jade-border-color text-center">
+        <p class="text-xs jade-text-muted">
           <strong class="text-foreground">New to JADE?</strong><br>
           Don't worry! We'll create your account automatically when you sign in.
         </p>
@@ -100,16 +100,16 @@
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-color bg-white py-6 mt-auto">
+  <footer class="border-t jade-border-color bg-white py-6 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-center gap-4 text-sm text-muted">
+      <div class="flex items-center justify-center gap-4 text-sm jade-text-muted">
         <a href="#" class="link-primary">Terms</a>
         <span>·</span>
         <a href="#" class="link-primary">Privacy</a>
         <span>·</span>
         <a href="#" class="link-primary">Contact</a>
       </div>
-      <p class="text-center text-xs text-muted mt-3">
+      <p class="text-center text-xs jade-text-muted mt-3">
         © 2025 JADE. All rights reserved.
       </p>
     </div>
@@ -117,6 +117,7 @@
 
   <script src="../js/utils.js"></script>
   <script src="../js/sso-config.js"></script>
+  
   <script>
     'use strict';
 

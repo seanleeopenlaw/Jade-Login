@@ -1,0 +1,48 @@
+/**
+ * JADE Design System
+ * Main CSS entry point
+ *
+ * This file imports all JADE components in the correct order.
+ * Developers can either:
+ * 1. Import this single file for the complete design system
+ * 2. Import individual component files for tree-shaking
+ *
+ * Usage:
+ * <link rel="stylesheet" href="css/jade.css">
+ *
+ * Or import specific components:
+ * @import url('css/design-tokens.css');
+ * @import url('css/components/buttons.css');
+ */
+
+/* ============================================
+   DESIGN TOKENS (REQUIRED)
+   ============================================ */
+@import url('design-tokens.css');
+
+/* ============================================
+   CORE COMPONENTS
+   ============================================ */
+@import url('components/layout.css');
+@import url('components/utilities.css');
+
+/* ============================================
+   UI COMPONENTS
+   ============================================ */
+@import url('components/buttons.css');
+@import url('components/forms.css');
+@import url('components/cards.css');
+@import url('components/badges.css');
+@import url('components/navigation.css');
+@import url('components/messages.css');
+@import url('components/results.css');
+@import url('components/toast.css');
+
+/**
+ * IMPORTANT: Add class="jade-theme" to your <body> or main wrapper element
+ *
+ * Example:
+ * <body class="jade-theme">
+ *   <!-- Your content here -->
+ * </body>
+ */

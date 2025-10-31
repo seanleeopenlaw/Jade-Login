@@ -7,75 +7,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/jade.css">
 
   <style>
-    :root {
-      --background: #f7f9fc;
-      --foreground: #374151;
-      --card: #ffffff;
-      --card-foreground: #374151;
-      --primary: #089444;
-      --primary-foreground: #ffffff;
-      --secondary: #e0f2fe;
-      --secondary-foreground: #4b5563;
-      --muted: #f3f4f6;
-      --muted-foreground: #6b7280;
-      --accent: #e0f2fe;
-      --accent-foreground: #374151;
-      --border: #e5e7eb;
-      --success: #22c55e;
-      --font-sans: 'DM Sans', sans-serif;
-      --font-serif: 'Lora', serif;
-      --font-mono: 'IBM Plex Mono', monospace;
-      --radius: 0.5rem;
-      --shadow-md: 0px 8px 16px -2px hsl(0 0% 0% / 0.12), 0px 2px 4px -3px hsl(0 0% 0% / 0.12);
-    }
-
+    /* Page-specific styles */
     body {
-      font-family: var(--font-sans);
       background: linear-gradient(135deg, var(--background) 0%, #e0f2fe 100%);
-      color: var(--foreground);
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card {
-      background-color: var(--card);
-      color: var(--card-foreground);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-md);
-    }
-
-    .text-primary { color: var(--primary); }
-    .bg-primary { background-color: var(--primary); color: var(--primary-foreground); }
-    .text-muted { color: var(--muted-foreground); }
-    .border-color { border-color: var(--border); }
-
-    .btn-primary {
-      padding: 1rem 2.5rem;
-      background-color: var(--primary);
-      color: var(--primary-foreground);
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 1.125rem;
-      transition: all 0.2s;
-      font-family: var(--font-sans);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .btn-primary:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(8, 148, 68, 0.3);
     }
 
     .success-icon {
@@ -106,30 +44,14 @@
       }
     }
 
-    .fade-in {
-      animation: fadeIn 0.6s ease-in;
-    }
-
     .fade-in-delay {
       animation: fadeIn 0.6s ease-in 0.3s both;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .confetti {
       position: fixed;
       width: 10px;
       height: 10px;
-      position: absolute;
       animation: confetti-fall 3.5s linear;
       opacity: 0;
     }
@@ -146,22 +68,24 @@
     }
   </style>
 </head>
-<body>
+<body class="jade-theme">
   <!-- Header -->
-  <header class="border-b border-color bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-      <div class="flex items-center">
-        <img src="jade_logo.svg" alt="JADE" class="h-8" />
-        <span class="ml-2 text-xs bg-primary text-white px-2 py-1 rounded font-semibold">PRO</span>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="text-sm text-muted">user@example.com</span>
+  <header>
+    <div class="header-top">
+      <div class="max-w-full px-4 flex items-center justify-between">
+        <div class="flex items-center">
+          <img src="jade_logo.svg" alt="JADE" class="h-6" style="filter: brightness(0) invert(1);" />
+        </div>
+        <div class="flex items-center gap-3 text-sm">
+          <span id="user-email">user@example.com</span>
+          <span class="user-badge">PRO</span>
+        </div>
       </div>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+  <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <div class="max-w-2xl w-full">
       <!-- Success Icon -->
       <div class="text-center mb-10 fade-in">
@@ -169,10 +93,10 @@
           ✓
         </div>
         <h2 class="text-4xl sm:text-5xl font-bold mb-4" style="font-family: var(--font-serif); line-height: 1.2;">
-          You're all set!
+          Thank you for joining JADE Professional
         </h2>
-        <p class="text-lg text-muted">
-          Welcome to JADE Professional. Your subscription is now active.
+        <p class="text-lg jade-text-muted max-w-2xl mx-auto">
+          You're now part of a community working to make legal research open and accessible for everyone.
         </p>
       </div>
 
@@ -180,25 +104,25 @@
       <div class="card p-6 sm:p-8 mb-8 fade-in-delay">
         <h3 class="text-lg font-bold mb-6">Subscription Details</h3>
 
-        <div class="mb-6 pb-6 border-b border-color">
+        <div class="mb-6 pb-6 border-b jade-border-color">
           <div class="grid sm:grid-cols-2 gap-4 mb-4">
             <div>
-              <p class="text-sm text-muted mb-1">Plan</p>
+              <p class="text-sm jade-text-muted mb-1">Plan</p>
               <p class="font-semibold">JADE Professional Annual</p>
             </div>
             <div>
-              <p class="text-sm text-muted mb-1">Amount Paid</p>
+              <p class="text-sm jade-text-muted mb-1">Amount Paid</p>
               <p class="font-semibold" style="font-family: var(--font-mono);">$696.50</p>
             </div>
           </div>
 
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
-              <p class="text-sm text-muted mb-1">Next Billing Date</p>
+              <p class="text-sm jade-text-muted mb-1">Next Billing Date</p>
               <p class="font-semibold">October 30, 2026</p>
             </div>
             <div>
-              <p class="text-sm text-muted mb-2">Discount</p>
+              <p class="text-sm jade-text-muted mb-2">Discount</p>
               <p class="text-sm font-semibold" style="color: #089444;">Annual billing discount (13%): Saved $145</p>
               <p class="text-sm font-semibold" style="color: #089444;">Promotional discount (30%): Saved $298.50</p>
             </div>
@@ -207,27 +131,30 @@
 
         <div class="bg-accent rounded-lg p-4 mb-6">
           <p class="text-sm">
-            <strong>Receipt sent</strong> to <span class="text-primary">user@example.com</span>
+            <strong>Receipt sent</strong> to <span class="jade-text-primary">user@example.com</span>
           </p>
         </div>
 
-        <button id="dashboard-btn" class="btn-primary w-full">
-          Start Using JADE Professional
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+        <div class="text-center">
+          <button id="dashboard-btn" class="btn-primary">
+            Go to My JADE
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Support Link -->
       <div class="text-center">
-        <p class="text-sm text-muted">
-          Need help? <a href="#" class="text-primary font-semibold hover:underline">Contact Support</a>
+        <p class="text-sm jade-text-muted">
+          Need help? <a href="#" class="jade-text-primary font-semibold hover:underline">Contact Support</a>
         </p>
       </div>
     </div>
   </main>
 
+  
   <script>
     'use strict';
 

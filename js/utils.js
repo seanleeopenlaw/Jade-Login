@@ -1,14 +1,12 @@
 /**
  * JADE Utility Functions
- * Common utilities for forms, validation, and UI interactions
+ * Simple utilities for the prototype
  */
 
 'use strict';
 
 /**
  * Show error message to user
- * @param {string} message - Error message to display
- * @param {string} containerId - ID of the error container element
  */
 function showError(message, containerId = 'error-message') {
   const errorEl = document.getElementById(containerId);
@@ -17,31 +15,22 @@ function showError(message, containerId = 'error-message') {
   if (errorEl && errorText) {
     errorText.textContent = message;
     errorEl.style.display = 'flex';
-    errorEl.setAttribute('role', 'alert');
-    errorEl.setAttribute('aria-live', 'assertive');
-
-    // Auto-hide after 10 seconds
     setTimeout(() => hideError(containerId), 10000);
   }
 }
 
 /**
  * Hide error message
- * @param {string} containerId - ID of the error container element
  */
 function hideError(containerId = 'error-message') {
   const errorEl = document.getElementById(containerId);
   if (errorEl) {
     errorEl.style.display = 'none';
-    errorEl.removeAttribute('role');
-    errorEl.removeAttribute('aria-live');
   }
 }
 
 /**
  * Show loading state on button
- * @param {HTMLButtonElement} button - Button element
- * @param {string} text - Loading text to display
  */
 function showLoading(button, text = 'Loading...') {
   if (!button.dataset.originalText) {
@@ -49,12 +38,10 @@ function showLoading(button, text = 'Loading...') {
   }
   button.textContent = text;
   button.disabled = true;
-  button.setAttribute('aria-busy', 'true');
 }
 
 /**
  * Hide loading state on button
- * @param {HTMLButtonElement} button - Button element
  */
 function hideLoading(button) {
   if (button.dataset.originalText) {
@@ -62,24 +49,10 @@ function hideLoading(button) {
     delete button.dataset.originalText;
   }
   button.disabled = false;
-  button.removeAttribute('aria-busy');
-}
-
-/**
- * Redirect with delay
- * @param {string} url - URL to redirect to
- * @param {number} delay - Delay in milliseconds
- */
-function redirectWithDelay(url, delay = 800) {
-  setTimeout(() => {
-    window.location.href = url;
-  }, delay);
 }
 
 /**
  * Validate email format
- * @param {string} email - Email address to validate
- * @returns {boolean} - True if valid, false otherwise
  */
 function isValidEmail(email) {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -87,9 +60,15 @@ function isValidEmail(email) {
 }
 
 /**
+ * Validate domain (for SSO check)
+ */
+function isValidDomain(email) {
+  // Simple check - just ensure there's a domain
+  return email.includes('@') && email.split('@')[1].length > 0;
+}
+
+/**
  * Validate password strength
- * @param {string} password - Password to validate
- * @returns {object} - Validation result with requirements met
  */
 function validatePassword(password) {
   return {
@@ -102,52 +81,17 @@ function validatePassword(password) {
 }
 
 /**
- * Toggle password visibility
- * @param {string} inputId - ID of the password input
- * @param {string} iconId - ID of the toggle icon
- */
-function togglePasswordVisibility(inputId, iconId) {
-  const input = document.getElementById(inputId);
-  const icon = document.getElementById(iconId);
-
-  if (input && icon) {
-    const isPassword = input.type === 'password';
-    input.type = isPassword ? 'text' : 'password';
-
-    // Update ARIA label
-    icon.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
-
-    // Update icon (SVG paths would be updated here in actual implementation)
-    icon.innerHTML = isPassword
-      ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
-      : '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
-  }
-}
-
-/**
- * Get or create session data
- * @param {string} key - Session storage key
- * @param {*} defaultValue - Default value if key doesn't exist
- * @returns {*} - Session value
+ * Session storage helpers
  */
 function getSession(key, defaultValue = null) {
   const value = sessionStorage.getItem(key);
   return value ? JSON.parse(value) : defaultValue;
 }
 
-/**
- * Set session data
- * @param {string} key - Session storage key
- * @param {*} value - Value to store
- */
 function setSession(key, value) {
   sessionStorage.setItem(key, JSON.stringify(value));
 }
 
-/**
- * Clear session data
- * @param {string} key - Optional key to clear, or clears all if not provided
- */
 function clearSession(key = null) {
   if (key) {
     sessionStorage.removeItem(key);
@@ -157,44 +101,42 @@ function clearSession(key = null) {
 }
 
 /**
- * Check if user is authenticated
- * @returns {boolean} - True if authenticated, false otherwise
+ * Show toast notification
  */
-function isAuthenticated() {
-  return !!getSession('userEmail');
-}
-
-/**
- * Require authentication - redirect to login if not authenticated
- * @param {string} loginUrl - URL to redirect to if not authenticated
- */
-function requireAuth(loginUrl = '1-gated-landing.html') {
-  if (!isAuthenticated()) {
-    window.location.href = loginUrl;
-  }
-}
-
-/**
- * Set up session timeout
- * @param {number} timeout - Timeout in milliseconds (default: 30 minutes)
- * @param {string} loginUrl - URL to redirect to on timeout
- */
-function setupSessionTimeout(timeout = 30 * 60 * 1000, loginUrl = '1-gated-landing.html') {
-  let sessionTimer;
-
-  function resetTimer() {
-    clearTimeout(sessionTimer);
-    sessionTimer = setTimeout(() => {
-      alert('Your session has expired. Please log in again.');
-      clearSession();
-      window.location.href = loginUrl;
-    }, timeout);
+function showToast(message, type = 'success', duration = 2000) {
+  const existingToast = document.getElementById('toast-notification');
+  if (existingToast) {
+    existingToast.remove();
   }
 
-  // Reset timer on user activity
-  ['click', 'keydown', 'mousemove', 'scroll'].forEach(event => {
-    document.addEventListener(event, resetTimer, { passive: true });
-  });
+  const toast = document.createElement('div');
+  toast.id = 'toast-notification';
+  toast.className = `toast toast-${type}`;
 
-  resetTimer();
+  // Icon
+  let icon = '';
+  if (type === 'success') {
+    icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  } else if (type === 'error') {
+    icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+
+  const iconDiv = document.createElement('div');
+  iconDiv.className = 'toast-icon';
+  iconDiv.innerHTML = icon;
+
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'toast-message';
+  messageDiv.textContent = message;
+
+  toast.appendChild(iconDiv);
+  toast.appendChild(messageDiv);
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.classList.add('show'), 10);
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 500);
+  }, duration);
 }

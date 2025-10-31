@@ -7,299 +7,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --background: #f7f9fc;
-      --foreground: #374151;
-      --card: #ffffff;
-      --card-foreground: #374151;
-      --primary: #089444;
-      --primary-foreground: #ffffff;
-      --muted: #f3f4f6;
-      --muted-foreground: #6b7280;
-      --accent: #e0f2fe;
-      --border: #e5e7eb;
-      --teal: #1e6b7b;
-      --font-sans: 'DM Sans', sans-serif;
-      --font-serif: 'Lora', serif;
-      --radius: 0.25rem;
-      --shadow-sm: 0px 1px 2px rgba(0, 0, 0, 0.05);
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--background);
-      color: var(--foreground);
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Header */
-    .header-top {
-      background-color: var(--primary);
-      color: white;
-      padding: 0.5rem 0;
-    }
-
-    .header-main {
-      background-color: white;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-link {
-      color: var(--foreground);
-      text-decoration: none;
-      font-size: 0.875rem;
-      padding: 0.5rem 0.75rem;
-      transition: background-color 0.2s;
-    }
-
-    .nav-link:hover {
-      background-color: var(--muted);
-    }
-
-    .search-container {
-      display: flex;
-      align-items: center;
-      flex: 1;
-      max-width: 600px;
-      margin: 0 1.5rem;
-    }
-
-    .search-input {
-      flex: 1;
-      padding: 0.5rem 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius) 0 0 var(--radius);
-      font-size: 0.875rem;
-      outline: none;
-    }
-
-    .search-input:focus {
-      border-color: var(--primary);
-    }
-
-    .search-btn {
-      padding: 0.5rem 1rem;
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      cursor: pointer;
-      font-size: 0.875rem;
-      font-weight: 500;
-      white-space: nowrap;
-      transition: opacity 0.2s;
-    }
-
-    .search-btn:hover {
-      opacity: 0.9;
-    }
-
-    /* Upgrade Banner */
-    .upgrade-banner {
-      background-color: var(--teal);
-      color: white;
-      padding: 0.875rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      animation: slideDown 0.4s ease-out;
-    }
-
-    .upgrade-banner.hidden {
-      display: none;
-    }
-
-    @keyframes slideDown {
-      from {
-        transform: translateY(-100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .btn-learn-more {
-      padding: 0.5rem 1.25rem;
-      background-color: #fbbf24;
-      color: #1f2937;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.875rem;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    .btn-learn-more:hover {
-      background-color: #f59e0b;
-    }
-
-    .btn-close {
-      background: transparent;
-      border: none;
-      color: white;
-      cursor: pointer;
-      padding: 0.25rem;
-      margin-left: 1rem;
-      opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-
-    .btn-close:hover {
-      opacity: 1;
-    }
-
-    /* Layout */
-    .main-container {
-      display: flex;
-      flex: 1;
-      max-width: 100%;
-    }
-
-    .sidebar {
-      width: 200px;
-      background-color: white;
-      border-right: 1px solid var(--border);
-      padding: 1rem 0;
-      overflow-y: auto;
-    }
-
-    .sidebar-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .sidebar-title {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--muted-foreground);
-      padding: 0 1rem;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-    }
-
-    .sidebar-link {
-      display: block;
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
-      color: var(--foreground);
-      text-decoration: none;
-      transition: background-color 0.2s;
-    }
-
-    .sidebar-link:hover {
-      background-color: var(--muted);
-    }
-
-    .sidebar-link.active {
-      background-color: var(--accent);
-      color: var(--primary);
-      font-weight: 500;
-    }
-
-    /* Main Content */
-    .content-area {
-      flex: 1;
-      padding: 1.5rem;
-      overflow-y: auto;
-    }
-
-    .results-header {
-      background-color: white;
-      border: 1px solid var(--border);
-      padding: 1rem 1.5rem;
-      margin-bottom: 1rem;
-      border-radius: var(--radius);
-    }
-
-    .result-item {
-      background-color: white;
-      border: 1px solid var(--border);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 0.75rem;
-      border-radius: var(--radius);
-      transition: box-shadow 0.2s;
-    }
-
-    .result-item:hover {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .result-title {
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-      text-decoration: none;
-      display: block;
-    }
-
-    .result-title:hover {
-      text-decoration: underline;
-    }
-
-    .result-meta {
-      font-size: 0.75rem;
-      color: var(--muted-foreground);
-      margin-bottom: 0.75rem;
-    }
-
-    .result-excerpt {
-      font-size: 0.875rem;
-      line-height: 1.6;
-      color: var(--foreground);
-    }
-
-    .locked-overlay {
-      position: relative;
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    .locked-badge {
-      display: inline-block;
-      background-color: #fbbf24;
-      color: #1f2937;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.25rem 0.5rem;
-      border-radius: var(--radius);
-      margin-left: 0.5rem;
-    }
-
-    .link-primary {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .link-primary:hover {
-      text-decoration: underline;
-    }
-
-    .user-badge {
-      display: inline-block;
-      background-color: white;
-      color: var(--primary);
-      font-size: 0.625rem;
-      font-weight: 700;
-      padding: 0.25rem 0.5rem;
-      border-radius: var(--radius);
-      margin-left: 0.5rem;
-      text-transform: uppercase;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/jade.css">
 </head>
-<body>
+<body class="jade-theme">
   <!-- Header -->
   <header>
     <!-- Top Header with Logo and Search -->
@@ -353,7 +64,7 @@
   </div>
 
   <!-- Main Container -->
-  <div class="main-container">
+  <div id="main-content" class="main-container">
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-section">
@@ -441,9 +152,20 @@
     </main>
   </div>
 
+  <script src="js/utils.js"></script>
+  
   <script>
     'use strict';
-    // Banner is always visible - no dismiss functionality
+
+    // Check for reminder parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('reminder') === 'set') {
+      // Show success toast
+      showToast("Perfect! We'll remind you about this offer in 7 days.", 'success', 2000);
+
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
   </script>
 </body>
 </html>

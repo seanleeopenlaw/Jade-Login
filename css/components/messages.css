@@ -1,0 +1,44 @@
+/**
+ * JADE Message Components
+ * Error and success message displays
+ */
+
+/* Error Message */
+.error-message {
+  background-color: var(--error-bg);
+  border: 1px solid var(--error-border);
+  color: var(--error);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius);
+  margin-bottom: var(--spacing-4);
+  display: none;
+  align-items: center;
+  gap: var(--spacing-2);
+  animation: slideDown var(--transition-slow) ease-out;
+}
+
+.error-message svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.error-text {
+  flex: 1;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+/* Success Message */
+.success-message {
+  background-color: var(--success-bg);
+  border: 1px solid var(--success-border);
+  color: var(--success-text);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius);
+  margin-bottom: var(--spacing-4);
+  display: none;
+  align-items: center;
+  gap: var(--spacing-2);
+  animation: slideDown var(--transition-slow) ease-out;
+}

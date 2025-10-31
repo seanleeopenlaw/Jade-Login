@@ -1,0 +1,71 @@
+/**
+ * JADE Toast Notification Component
+ * Toast messages with variants (success, error, info)
+ */
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--spacing-4) var(--spacing-6);
+  box-shadow: 0 10px 40px color-mix(in srgb, black 15%, transparent);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  min-width: 300px;
+  max-width: 500px;
+  z-index: var(--z-toast);
+  transition: top var(--transition-slower) ease-out;
+}
+
+.toast.show {
+  top: var(--spacing-8);
+}
+
+.toast-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.toast-success .toast-icon {
+  background-color: var(--success-bg);
+  color: var(--primary);
+}
+
+.toast-error .toast-icon {
+  background-color: var(--error-bg);
+  color: var(--error);
+}
+
+.toast-info .toast-icon {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+.toast-message {
+  flex: 1;
+  font-size: var(--text-md);
+  font-weight: var(--font-medium);
+  color: var(--foreground);
+}
+
+/* ============================================
+   RESPONSIVE - TABLET
+   ============================================ */
+
+@media (max-width: 768px) {
+  .toast {
+    min-width: calc(100% - 2rem);
+    max-width: calc(100% - 2rem);
+  }
+}

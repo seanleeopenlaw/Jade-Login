@@ -28,6 +28,13 @@ const SSO_DOMAINS = {
     logo: null
   },
 
+  // Demo organization domain (for prototype)
+  'organisation.com': {
+    providers: ['google', 'microsoft'],
+    displayName: 'Your Organization',
+    logo: null
+  },
+
   // Add more domains as needed
   // Format:
   // 'company-domain.com': {

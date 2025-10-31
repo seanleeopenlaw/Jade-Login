@@ -1,0 +1,132 @@
+/**
+ * JADE Navigation Components
+ * Header, navigation links, search bar, and upgrade banner
+ */
+
+/* Header Styles */
+.header-top {
+  background-color: var(--primary);
+  color: white;
+  padding: var(--spacing-3) 0;
+}
+
+.header-main {
+  background-color: white;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Navigation Links */
+.nav-link {
+  color: var(--foreground);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  padding: var(--spacing-2) var(--spacing-3);
+  transition: background-color var(--transition-base);
+}
+
+.nav-link:hover {
+  background-color: var(--muted);
+}
+
+/* Search Bar */
+.search-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 var(--spacing-6);
+}
+
+.search-input {
+  flex: 1;
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius) 0 0 var(--radius);
+  font-size: var(--text-sm);
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--primary);
+}
+
+.search-btn {
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  white-space: nowrap;
+  transition: opacity var(--transition-base);
+}
+
+.search-btn:hover {
+  opacity: 0.9;
+}
+
+/* Upgrade Banner */
+.upgrade-banner {
+  background-color: var(--teal);
+  color: white;
+  padding: var(--spacing-3-5) var(--spacing-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.upgrade-banner.hidden {
+  display: none;
+}
+
+/* ============================================
+   RESPONSIVE - TABLET & MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .header-top {
+    padding: var(--spacing-2) 0;
+  }
+
+  .nav-link {
+    padding: var(--spacing-1-5) var(--spacing-2);
+    font-size: var(--text-xs);
+  }
+
+  .search-container {
+    margin: 0 var(--spacing-2);
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-main {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .search-container {
+    margin: 0;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .search-input {
+    border-radius: var(--radius);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .search-btn {
+    border-radius: var(--radius);
+    width: 100%;
+  }
+
+  .upgrade-banner {
+    flex-direction: column;
+    gap: var(--spacing-3);
+    text-align: center;
+    padding: var(--spacing-4);
+  }
+}

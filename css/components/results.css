@@ -1,0 +1,80 @@
+/**
+ * JADE Search Results Components
+ * Result items, headers, and locked content overlays
+ */
+
+/* Results Header */
+.results-header {
+  background-color: white;
+  border: 1px solid var(--border);
+  padding: var(--spacing-4) var(--spacing-6);
+  margin-bottom: var(--spacing-4);
+  border-radius: var(--radius);
+}
+
+/* Search Result Items */
+.result-item {
+  background-color: white;
+  border: 1px solid var(--border);
+  padding: var(--spacing-5) var(--spacing-6);
+  margin-bottom: var(--spacing-3);
+  border-radius: var(--radius);
+  transition: box-shadow var(--transition-base);
+}
+
+.result-item:hover {
+  box-shadow: 0 2px 8px color-mix(in srgb, black 10%, transparent);
+}
+
+.result-title {
+  color: var(--primary);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-base);
+  margin-bottom: var(--spacing-2);
+  text-decoration: none;
+  display: block;
+}
+
+.result-title:hover {
+  text-decoration: underline;
+}
+
+.result-meta {
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-3);
+}
+
+.result-excerpt {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--foreground);
+}
+
+/* Locked Content Overlay */
+.locked-overlay {
+  position: relative;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ============================================
+   RESPONSIVE - TABLET & MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .results-header {
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+
+  .result-item {
+    padding: var(--spacing-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .result-item {
+    padding: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
+  }
+}

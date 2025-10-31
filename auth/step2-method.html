@@ -7,26 +7,21 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/common.css">
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/jade.css">
 </head>
-<body>
-  <header class="border-b border-color bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-      <div class="flex items-center">
-        <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-8" />
-      </div>
-    </div>
-  </header>
-
-  <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+<body class="jade-theme">
+  <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <div class="max-w-md w-full fade-in">
       <div class="text-center mb-8">
-        <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;" id="page-title">
+        <!-- Logo -->
+        <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto mb-8" />
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
           Sign in to JADE
         </h1>
-        <p class="text-base text-muted mb-2" id="user-email-display"></p>
-        <a href="step1-email.html" class="text-sm link-primary">Change email</a>
+        <p class="text-base jade-text-muted mb-2" id="sso-message">This email is managed by your organization.</p>
+        <p class="text-base font-semibold text-foreground mb-2" id="user-email-display"></p>
+        <a href="../1-gated-landing.html" class="text-sm link-primary">Change email</a>
       </div>
 
       <div class="card p-6 sm:p-8">
@@ -65,31 +60,21 @@
 
         <!-- Magic Link Option -->
         <div id="magic-link-section">
-          <p class="text-sm text-muted mb-4 text-center">
-            We'll email you a secure sign-in link
-          </p>
-          <button type="button" class="btn-primary" id="magic-link-btn">
-            Email me a sign-in link
+          <button type="button" class="btn-secondary" id="magic-link-btn">
+            Use email instead →
           </button>
+          <p class="text-xs jade-text-muted mt-3 text-center">
+            We'll send you a secure sign-in link
+          </p>
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="border-t border-color bg-white py-6 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-center gap-4 text-sm text-muted">
-        <a href="#" class="link-primary">Terms</a>
-        <span>·</span>
-        <a href="#" class="link-primary">Privacy</a>
-      </div>
-      <p class="text-center text-xs text-muted mt-3">© 2025 JADE. All rights reserved.</p>
-    </div>
-  </footer>
-
   <script src="../js/utils.js"></script>
   <script src="../js/sso-config.js"></script>
   <script src="../js/magic-link.js"></script>
+  
   <script>
     'use strict';
 
@@ -98,7 +83,7 @@
     const email = getSession('authEmail');
 
     if (!email || !authMethods) {
-      window.location.href = 'step1-email.html';
+      window.location.href = '../1-gated-landing.html';
     }
 
     // Display user email
@@ -108,10 +93,6 @@
     if (authMethods.hasSSO) {
       const ssoOptions = document.getElementById('sso-options');
       ssoOptions.style.display = 'block';
-
-      if (authMethods.sso.displayName) {
-        document.getElementById('page-title').textContent = `Sign in to ${authMethods.sso.displayName}`;
-      }
 
       // Show appropriate SSO buttons
       if (authMethods.providers.includes('google')) {

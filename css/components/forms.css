@@ -1,0 +1,113 @@
+/**
+ * JADE Form Components
+ * Input fields, checkboxes, and form-related elements
+ */
+
+/* Input Field */
+.input-field {
+  padding: var(--spacing-3) var(--spacing-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--card);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  width: 100%;
+  transition: all var(--transition-base);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.input-field.error {
+  border-color: var(--error);
+}
+
+.input-field.error:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--error) 10%, transparent);
+}
+
+/* Password Visibility Toggle */
+.password-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-1);
+  color: var(--muted-foreground);
+  transition: color var(--transition-base);
+}
+
+.password-toggle:hover {
+  color: var(--foreground);
+}
+
+.password-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--spacing-1);
+}
+
+/* Checkbox Styles */
+.checkbox-label {
+  display: flex;
+  align-items: start;
+  gap: var(--spacing-2);
+  cursor: pointer;
+}
+
+.checkbox-input {
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+  margin-top: 0.125rem;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+/* Divider (often used in forms) */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--muted-foreground);
+  margin: var(--spacing-6) 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border);
+}
+
+.divider::before {
+  margin-right: var(--spacing-4);
+}
+
+.divider::after {
+  margin-left: var(--spacing-4);
+}
+
+/* ============================================
+   RESPONSIVE - TABLET
+   ============================================ */
+
+/* iOS zoom prevention and touch-friendly sizes */
+@media (max-width: 768px) {
+  .input-field,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    font-size: max(16px, 1rem); /* Prevent iOS zoom */
+  }
+}

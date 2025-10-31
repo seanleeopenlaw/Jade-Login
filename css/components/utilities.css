@@ -1,0 +1,105 @@
+/**
+ * JADE Utility Classes
+ * Text utilities, links, focus indicators, accessibility, and animations
+ */
+
+/* ============================================
+   TEXT UTILITIES
+   ============================================ */
+
+.jade-text-primary {
+  color: var(--primary);
+}
+
+.jade-bg-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.jade-text-muted {
+  color: var(--muted-foreground);
+}
+
+.jade-border-color {
+  border-color: var(--border);
+}
+
+/* ============================================
+   LINK UTILITIES
+   ============================================ */
+
+.link-primary {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: var(--font-medium);
+  transition: opacity var(--transition-base);
+}
+
+.link-primary:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ============================================
+   FOCUS INDICATORS (ACCESSIBILITY)
+   ============================================ */
+
+.jade-theme *:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.jade-theme .btn-primary:focus-visible,
+.jade-theme .btn-secondary:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   ACCESSIBILITY UTILITIES
+   ============================================ */
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: var(--spacing-3) var(--spacing-6);
+  text-decoration: none;
+  font-weight: var(--font-semibold);
+  z-index: var(--z-toast);
+  border-radius: 0 0 var(--radius) 0;
+  transition: top var(--transition-base);
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   ANIMATION UTILITIES
+   ============================================ */
+
+/* Fade In */
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
+}
+
+/* Note: @keyframes fadeIn and slideDown are defined in design-tokens.css */
