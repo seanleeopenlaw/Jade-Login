@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Alert Preferences - JADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/jade.css">
+
+  <style>
+    .progress-bar {
+      height: 4px;
+      background-color: var(--muted);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 640px) {
+      .checkbox-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .checkbox-item {
+      position: relative;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .checkbox-item label {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      background-color: var(--background);
+    }
+
+    .checkbox-item input[type="checkbox"]:checked + label {
+      border-color: var(--primary);
+      background-color: var(--accent);
+    }
+
+    .checkbox-item label:hover {
+      border-color: var(--primary);
+    }
+
+    .checkbox-item label::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      margin-right: 0.75rem;
+      flex-shrink: 0;
+      transition: all var(--transition-base);
+    }
+
+    .checkbox-item input[type="checkbox"]:checked + label::before {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .court-name {
+      font-weight: var(--font-medium);
+    }
+
+    .court-abbr {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      margin-left: 0.25rem;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .quick-action-btn {
+      padding: 0.5rem 1rem;
+      background-color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: var(--font-medium);
+      transition: all var(--transition-base);
+      color: var(--foreground);
+    }
+
+    .quick-action-btn:hover {
+      background-color: var(--muted);
+    }
+  </style>
+</head>
+<body class="jade-theme">
+  <main id="main-content" class="flex-1 flex items-center justify-center px-4 py-12">
+    <div class="max-w-3xl w-full fade-in">
+      <!-- Logo -->
+      <div class="text-center mb-8">
+        <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto mb-6" />
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
+          Choose Courts to Follow
+        </h1>
+        <p class="text-base jade-text-muted">
+          Select the courts you'd like to receive alerts for
+        </p>
+      </div>
+
+      <!-- Progress Indicator -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between text-sm mb-2">
+          <span class="font-semibold jade-text-primary">Step 2 of 2</span>
+          <span class="jade-text-muted">Alert Preferences</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <!-- Form Card -->
+      <div class="card p-6 sm:p-8">
+        <div id="error-message" class="error-message" role="alert" aria-live="assertive">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="error-text"></span>
+        </div>
+
+        <form id="alerts-form">
+          <!-- Quick Actions -->
+          <div class="quick-actions">
+            <button type="button" id="select-all-btn" class="quick-action-btn">Select All</button>
+            <button type="button" id="clear-all-btn" class="quick-action-btn">Clear All</button>
+          </div>
+
+          <!-- Court Selection -->
+          <div class="checkbox-grid mb-6">
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-hca" name="courts" value="HCA">
+              <label for="court-hca">
+                <span class="court-name">High Court of Australia<span class="court-abbr">(HCA)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-fca" name="courts" value="FCA">
+              <label for="court-fca">
+                <span class="court-name">Federal Court of Australia<span class="court-abbr">(FCA)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-nsw-sc" name="courts" value="NSW-SC">
+              <label for="court-nsw-sc">
+                <span class="court-name">NSW Supreme Court<span class="court-abbr">(NSWSC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-vic-sc" name="courts" value="VIC-SC">
+              <label for="court-vic-sc">
+                <span class="court-name">VIC Supreme Court<span class="court-abbr">(VSC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-qld-sc" name="courts" value="QLD-SC">
+              <label for="court-qld-sc">
+                <span class="court-name">QLD Supreme Court<span class="court-abbr">(QSC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-wa-sc" name="courts" value="WA-SC">
+              <label for="court-wa-sc">
+                <span class="court-name">WA Supreme Court<span class="court-abbr">(WASC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-sa-sc" name="courts" value="SA-SC">
+              <label for="court-sa-sc">
+                <span class="court-name">SA Supreme Court<span class="court-abbr">(SASC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-tas-sc" name="courts" value="TAS-SC">
+              <label for="court-tas-sc">
+                <span class="court-name">TAS Supreme Court<span class="court-abbr">(TASSC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-act-sc" name="courts" value="ACT-SC">
+              <label for="court-act-sc">
+                <span class="court-name">ACT Supreme Court<span class="court-abbr">(ACTSC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-nt-sc" name="courts" value="NT-SC">
+              <label for="court-nt-sc">
+                <span class="court-name">NT Supreme Court<span class="court-abbr">(NTSC)</span></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Selected Count -->
+          <p class="text-sm jade-text-muted mb-6">
+            <span id="selected-count">0</span> court(s) selected
+          </p>
+
+          <!-- Navigation Buttons -->
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button type="button" id="back-btn" class="btn-secondary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Back
+            </button>
+            <button type="submit" id="continue-btn" class="btn-primary">
+              Continue
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Helper Text -->
+      <p class="text-xs jade-text-muted text-center mt-4">
+        You can modify your alert preferences anytime in your account settings
+      </p>
+    </div>
+  </main>
+
+  <script src="../js/utils.js"></script>
+
+  <script>
+    'use strict';
+
+    // Check authentication and previous step
+    const isAuthenticated = getSession('isAuthenticated');
+    const onboardingData = getOnboardingData();
+
+    if (!isAuthenticated || !onboardingData || !onboardingData.firstName) {
+      window.location.href = 'index.html';
+    }
+
+    // Load existing court selections if any
+    if (onboardingData.courts && Array.isArray(onboardingData.courts)) {
+      onboardingData.courts.forEach(courtValue => {
+        const checkbox = document.querySelector(`input[value="${courtValue}"]`);
+        if (checkbox) checkbox.checked = true;
+      });
+    }
+
+    // Update selected count
+    function updateSelectedCount() {
+      const selected = document.querySelectorAll('input[name="courts"]:checked').length;
+      document.getElementById('selected-count').textContent = selected;
+    }
+
+    // Initial count update
+    updateSelectedCount();
+
+    // Listen to checkbox changes
+    document.querySelectorAll('input[name="courts"]').forEach(checkbox => {
+      checkbox.addEventListener('change', updateSelectedCount);
+    });
+
+    // Select All button
+    document.getElementById('select-all-btn').addEventListener('click', () => {
+      document.querySelectorAll('input[name="courts"]').forEach(checkbox => {
+        checkbox.checked = true;
+      });
+      updateSelectedCount();
+    });
+
+    // Clear All button
+    document.getElementById('clear-all-btn').addEventListener('click', () => {
+      document.querySelectorAll('input[name="courts"]').forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      updateSelectedCount();
+    });
+
+    // Back button
+    document.getElementById('back-btn').addEventListener('click', () => {
+      // Save current selections before going back
+      const selectedCourts = Array.from(document.querySelectorAll('input[name="courts"]:checked'))
+        .map(cb => cb.value);
+
+      saveOnboardingData({ courts: selectedCourts });
+      window.location.href = 'index.html';
+    });
+
+    // Form submission
+    document.getElementById('alerts-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const selectedCourts = Array.from(document.querySelectorAll('input[name="courts"]:checked'))
+        .map(cb => cb.value);
+
+      // Validation: At least 1 court must be selected
+      if (selectedCourts.length === 0) {
+        showError('Please select at least one court to continue');
+        return;
+      }
+
+      // Save court preferences
+      saveOnboardingData({ courts: selectedCourts });
+
+      // Navigate to welcome page
+      window.location.href = '../welcome.html';
+    });
+  </script>
+</body>
+</html>

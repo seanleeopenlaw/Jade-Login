@@ -154,7 +154,10 @@
 
       // Redirect after short delay
       setTimeout(() => {
-        window.location.href = '../2-plan-selection.html';
+        const redirectUrl = shouldShowOnboarding(result.email)
+          ? '../setup/index.html'
+          : '../2-plan-selection.html';
+        window.location.href = redirectUrl;
       }, 1500);
     }
 

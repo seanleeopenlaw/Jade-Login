@@ -113,7 +113,11 @@
         setSession('isAuthenticated', true);
         setSession('authMethod', 'google');
         setSession('isNewUser', true);
-        window.location.href = '../2-plan-selection.html';
+
+        const redirectUrl = shouldShowOnboarding(email)
+          ? '../setup/index.html'
+          : '../2-plan-selection.html';
+        window.location.href = redirectUrl;
       }, 1000);
     });
 
@@ -127,7 +131,11 @@
         setSession('isAuthenticated', true);
         setSession('authMethod', 'microsoft');
         setSession('isNewUser', true);
-        window.location.href = '../2-plan-selection.html';
+
+        const redirectUrl = shouldShowOnboarding(email)
+          ? '../setup/index.html'
+          : '../2-plan-selection.html';
+        window.location.href = redirectUrl;
       }, 1000);
     });
 

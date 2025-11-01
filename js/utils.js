@@ -140,3 +140,80 @@ function showToast(message, type = 'success', duration = 2000) {
     setTimeout(() => toast.remove(), 500);
   }, duration);
 }
+
+/**
+ * ========================================
+ * ONBOARDING UTILITIES
+ * ========================================
+ */
+
+/**
+ * Check if user should go through onboarding
+ * @param {string} email - User's email address
+ * @returns {boolean} True if user should see onboarding flow
+ */
+function shouldShowOnboarding(email) {
+  // Feature gate: Only show onboarding for test email
+  if (email !== 'new@email.com') return false;
+
+  // Check if user has already completed onboarding
+  const setupComplete = localStorage.getItem('profileSetupComplete');
+  return setupComplete !== 'true';
+}
+
+/**
+ * Mark onboarding as complete
+ * Saves to both localStorage (persistent) and sessionStorage (current session)
+ */
+function markOnboardingComplete() {
+  localStorage.setItem('profileSetupComplete', 'true');
+  setSession('profileSetupComplete', true);
+}
+
+/**
+ * Get onboarding data from session storage
+ * @param {string} [key] - Optional key to get specific data
+ * @returns {object|any|null} Onboarding data object, specific value, or null
+ */
+function getOnboardingData(key) {
+  const data = sessionStorage.getItem('onboardingData');
+  if (!data) return null;
+
+  try {
+    const parsed = JSON.parse(data);
+    return key ? parsed[key] : parsed;
+  } catch (e) {
+    console.error('Error parsing onboarding data:', e);
+    return null;
+  }
+}
+
+/**
+ * Save onboarding data to session storage
+ * Merges with existing data
+ * @param {object} data - Data to save
+ */
+function saveOnboardingData(data) {
+  const existing = getOnboardingData() || {};
+  const updated = { ...existing, ...data };
+  sessionStorage.setItem('onboardingData', JSON.stringify(updated));
+}
+
+/**
+ * Clear onboarding data from session storage
+ */
+function clearOnboardingData() {
+  sessionStorage.removeItem('onboardingData');
+}
+
+/**
+ * Determine post-auth redirect URL based on user state
+ * @param {string} email - User's email address
+ * @returns {string} Redirect URL path
+ */
+function getPostAuthRedirect(email) {
+  if (shouldShowOnboarding(email)) {
+    return 'setup/index.html';
+  }
+  return '2-plan-selection.html';
+}

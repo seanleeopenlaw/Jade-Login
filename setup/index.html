@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Your Profile - JADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/jade.css">
+
+  <style>
+    .progress-bar {
+      height: 4px;
+      background-color: var(--muted);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .radio-option {
+      flex: 1;
+      position: relative;
+    }
+
+    .radio-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .radio-option label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      font-weight: var(--font-medium);
+      background-color: var(--background);
+    }
+
+    .radio-option input[type="radio"]:checked + label {
+      border-color: var(--primary);
+      background-color: var(--accent);
+      color: var(--primary);
+    }
+
+    .radio-option label:hover {
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body class="jade-theme">
+  <main id="main-content" class="flex-1 flex items-center justify-center px-4 py-12">
+    <div class="max-w-2xl w-full fade-in">
+      <!-- Logo -->
+      <div class="text-center mb-8">
+        <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto mb-6" />
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
+          Welcome to JADE
+        </h1>
+        <p class="text-base jade-text-muted">
+          Let's set up your profile to get you started
+        </p>
+      </div>
+
+      <!-- Progress Indicator -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between text-sm mb-2">
+          <span class="font-semibold jade-text-primary">Step 1 of 2</span>
+          <span class="jade-text-muted">Profile Setup</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 50%;"></div>
+        </div>
+      </div>
+
+      <!-- Form Card -->
+      <div class="card p-6 sm:p-8">
+        <div id="error-message" class="error-message" role="alert" aria-live="assertive">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="error-text"></span>
+        </div>
+
+        <form id="profile-form">
+          <!-- First Name -->
+          <div class="mb-5">
+            <label for="first-name" class="block text-sm font-semibold mb-2">
+              First Name <span style="color: var(--error);">*</span>
+            </label>
+            <input
+              type="text"
+              id="first-name"
+              name="firstName"
+              class="input-field"
+              placeholder="Enter your first name"
+              required
+              autocomplete="given-name"
+            />
+          </div>
+
+          <!-- Last Name -->
+          <div class="mb-5">
+            <label for="last-name" class="block text-sm font-semibold mb-2">
+              Last Name <span style="color: var(--error);">*</span>
+            </label>
+            <input
+              type="text"
+              id="last-name"
+              name="lastName"
+              class="input-field"
+              placeholder="Enter your last name"
+              required
+              autocomplete="family-name"
+            />
+          </div>
+
+          <!-- Mobile Number (Optional) -->
+          <div class="mb-5">
+            <label for="mobile" class="block text-sm font-semibold mb-2">
+              Mobile Number <span class="jade-text-muted font-normal">(optional)</span>
+            </label>
+            <input
+              type="tel"
+              id="mobile"
+              name="mobile"
+              class="input-field"
+              placeholder="+61 400 000 000"
+              autocomplete="tel"
+            />
+            <p class="text-xs jade-text-muted mt-2">
+              For important account notifications and alerts
+            </p>
+          </div>
+
+          <!-- Alert Preferences -->
+          <div class="mb-6">
+            <label class="block text-sm font-semibold mb-2">
+              Would you like to receive case law alerts?
+            </label>
+            <p class="text-sm jade-text-muted mb-3">
+              Stay updated on new decisions from courts you follow
+            </p>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="alerts-yes" name="wantsAlerts" value="yes">
+                <label for="alerts-yes">Yes, set up alerts</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="alerts-no" name="wantsAlerts" value="no" checked>
+                <label for="alerts-no">No, not now</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="continue-btn" class="btn-primary">
+            Continue
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Helper Text -->
+      <p class="text-xs jade-text-muted text-center mt-4">
+        You can update these preferences anytime in your account settings
+      </p>
+    </div>
+  </main>
+
+  <script src="../js/utils.js"></script>
+
+  <script>
+    'use strict';
+
+    // Check authentication
+    const isAuthenticated = getSession('isAuthenticated');
+    const userEmail = getSession('userEmail');
+
+    if (!isAuthenticated || !userEmail) {
+      window.location.href = '../1-gated-landing.html';
+    }
+
+    // Load existing data if any
+    const existingData = getOnboardingData();
+    if (existingData) {
+      if (existingData.firstName) document.getElementById('first-name').value = existingData.firstName;
+      if (existingData.lastName) document.getElementById('last-name').value = existingData.lastName;
+      if (existingData.mobile) document.getElementById('mobile').value = existingData.mobile;
+      if (existingData.wantsAlerts !== undefined) {
+        document.getElementById(existingData.wantsAlerts ? 'alerts-yes' : 'alerts-no').checked = true;
+      }
+    }
+
+    // Form submission
+    document.getElementById('profile-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const firstName = document.getElementById('first-name').value.trim();
+      const lastName = document.getElementById('last-name').value.trim();
+      const mobile = document.getElementById('mobile').value.trim();
+      const wantsAlerts = document.getElementById('alerts-yes').checked;
+
+      // Validate required fields
+      if (!firstName || !lastName) {
+        showError('Please enter your first and last name');
+        return;
+      }
+
+      // Save onboarding data
+      saveOnboardingData({
+        firstName,
+        lastName,
+        mobile,
+        wantsAlerts
+      });
+
+      // Navigate based on alert preference
+      if (wantsAlerts) {
+        window.location.href = 'alerts.html';
+      } else {
+        window.location.href = '../welcome.html';
+      }
+    });
+  </script>
+</body>
+</html>
