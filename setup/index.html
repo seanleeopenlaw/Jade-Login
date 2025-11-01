@@ -11,17 +11,76 @@
   <link rel="stylesheet" href="../css/jade.css">
 
   <style>
-    .progress-bar {
-      height: 4px;
-      background-color: var(--muted);
-      border-radius: 2px;
-      overflow: hidden;
+    /* Stepper Styles */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
     }
 
-    .progress-fill {
-      height: 100%;
+    .stepper-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex: 1;
+      max-width: 200px;
+    }
+
+    .stepper-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: calc(50% + 20px);
+      width: calc(100% - 40px);
+      height: 3px;
+      background-color: var(--border);
+      z-index: -1;
+    }
+
+    .stepper-item.completed:not(:last-child)::after {
       background-color: var(--primary);
-      transition: width 0.3s ease;
+    }
+
+    .stepper-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--background);
+      border: 2px solid var(--border);
+      color: var(--muted-foreground);
+      font-weight: var(--font-semibold);
+      font-size: 1rem;
+      transition: all var(--transition-base);
+      margin-bottom: 0.5rem;
+    }
+
+    .stepper-item.completed .stepper-circle {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .stepper-item.active .stepper-circle {
+      border-color: var(--primary);
+      border-width: 3px;
+      color: var(--primary);
+    }
+
+    .stepper-label {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      font-weight: var(--font-medium);
+    }
+
+    .stepper-item.completed .stepper-label,
+    .stepper-item.active .stepper-label {
+      color: var(--foreground);
     }
 
     .radio-group {
@@ -80,14 +139,19 @@
         </p>
       </div>
 
-      <!-- Progress Indicator -->
-      <div class="mb-8">
-        <div class="flex items-center justify-between text-sm mb-2">
-          <span class="font-semibold jade-text-primary">Step 1 of 2</span>
-          <span class="jade-text-muted">Profile Setup</span>
+      <!-- Stepper -->
+      <div class="stepper">
+        <div class="stepper-item active">
+          <div class="stepper-circle">
+            1
+          </div>
+          <span class="stepper-label">Personal Details</span>
         </div>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 50%;"></div>
+        <div class="stepper-item">
+          <div class="stepper-circle">
+            2
+          </div>
+          <span class="stepper-label">Alert Preferences</span>
         </div>
       </div>
 
@@ -144,11 +208,11 @@
               id="mobile"
               name="mobile"
               class="input-field"
-              placeholder="+61 400 000 000"
+              placeholder="Enter your mobile number"
               autocomplete="tel"
             />
             <p class="text-xs jade-text-muted mt-2">
-              For important account notifications and alerts
+              Used for account recovery and important security notifications
             </p>
           </div>
 

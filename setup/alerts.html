@@ -11,17 +11,76 @@
   <link rel="stylesheet" href="../css/jade.css">
 
   <style>
-    .progress-bar {
-      height: 4px;
-      background-color: var(--muted);
-      border-radius: 2px;
-      overflow: hidden;
+    /* Stepper Styles */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
     }
 
-    .progress-fill {
-      height: 100%;
+    .stepper-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex: 1;
+      max-width: 200px;
+    }
+
+    .stepper-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: calc(50% + 20px);
+      width: calc(100% - 40px);
+      height: 3px;
+      background-color: var(--border);
+      z-index: -1;
+    }
+
+    .stepper-item.completed:not(:last-child)::after {
       background-color: var(--primary);
-      transition: width 0.3s ease;
+    }
+
+    .stepper-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--background);
+      border: 2px solid var(--border);
+      color: var(--muted-foreground);
+      font-weight: var(--font-semibold);
+      transition: all var(--transition-base);
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .stepper-item.completed .stepper-circle {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .stepper-item.active .stepper-circle {
+      border-color: var(--primary);
+      border-width: 3px;
+      color: var(--primary);
+    }
+
+    .stepper-label {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      font-weight: var(--font-medium);
+    }
+
+    .stepper-item.completed .stepper-label,
+    .stepper-item.active .stepper-label {
+      color: var(--foreground);
     }
 
     .checkbox-grid {
@@ -50,7 +109,7 @@
     .checkbox-item label {
       display: flex;
       align-items: center;
-      padding: 1rem;
+      padding: 0.625rem 0.75rem;
       border: 2px solid var(--border);
       border-radius: var(--radius);
       cursor: pointer;
@@ -69,11 +128,11 @@
 
     .checkbox-item label::before {
       content: '';
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border: 2px solid var(--border);
       border-radius: 4px;
-      margin-right: 0.75rem;
+      margin-right: 0.625rem;
       flex-shrink: 0;
       transition: all var(--transition-base);
     }
@@ -81,19 +140,22 @@
     .checkbox-item input[type="checkbox"]:checked + label::before {
       background-color: var(--primary);
       border-color: var(--primary);
-      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: center;
     }
 
     .court-name {
       font-weight: var(--font-medium);
+      font-size: 0.875rem;
+      line-height: 1.3;
     }
 
     .court-abbr {
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       color: var(--muted-foreground);
       margin-left: 0.25rem;
+      font-weight: var(--font-normal);
     }
 
     .quick-actions {
@@ -133,14 +195,21 @@
         </p>
       </div>
 
-      <!-- Progress Indicator -->
-      <div class="mb-8">
-        <div class="flex items-center justify-between text-sm mb-2">
-          <span class="font-semibold jade-text-primary">Step 2 of 2</span>
-          <span class="jade-text-muted">Alert Preferences</span>
+      <!-- Stepper -->
+      <div class="stepper">
+        <div class="stepper-item completed">
+          <div class="stepper-circle">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 6L8 14L4 10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="stepper-label">Personal Details</span>
         </div>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 100%;"></div>
+        <div class="stepper-item active">
+          <div class="stepper-circle">
+            2
+          </div>
+          <span class="stepper-label">Alert Preferences</span>
         </div>
       </div>
 
@@ -166,70 +235,140 @@
             <div class="checkbox-item">
               <input type="checkbox" id="court-hca" name="courts" value="HCA">
               <label for="court-hca">
-                <span class="court-name">High Court of Australia<span class="court-abbr">(HCA)</span></span>
+                <span class="court-name">High Court of Australia <span class="court-abbr">(HCA)</span></span>
               </label>
             </div>
 
             <div class="checkbox-item">
-              <input type="checkbox" id="court-fca" name="courts" value="FCA">
-              <label for="court-fca">
-                <span class="court-name">Federal Court of Australia<span class="court-abbr">(FCA)</span></span>
+              <input type="checkbox" id="court-hcasj" name="courts" value="HCASJ">
+              <label for="court-hcasj">
+                <span class="court-name">High Court of Australia Single Justice Judgments <span class="court-abbr">(HCASJ)</span></span>
               </label>
             </div>
 
             <div class="checkbox-item">
-              <input type="checkbox" id="court-nsw-sc" name="courts" value="NSW-SC">
-              <label for="court-nsw-sc">
-                <span class="court-name">NSW Supreme Court<span class="court-abbr">(NSWSC)</span></span>
+              <input type="checkbox" id="court-nzsc" name="courts" value="NZSC">
+              <label for="court-nzsc">
+                <span class="court-name">Supreme Court of New Zealand <span class="court-abbr">(NZSC)</span></span>
               </label>
             </div>
 
             <div class="checkbox-item">
-              <input type="checkbox" id="court-vic-sc" name="courts" value="VIC-SC">
-              <label for="court-vic-sc">
-                <span class="court-name">VIC Supreme Court<span class="court-abbr">(VSC)</span></span>
+              <input type="checkbox" id="court-fcafc" name="courts" value="FCAFC">
+              <label for="court-fcafc">
+                <span class="court-name">Federal Court of Australia - Full Court <span class="court-abbr">(FCAFC)</span></span>
               </label>
             </div>
 
             <div class="checkbox-item">
-              <input type="checkbox" id="court-qld-sc" name="courts" value="QLD-SC">
-              <label for="court-qld-sc">
-                <span class="court-name">QLD Supreme Court<span class="court-abbr">(QSC)</span></span>
+              <input type="checkbox" id="court-famcafc" name="courts" value="FamCAFC">
+              <label for="court-famcafc">
+                <span class="court-name">Family Court of Australia - Full Court <span class="court-abbr">(FamCAFC)</span></span>
               </label>
             </div>
 
             <div class="checkbox-item">
-              <input type="checkbox" id="court-wa-sc" name="courts" value="WA-SC">
-              <label for="court-wa-sc">
-                <span class="court-name">WA Supreme Court<span class="court-abbr">(WASC)</span></span>
+              <input type="checkbox" id="court-fedcfamc1a" name="courts" value="FedCFamC1A">
+              <label for="court-fedcfamc1a">
+                <span class="court-name">Federal Circuit and Family Court - Division 1 Appellate Jurisdiction <span class="court-abbr">(FedCFamC1A)</span></span>
               </label>
             </div>
 
             <div class="checkbox-item">
-              <input type="checkbox" id="court-sa-sc" name="courts" value="SA-SC">
-              <label for="court-sa-sc">
-                <span class="court-name">SA Supreme Court<span class="court-abbr">(SASC)</span></span>
+              <input type="checkbox" id="court-actca" name="courts" value="ACTCA">
+              <label for="court-actca">
+                <span class="court-name">Supreme Court of the Australian Capital Territory - Court of Appeal <span class="court-abbr">(ACTCA)</span></span>
               </label>
             </div>
 
             <div class="checkbox-item">
-              <input type="checkbox" id="court-tas-sc" name="courts" value="TAS-SC">
-              <label for="court-tas-sc">
-                <span class="court-name">TAS Supreme Court<span class="court-abbr">(TASSC)</span></span>
+              <input type="checkbox" id="court-nswca" name="courts" value="NSWCA">
+              <label for="court-nswca">
+                <span class="court-name">Supreme Court of New South Wales - Court of Appeal <span class="court-abbr">(NSWCA)</span></span>
               </label>
             </div>
 
             <div class="checkbox-item">
-              <input type="checkbox" id="court-act-sc" name="courts" value="ACT-SC">
-              <label for="court-act-sc">
-                <span class="court-name">ACT Supreme Court<span class="court-abbr">(ACTSC)</span></span>
+              <input type="checkbox" id="court-nswcca" name="courts" value="NSWCCA">
+              <label for="court-nswcca">
+                <span class="court-name">Supreme Court of New South Wales - Court of Criminal Appeal <span class="court-abbr">(NSWCCA)</span></span>
               </label>
             </div>
 
             <div class="checkbox-item">
-              <input type="checkbox" id="court-nt-sc" name="courts" value="NT-SC">
-              <label for="court-nt-sc">
-                <span class="court-name">NT Supreme Court<span class="court-abbr">(NTSC)</span></span>
+              <input type="checkbox" id="court-ntca" name="courts" value="NTCA">
+              <label for="court-ntca">
+                <span class="court-name">Supreme Court of the Northern Territory - Court of Appeal <span class="court-abbr">(NTCA)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-ntcca" name="courts" value="NTCCA">
+              <label for="court-ntcca">
+                <span class="court-name">Supreme Court of the Northern Territory - Court of Criminal Appeal <span class="court-abbr">(NTCCA)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-ntscfc" name="courts" value="NTSCFC">
+              <label for="court-ntscfc">
+                <span class="court-name">Supreme Court of the Northern Territory - Full Court <span class="court-abbr">(NTSCFC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-nzca" name="courts" value="NZCA">
+              <label for="court-nzca">
+                <span class="court-name">Court of Appeal of New Zealand <span class="court-abbr">(NZCA)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-qca" name="courts" value="QCA">
+              <label for="court-qca">
+                <span class="court-name">Supreme Court of Queensland - Court of Appeal <span class="court-abbr">(QCA)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-sasca" name="courts" value="SASCA">
+              <label for="court-sasca">
+                <span class="court-name">Supreme Court of South Australia - Court of Appeal <span class="court-abbr">(SASCA)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-sascfc" name="courts" value="SASCFC">
+              <label for="court-sascfc">
+                <span class="court-name">Supreme Court of South Australia - Full Court <span class="court-abbr">(SASCFC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-tascca" name="courts" value="TASCCA">
+              <label for="court-tascca">
+                <span class="court-name">Supreme Court of Tasmania - Court of Criminal Appeal <span class="court-abbr">(TASCCA)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-tasfc" name="courts" value="TASFC">
+              <label for="court-tasfc">
+                <span class="court-name">Supreme Court of Tasmania - Full Court <span class="court-abbr">(TASFC)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-vsca" name="courts" value="VSCA">
+              <label for="court-vsca">
+                <span class="court-name">Supreme Court of Victoria - Court of Appeal <span class="court-abbr">(VSCA)</span></span>
+              </label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="court-wasca" name="courts" value="WASCA">
+              <label for="court-wasca">
+                <span class="court-name">Supreme Court of Western Australia - Court of Appeal <span class="court-abbr">(WASCA)</span></span>
               </label>
             </div>
           </div>
