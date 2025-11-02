@@ -261,7 +261,10 @@
         if (wantsAlerts) {
           window.location.href = 'alerts.html';
         } else {
-          window.location.href = '../setup-complete.html';
+          // Mark onboarding as complete
+          markOnboardingComplete();
+          // Go directly to plan selection (skip setup-complete transition)
+          window.location.href = '../2-plan-selection.html';
         }
       }, 800);
     });
