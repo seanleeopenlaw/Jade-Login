@@ -20,10 +20,6 @@
         <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
           Sign in to JADE
         </h1>
-        <p class="text-base jade-text-muted">
-          Enter your email to get started.<br>
-          We'll check if your organization uses single sign-on.
-        </p>
       </div>
 
       <!-- Sign In Card -->
@@ -56,10 +52,10 @@
               aria-required="true"
               aria-describedby="email-error email-hint"
             />
-            <p id="email-hint" class="text-xs jade-text-muted mt-1">
-              We'll check if your organization uses single sign-on
+            <div id="email-error" style="display: none; color: var(--error); font-size: 0.875rem; font-weight: 500; margin-top: 0.5rem;"></div>
+            <p id="email-hint" class="text-xs jade-text-muted mt-2">
+              Don't have an account? Just enter your email to get started.
             </p>
-            <span id="email-error" class="error-text" style="display: none; color: var(--error); font-size: 0.875rem; margin-top: 0.25rem;"></span>
           </div>
 
           <!-- Continue Button -->
@@ -67,11 +63,6 @@
             Continue
           </button>
         </form>
-
-        <!-- Info Text -->
-        <p class="text-xs text-center jade-text-muted mt-6">
-          Don't have an account? No worries — we'll create one for you automatically.
-        </p>
       </div>
     </div>
   </main>
@@ -128,7 +119,6 @@
       hideError();
 
       if (!validateEmail()) {
-        showError('Please enter a valid email address');
         return;
       }
 
