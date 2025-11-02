@@ -35,7 +35,7 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 #### 3. Onboarding/Setup Flow (`setup/`)
 - **`index.html`** - Personal details (First Name, Last Name, Mobile, Alert preference)
 - **`alerts.html`** - Alert preferences (Court selection)
-- **`setup-complete.html`** - Setup completion with loading animation
+- **`setup-complete.html`** - ⚠️ Legacy file (bypassed in current flow - kept for compatibility)
 
 #### 4. Subscription Flow
 - **`2-plan-selection.html`** - Plan selection with Free/Pro/Enterprise options
@@ -88,17 +88,16 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
    - No SSO → Magic link sent → `auth/magic-link-sent.html` → `auth/verify.html`
 3. **Account Setup** → `setup/index.html` (Personal Details)
 4. **Alert Preferences:**
-   - Yes → `setup/alerts.html` → Configure courts
-   - No → Skip to completion
-5. **Setup Complete** → `setup-complete.html` (loading animation)
-6. **Plan Selection (Promotion)** → `2-plan-selection.html`
-7. **Choose Plan:**
+   - Yes → `setup/alerts.html` → Configure courts → Direct to Plan Selection
+   - No, not now → Direct to Plan Selection
+5. **Plan Selection (Promotion)** → `2-plan-selection.html` *(All users see this)*
+6. **Choose Plan:**
    - Free → `app-loading.html` → `4-main-app-free.html` (with upgrade banner)
    - Pro → `3-subscription-complete.html` → `app-loading.html` → `4-main-app-pro.html`
    - Enterprise → Contact sales
    - Skip → "Remind me in 7 days" or "Don't show again"
 
-**Key Characteristic:** Setup required, then shown promotional offer
+**Key Characteristic:** Setup required, then immediately shown promotional offer (no intermediate transition)
 
 ### Flow 2: Returning User (Setup Already Complete)
 **Direct to promotion after authentication**
@@ -126,11 +125,10 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 4. **Resume Setup** → Return to incomplete step
    - Missing personal details → `setup/index.html`
    - Missing alert preferences → `setup/alerts.html`
-5. **Complete Setup** → `setup-complete.html`
-6. **Plan Selection (Promotion)** → `2-plan-selection.html`
-7. **Access App** → Based on plan choice
+5. **Plan Selection (Promotion)** → `2-plan-selection.html` *(Direct after setup)*
+6. **Access App** → Based on plan choice
 
-**Key Characteristic:** Complete interrupted setup, then shown promotional offer
+**Key Characteristic:** Complete interrupted setup, then immediately shown promotional offer
 
 ---
 
@@ -201,6 +199,23 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 - **Vanilla JavaScript:** ES6+, no framework dependencies
 - **SessionStorage:** For auth state management
 
+### ⚠️ Demo/Prototype Characteristics
+
+**This is a design prototype to demonstrate user flow - not a production app.**
+
+Key behaviors for demo purposes:
+- **No data persistence between sessions** - Each page load starts fresh
+- **No data restoration** - Form fields always show defaults (never pre-filled from previous sessions)
+- **SessionStorage cleared on completion** - Onboarding data removed after flow completes
+- **Simplified transitions** - `setup-complete.html` bypassed to reduce friction
+- **Mock authentication** - Magic links and SSO are simulated (no backend)
+
+**Why this matters for developers:**
+- Easier to demonstrate flow repeatedly without clearing browser data
+- Each walkthrough starts from clean state
+- Focus on UX/UI rather than data management
+- Simplified for stakeholder presentations and user testing
+
 ### Key Features
 
 #### CSS
@@ -232,15 +247,15 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 
 ### Journey 1: First-Time User → Pro Subscription
 ```
-Landing → Email → Auth → Setup → Alerts → Complete → Promotion → Payment → Pro App
-  100%  →  85%  →  95%  →  92%  →  88%  →  100%  →   100%    →  45%   →  95%  → 100%
+Landing → Email → Auth → Setup → Alerts → Promotion → Payment → Pro App
+  100%  →  85%  →  95%  →  92%  →  88%  →   100%    →  45%   →  95%  → 100%
 ```
 
 **Key Decision Points:**
 - Setup completion (92% - most users complete profile)
 - Plan Selection at promotion page (45% conversion to paid)
 
-**Why This Works:** New users see promotional offer (30% off) immediately after setup while momentum is high
+**Why This Works:** New users see promotional offer (30% off) immediately after setup while momentum is high (no intermediate transition to lose focus)
 
 ### Journey 2: First-Time User → Free Tier → Later Upgrade
 ```
@@ -270,11 +285,11 @@ Landing → Email → Auth → Skip Setup → Promotion Check → App
 
 ### Journey 4: Incomplete Setup → Resume → Promotion → App
 ```
-Landing → Email → Auth → Detect → Resume Setup → Complete → Promotion → App
-  100%  →  85%  →  95%  → 100%  →     65%     →   80%   →   100%    → Dashboard
+Landing → Email → Auth → Detect → Resume Setup → Promotion → App
+  100%  →  85%  →  95%  → 100%  →     65%     →   100%    → Dashboard
 ```
 
-**Key Feature:** Interrupted onboarding is resumed seamlessly, then user sees promotional offer
+**Key Feature:** Interrupted onboarding is resumed seamlessly, then immediately shown promotional offer
 
 ---
 
@@ -487,6 +502,25 @@ open 1-gated-landing.html
 
 ## 📝 Changelog
 
+### Version 4.1 (November 3, 2025) - Demo Flow Optimization
+- 🔧 **BREAKING:** Bypassed `setup-complete.html` transition for streamlined demo flow
+  - Setup pages now redirect directly to `2-plan-selection.html`
+  - Eliminates double transition (setup-complete + app-loading)
+  - Improves demo momentum by reducing intermediate steps
+- 🔧 **Demo optimization:** Removed all data restoration logic
+  - `setup/index.html` - No longer restores firstName, lastName, mobile, wantsAlerts
+  - `setup/alerts.html` - No longer restores court selections
+  - Each demo walkthrough starts from clean state
+- 🐛 Fixed radio button default state issue
+  - "Yes, set up alerts" now always default (removed session restoration override)
+- 🗑️ Removed misleading toast message
+  - "You won't see this offer again" removed (banner still shows)
+  - Kept accurate toast for "Remind me in 7 days"
+- 📝 Updated README with current flow architecture
+  - Added "Demo/Prototype Characteristics" section
+  - Updated all user journey diagrams (removed setup-complete step)
+  - Clarified that setup-complete.html is now legacy/bypassed
+
 ### Version 4.0 (November 3, 2025)
 - ✨ **NEW:** Complete onboarding/setup flow for first-time users
   - Personal details page (setup/index.html)
@@ -547,4 +581,4 @@ Built with Claude Code for production-ready CSS architecture.
 **Designed for conversion. Built for scale. Optimized for developers.**
 
 *Last Updated: November 3, 2025*
-*Version: 4.0 (Complete Onboarding Flow + Component Refactoring)*
+*Version: 4.1 (Demo Flow Optimization - Streamlined Transitions + Clean State)*
