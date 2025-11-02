@@ -243,65 +243,6 @@ Key behaviors for demo purposes:
 
 ---
 
-## 🚀 Complete User Journeys
-
-### Journey 1: First-Time User → Pro Subscription
-```
-Landing → Email → Auth → Setup → Alerts → Promotion → Payment → Pro App
-  100%  →  85%  →  95%  →  92%  →  88%  →   100%    →  45%   →  95%  → 100%
-```
-
-**Key Decision Points:**
-- Setup completion (92% - most users complete profile)
-- Plan Selection at promotion page (45% conversion to paid)
-
-**Why This Works:** New users see promotional offer (30% off) immediately after setup while momentum is high (no intermediate transition to lose focus)
-
-### Journey 2: First-Time User → Free Tier → Later Upgrade
-```
-Landing → Email → Auth → Setup → Skip Alerts → Promotion → Free → Banner → Upgrade
-  100%  →  85%  →  95%  →  92%  →    70%     →   100%    →  30%  → 100%  →  15%  → 80%
-```
-
-**Key Features:**
-- Skip alerts option (30% choose this for faster onboarding)
-- Promotional offer shown but user chooses free
-- Persistent upgrade banner in free app (15% click-through)
-- Second chance via "Remind me in 7 days"
-
-### Journey 3: Returning User → See Promotion → App
-```
-Landing → Email → Auth → Skip Setup → Promotion Check → App
-  100%  →  90%  →  98%  →    100%    →      100%       → Dashboard
-```
-
-**Smart Routing:**
-- Already has Pro → Direct to Pro app (skip promotion)
-- Free tier + hasn't opted out → See promotion again
-- Free tier + "Don't show again" → Direct to free app
-- Reminder date set → Skip until reminder date
-
-**Key Feature:** Maximizes promotional exposure while respecting user preferences
-
-### Journey 4: Incomplete Setup → Resume → Promotion → App
-```
-Landing → Email → Auth → Detect → Resume Setup → Promotion → App
-  100%  →  85%  →  95%  → 100%  →     65%     →   100%    → Dashboard
-```
-
-**Key Feature:** Interrupted onboarding is resumed seamlessly, then immediately shown promotional offer
-
----
-
-### Promotional Strategy Summary
-**Every sign-in/setup completion routes through Plan Selection page** to maximize conversion opportunities:
-- **First-time users:** 45% immediate conversion at promotion
-- **Returning free users:** 15% delayed conversion via banner
-- **Reminder system:** 20% conversion after 7-day reminder
-- **Total blended conversion:** ~32% to paid plans
-
----
-
 ## 📊 Plan Comparison
 
 | Feature | Free | Professional | Enterprise |
@@ -319,14 +260,14 @@ Landing → Email → Auth → Detect → Resume Setup → Promotion → App
 
 ### What We Built & Why
 
-| Decision | Rationale | Impact |
-|----------|-----------|--------|
-| Passwordless auth | Reduced friction, modern security | ⬆️ Conversion |
-| SSO detection | Smart routing, fewer clicks | ⬆️ User satisfaction |
-| Dismissible banner | Respects user choice | ⬆️ Trust |
-| Free tier available | Risk-free trial | ⬆️ Signups |
-| Clean plan selection | Clear pricing, no tricks | ⬆️ Conversions |
-| Confetti animation | Positive reinforcement | ⬆️ Satisfaction |
+| Decision | Rationale |
+|----------|-----------|
+| Passwordless auth | Reduced friction, modern security |
+| SSO detection | Smart routing, fewer clicks |
+| Dismissible banner | Respects user choice |
+| Free tier available | Risk-free trial |
+| Clean plan selection | Clear pricing, no tricks |
+| Confetti animation | Positive reinforcement |
 
 ### Design Philosophy
 1. **Minimal Friction:** Passwordless = fewer steps
@@ -395,57 +336,6 @@ open 1-gated-landing.html
 'subscriptionReminderDate': ISO timestamp
 'hasLoggedInBefore': 'true'
 ```
-
----
-
-## 📈 Conversion Optimization
-
-### Funnel Metrics (Estimated)
-
-**Universal Approach: All Users → Promotion Page**
-
-**Path 1: First-Time User → Pro**
-- Email Entry: 100%
-- SSO/Magic Link: 85%
-- Account Setup: 92%
-- **Promotion Page Exposure: 100%** ← All users see this
-- Pro Selection: 45%
-- Payment Complete: 95%
-- **Final Conversion: 33.5%**
-
-**Path 2: First-Time User → Free → Later Upgrade**
-- Promotion Page → Free: 30% (choose free)
-- Free App Usage: 100%
-- Banner Exposure: 100%
-- Banner Click: 15%
-- Complete Upgrade: 80%
-- **Delayed Conversion: 3.6%**
-
-**Path 3: Returning User → Promotion → Upgrade**
-- Returning Sign-In: 100%
-- Skip Setup: 100%
-- **Promotion Page Check: 100%** ← Smart routing
-- See Offer (not opted out): 60%
-- Upgrade Conversion: 20%
-- **Conversion: 12%**
-
-**Path 4: 7-Day Reminder → Upgrade**
-- Users who chose "Remind me": 25%
-- Return after 7 days: 40%
-- Conversion at reminder: 20%
-- **Conversion: 2%**
-
-### Total Blended Conversion Rate
-- **Initial + Delayed + Returning + Reminder:** ~32-35%
-
-### A/B Test Opportunities
-1. **Promotion headline** - Test urgency vs. value messaging
-2. **Discount presentation** - 30% vs. $298 saved vs. $58/month
-3. **Skip options** - "Remind me" vs. "Don't show again" vs. both
-4. **Free tier positioning** - Prominent vs. de-emphasized
-5. **Setup length** - Minimal (name only) vs. comprehensive (+ alerts)
-6. **Reminder timing** - 3 days vs. 7 days vs. 14 days
-7. **Banner frequency** - Every session vs. once per day vs. once per week
 
 ---
 
