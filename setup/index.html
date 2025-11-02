@@ -217,14 +217,7 @@
       window.location.href = '../1-gated-landing.html';
     }
 
-    // Load existing data if any
-    const existingData = getOnboardingData();
-    if (existingData) {
-      if (existingData.firstName) document.getElementById('first-name').value = existingData.firstName;
-      if (existingData.lastName) document.getElementById('last-name').value = existingData.lastName;
-      if (existingData.mobile) document.getElementById('mobile').value = existingData.mobile;
-      // Don't restore wantsAlerts - always default to "Yes, set up alerts"
-    }
+    // Don't load existing data for demo purposes - always start fresh
 
     // Form submission
     document.getElementById('profile-form').addEventListener('submit', (e) => {

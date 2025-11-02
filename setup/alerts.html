@@ -349,13 +349,7 @@
       window.location.href = 'index.html';
     }
 
-    // Load existing court selections if any
-    if (onboardingData.courts && Array.isArray(onboardingData.courts)) {
-      onboardingData.courts.forEach(courtValue => {
-        const checkbox = document.querySelector(`input[value="${courtValue}"]`);
-        if (checkbox) checkbox.checked = true;
-      });
-    }
+    // Don't load existing court selections for demo purposes - always start fresh
 
     // Update selected count
     function updateSelectedCount() {
