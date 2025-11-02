@@ -223,9 +223,7 @@
       if (existingData.firstName) document.getElementById('first-name').value = existingData.firstName;
       if (existingData.lastName) document.getElementById('last-name').value = existingData.lastName;
       if (existingData.mobile) document.getElementById('mobile').value = existingData.mobile;
-      if (existingData.wantsAlerts !== undefined) {
-        document.getElementById(existingData.wantsAlerts ? 'alerts-yes' : 'alerts-no').checked = true;
-      }
+      // Don't restore wantsAlerts - always default to "Yes, set up alerts"
     }
 
     // Form submission
