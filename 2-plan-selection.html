@@ -282,7 +282,7 @@
         }
 
         if (plan === 'free') {
-          window.location.href = '4-main-app-free.html';
+          window.location.href = 'app-loading.html?target=free';
           return;
         }
 
@@ -381,8 +381,14 @@
       reminderDate.setDate(reminderDate.getDate() + 7);
       localStorage.setItem('subscriptionReminderDate', reminderDate.toISOString());
 
-      // Go to free app with reminder flag
-      window.location.href = '4-main-app-free.html?reminder=set';
+      // Store toast message to show after app loads
+      setSession('showToast', {
+        message: 'Perfect! We\'ll remind you about this offer in 7 days.',
+        type: 'success'
+      });
+
+      // Go to free app
+      window.location.href = 'app-loading.html?target=free';
     });
 
     // Don't show again button
@@ -390,8 +396,14 @@
       // Store preference to not show subscription page
       localStorage.setItem('hideSubscriptionOffer', 'true');
 
+      // Store toast message to show after app loads
+      setSession('showToast', {
+        message: 'You won\'t see this offer again',
+        type: 'success'
+      });
+
       // Go to free app
-      window.location.href = '4-main-app-free.html';
+      window.location.href = 'app-loading.html?target=free';
     });
 
     // Initialize

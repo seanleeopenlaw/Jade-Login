@@ -1,0 +1,146 @@
+/**
+ * JADE Loading & Status Animation Components
+ * Reusable loading spinners, success states, and transition animations
+ */
+
+/* ===== Spinner Component ===== */
+.spinner {
+  border: 3px solid var(--muted);
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+.spinner-sm {
+  width: 24px;
+  height: 24px;
+  border-width: 2px;
+}
+
+.spinner-lg {
+  width: 64px;
+  height: 64px;
+  border-width: 4px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== Status Icons ===== */
+.status-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  opacity: 0;
+  transition: opacity var(--transition-base) ease,
+              transform var(--transition-base) ease;
+}
+
+.status-icon-sm {
+  width: 48px;
+  height: 48px;
+}
+
+.success-icon {
+  color: var(--primary);
+}
+
+.error-icon {
+  color: var(--error);
+}
+
+.status-icon.show,
+.success-icon.show,
+.error-icon.show {
+  opacity: 1;
+  animation: fadeInScale 0.5s ease-in-out forwards;
+}
+
+/* ===== Text State Transitions ===== */
+.loading-text {
+  opacity: 1;
+  transition: opacity var(--transition-base) ease;
+}
+
+.loading-text.fade-out {
+  opacity: 0;
+}
+
+.success-text,
+.error-text {
+  opacity: 0;
+  transition: opacity var(--transition-base) ease;
+}
+
+.success-text.fade-in,
+.error-text.fade-in {
+  opacity: 1;
+}
+
+/* ===== Keyframe Animations ===== */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* ===== Celebration Animations ===== */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  animation: confetti-fall 3.5s linear;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.success-bounce {
+  animation: success-bounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes success-bounce {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}

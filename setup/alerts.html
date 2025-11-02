@@ -11,82 +11,11 @@
   <link rel="stylesheet" href="../css/jade.css">
 
   <style>
-    /* Stepper Styles */
-    .stepper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 2rem 0;
-    }
-
-    .stepper-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      flex: 1;
-      max-width: 200px;
-    }
-
-    .stepper-item:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      top: 20px;
-      left: calc(50% + 20px);
-      width: calc(100% - 40px);
-      height: 3px;
-      background-color: var(--border);
-      z-index: -1;
-    }
-
-    .stepper-item.completed:not(:last-child)::after {
-      background-color: var(--primary);
-    }
-
-    .stepper-circle {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--background);
-      border: 2px solid var(--border);
-      color: var(--muted-foreground);
-      font-weight: var(--font-semibold);
-      transition: all var(--transition-base);
-      margin-bottom: 0.5rem;
-      font-size: 1rem;
-    }
-
-    .stepper-item.completed .stepper-circle {
-      background-color: var(--primary);
-      border-color: var(--primary);
-      color: white;
-    }
-
-    .stepper-item.active .stepper-circle {
-      border-color: var(--primary);
-      border-width: 3px;
-      color: var(--primary);
-    }
-
-    .stepper-label {
-      text-align: center;
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
-      font-weight: var(--font-medium);
-    }
-
-    .stepper-item.completed .stepper-label,
-    .stepper-item.active .stepper-label {
-      color: var(--foreground);
-    }
-
     .checkbox-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 0.75rem;
+      align-items: stretch;
     }
 
     @media (min-width: 640px) {
@@ -97,6 +26,8 @@
 
     .checkbox-item {
       position: relative;
+      height: 100%;
+      display: flex;
     }
 
     .checkbox-item input[type="checkbox"] {
@@ -115,6 +46,8 @@
       cursor: pointer;
       transition: all var(--transition-base);
       background-color: var(--background);
+      height: 100%;
+      width: 100%;
     }
 
     .checkbox-item input[type="checkbox"]:checked + label {
@@ -480,8 +413,14 @@
       // Save court preferences
       saveOnboardingData({ courts: selectedCourts });
 
-      // Navigate to welcome page
-      window.location.href = '../welcome.html';
+      // Show loading state on button
+      const continueBtn = document.getElementById('continue-btn');
+      showLoading(continueBtn, 'Loading...');
+
+      // Wait a bit for loading animation
+      setTimeout(() => {
+        window.location.href = '../setup-complete.html';
+      }, 800);
     });
   </script>
 </body>

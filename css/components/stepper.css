@@ -1,0 +1,105 @@
+/**
+ * JADE Stepper Component
+ * Multi-step form progress indicator
+ */
+
+/* ===== Stepper Container ===== */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+/* ===== Stepper Item ===== */
+.stepper-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  max-width: 200px;
+}
+
+/* Connecting line between steps */
+.stepper-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: calc(50% + 20px);
+  width: calc(100% - 40px);
+  height: 3px;
+  background-color: var(--border);
+  z-index: -1;
+  transition: background-color var(--transition-base);
+}
+
+.stepper-item.completed:not(:last-child)::after {
+  background-color: var(--primary);
+}
+
+/* ===== Stepper Circle ===== */
+.stepper-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  border: 2px solid var(--border);
+  color: var(--muted-foreground);
+  font-weight: var(--font-semibold);
+  font-size: 1rem;
+  transition: all var(--transition-base);
+  margin-bottom: 0.5rem;
+}
+
+/* Completed state */
+.stepper-item.completed .stepper-circle {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+/* Active state */
+.stepper-item.active .stepper-circle {
+  border-color: var(--primary);
+  border-width: 3px;
+  color: var(--primary);
+}
+
+/* ===== Stepper Label ===== */
+.stepper-label {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  font-weight: var(--font-medium);
+  transition: color var(--transition-base);
+}
+
+.stepper-item.completed .stepper-label,
+.stepper-item.active .stepper-label {
+  color: var(--foreground);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .stepper {
+    margin: 1.5rem 0;
+  }
+
+  .stepper-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.875rem;
+  }
+
+  .stepper-item:not(:last-child)::after {
+    top: 16px;
+  }
+
+  .stepper-label {
+    font-size: 0.75rem;
+  }
+}

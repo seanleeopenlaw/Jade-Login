@@ -153,12 +153,11 @@ function showToast(message, type = 'success', duration = 2000) {
  * @returns {boolean} True if user should see onboarding flow
  */
 function shouldShowOnboarding(email) {
-  // Feature gate: Only show onboarding for test email
-  if (email !== 'new@email.com') return false;
+  // For prototype: new@email.com always goes through onboarding flow
+  if (email === 'new@email.com') return true;
 
-  // Check if user has already completed onboarding
-  const setupComplete = localStorage.getItem('profileSetupComplete');
-  return setupComplete !== 'true';
+  // All other users skip onboarding
+  return false;
 }
 
 /**

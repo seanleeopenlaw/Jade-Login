@@ -131,9 +131,23 @@
     </main>
   </div>
 
+  <script src="js/utils.js"></script>
+
   <script>
     'use strict';
     // PRO version - no banner, all content accessible
+
+    // Check for toast message from session
+    const toastData = getSession('showToast');
+    if (toastData) {
+      // Show toast after a short delay to ensure page is loaded
+      setTimeout(() => {
+        showToast(toastData.message, toastData.type || 'success', 3000);
+      }, 300);
+
+      // Clear the session data
+      clearSession('showToast');
+    }
   </script>
 </body>
 </html>

@@ -9,37 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/jade.css">
-
-  <style>
-    .spinner {
-      border: 3px solid var(--muted);
-      border-top: 3px solid var(--primary);
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .error-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto;
-      color: var(--error);
-    }
-
-    .success-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto;
-      color: var(--primary);
-    }
-  </style>
 </head>
 <body class="jade-theme">
   <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -50,7 +19,7 @@
       <!-- Loading State -->
       <div id="loading-state" class="fade-in">
         <div class="spinner mb-6"></div>
-        <h1 class="text-2xl font-bold mb-3" style="font-family: var(--font-serif);">
+        <h1 class="text-2xl font-bold mb-3 font-serif">
           Verifying your sign-in link...
         </h1>
         <p class="jade-text-muted">Please wait a moment</p>
@@ -58,13 +27,13 @@
 
       <!-- Success State -->
       <div id="success-state" style="display: none;" class="fade-in">
-        <div class="success-icon mb-6">
+        <div class="success-icon status-icon mb-6">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
             <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h1 class="text-2xl font-bold mb-3" style="font-family: var(--font-serif); color: var(--primary);">
+        <h1 class="text-2xl font-bold mb-3 font-serif jade-text-primary">
           Sign-in successful!
         </h1>
         <p class="jade-text-muted mb-4">Redirecting you to JADE...</p>
@@ -72,13 +41,13 @@
 
       <!-- Error State -->
       <div id="error-state" style="display: none;" class="fade-in">
-        <div class="error-icon mb-6">
+        <div class="error-icon status-icon mb-6">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
             <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <h1 class="text-2xl font-bold mb-3" style="font-family: var(--font-serif);">
+        <h1 class="text-2xl font-bold mb-3 font-serif">
           Unable to verify sign-in link
         </h1>
         <p class="jade-text-muted mb-6" id="error-message">
@@ -93,8 +62,9 @@
   </main>
 
   <script src="../js/utils.js"></script>
+  <script src="../js/loading-states.js"></script>
   <script src="../js/magic-link.js"></script>
-  
+
   <script>
     'use strict';
 
@@ -103,26 +73,18 @@
     const token = urlParams.get('token');
     const email = urlParams.get('email');
 
-    const loadingState = document.getElementById('loading-state');
-    const successState = document.getElementById('success-state');
-    const errorState = document.getElementById('error-state');
     const errorMessage = document.getElementById('error-message');
 
     function showError(message) {
-      loadingState.style.display = 'none';
+      document.getElementById('loading-state').style.display = 'none';
       errorMessage.textContent = message;
-      errorState.style.display = 'block';
-    }
-
-    function showSuccess() {
-      loadingState.style.display = 'none';
-      successState.style.display = 'block';
+      document.getElementById('error-state').style.display = 'block';
     }
 
     // Verify token
     async function verifyAndLogin() {
       // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await delay(1500);
 
       if (!token || !email) {
         showError('Invalid sign-in link. Please request a new one.');
@@ -150,15 +112,21 @@
         localStorage.setItem('hasLoggedInBefore', 'true');
       }
 
-      showSuccess();
+      // Show success state with animation
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('success-state').style.display = 'block';
+
+      // Animate success icon
+      await delay(100);
+      const successIcon = document.querySelector('.success-icon');
+      if (successIcon) successIcon.classList.add('show');
 
       // Redirect after short delay
-      setTimeout(() => {
-        const redirectUrl = shouldShowOnboarding(result.email)
-          ? '../setup/index.html'
-          : '../2-plan-selection.html';
-        window.location.href = redirectUrl;
-      }, 1500);
+      await delay(1500);
+      const redirectUrl = shouldShowOnboarding(result.email)
+        ? '../setup/index.html'
+        : '../2-plan-selection.html';
+      window.location.href = redirectUrl;
     }
 
     // Start verification

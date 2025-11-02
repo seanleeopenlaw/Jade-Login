@@ -153,15 +153,29 @@
   </div>
 
   <script src="js/utils.js"></script>
-  
+
   <script>
     'use strict';
 
-    // Check for reminder parameter
+    // Check for toast message from session
+    const toastData = getSession('showToast');
+    if (toastData) {
+      // Show toast after a short delay to ensure page is loaded
+      setTimeout(() => {
+        showToast(toastData.message, toastData.type || 'success', 3000);
+      }, 300);
+
+      // Clear the session data
+      clearSession('showToast');
+    }
+
+    // Legacy: Check for reminder parameter (for backwards compatibility)
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('reminder') === 'set') {
       // Show success toast
-      showToast("Perfect! We'll remind you about this offer in 7 days.", 'success', 2000);
+      setTimeout(() => {
+        showToast("Perfect! We'll remind you about this offer in 7 days.", 'success', 3000);
+      }, 300);
 
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname);

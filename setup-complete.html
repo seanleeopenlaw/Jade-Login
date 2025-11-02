@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setting Up Your Workspace - JADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/jade.css">
+</head>
+<body class="jade-theme">
+  <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="max-w-md w-full text-center">
+      <!-- Logo -->
+      <img src="jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto mb-8" />
+
+      <!-- Loading State -->
+      <div id="loading-state" class="fade-in">
+        <div class="spinner mb-6"></div>
+        <h1 class="text-2xl font-bold mb-3 loading-text font-serif" id="loading-title">
+          Setting up your workspace...
+        </h1>
+        <p class="jade-text-muted loading-text" id="loading-subtitle">
+          Just a moment while we prepare everything for you
+        </p>
+      </div>
+
+      <!-- Success State (hidden initially) -->
+      <div id="success-state" style="display: none;">
+        <div class="status-icon success-icon mb-6">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h1 class="text-2xl font-bold mb-3 success-text font-serif jade-text-primary">
+          All set!
+        </h1>
+        <p class="jade-text-muted success-text">Redirecting to your dashboard...</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/utils.js"></script>
+  <script src="js/loading-states.js"></script>
+
+  <script>
+    'use strict';
+
+    // Check authentication
+    const isAuthenticated = getSession('isAuthenticated');
+    const userEmail = getSession('userEmail');
+
+    if (!isAuthenticated || !userEmail) {
+      window.location.href = '1-gated-landing.html';
+    }
+
+    async function completeSetup() {
+      // Use shared loading state transition
+      await transitionToSuccess({
+        loadingDuration: 1500,
+        successDelay: 1000
+      });
+
+      // Mark onboarding as complete
+      markOnboardingComplete();
+
+      // Clear onboarding session data
+      clearOnboardingData();
+
+      // Redirect to app
+      window.location.href = '4-main-app-free.html';
+    }
+
+    // Start the setup completion process
+    completeSetup();
+  </script>
+</body>
+</html>
