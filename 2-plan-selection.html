@@ -396,13 +396,7 @@
       // Store preference to not show subscription page
       localStorage.setItem('hideSubscriptionOffer', 'true');
 
-      // Store toast message to show after app loads
-      setSession('showToast', {
-        message: 'You won\'t see this offer again',
-        type: 'success'
-      });
-
-      // Go to free app
+      // Go to free app (no toast - banner will still be shown)
       window.location.href = 'app-loading.html?target=free';
     });
 
