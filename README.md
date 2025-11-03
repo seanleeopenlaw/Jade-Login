@@ -51,7 +51,6 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 #### Core
 - **`jade.css`** - Main entry point (imports all components)
 - **`design-tokens.css`** - CSS variables and design system
-- **`common.css`** - Legacy file (kept for compatibility)
 
 #### Components (`css/components/`)
 - **`badges.css`** - User badges (FREE/PRO), promotional badges
