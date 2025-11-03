@@ -1,0 +1,116 @@
+/**
+ * JADE Checkbox Grid Component
+ * Custom styled checkbox grid for multi-select options
+ */
+
+/* Checkbox Grid Layout */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+@media (min-width: 640px) {
+  .checkbox-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Checkbox Item Wrapper */
+.checkbox-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+}
+
+/* Hide Native Checkbox Input */
+.checkbox-item input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Styled Checkbox Label */
+.checkbox-item label {
+  display: flex;
+  align-items: center;
+  padding: 0.625rem 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  background-color: var(--background);
+  height: 100%;
+  width: 100%;
+}
+
+/* Checked State */
+.checkbox-item input[type="checkbox"]:checked + label {
+  border-color: var(--primary);
+  background-color: var(--accent);
+}
+
+/* Hover State */
+.checkbox-item label:hover {
+  border-color: var(--primary);
+}
+
+/* Custom Checkbox Box */
+.checkbox-item label::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  margin-right: 0.625rem;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+}
+
+/* Checked Checkbox with Checkmark */
+.checkbox-item input[type="checkbox"]:checked + label::before {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Court Name and Abbreviation Styling */
+.court-name {
+  font-weight: var(--font-medium);
+  font-size: 0.875rem;
+  line-height: 1.3;
+}
+
+.court-abbr {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin-left: 0.25rem;
+  font-weight: var(--font-normal);
+}
+
+/* Quick Actions (Select All / Deselect All) */
+.quick-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.quick-action-btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: var(--font-medium);
+  transition: all var(--transition-base);
+  color: var(--foreground);
+}
+
+.quick-action-btn:hover {
+  background-color: var(--muted);
+}

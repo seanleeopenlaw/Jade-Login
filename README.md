@@ -56,11 +56,14 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 - **`badges.css`** - User badges (FREE/PRO), promotional badges
 - **`buttons.css`** - Primary, secondary, toggle buttons
 - **`cards.css`** - Card components and plan cards
+- **`checkbox-grid.css`** - ✨ Multi-select checkbox grid layout
+- **`confetti.css`** - ✨ Success celebration confetti animation
 - **`forms.css`** - Input fields, checkboxes, form elements
 - **`layout.css`** - Main container, sidebar, content area
 - **`loading.css`** - Loading spinners, status icons, animations
 - **`messages.css`** - Error and success messages
 - **`navigation.css`** - Header, nav links, search bar
+- **`radio-buttons.css`** - ✨ Custom styled radio button groups
 - **`results.css`** - Search results display
 - **`stepper.css`** - Onboarding progress stepper
 - **`toast.css`** - Toast notifications
