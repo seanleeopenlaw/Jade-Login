@@ -80,44 +80,6 @@ async function transitionToError(options = {}) {
 }
 
 /**
- * Show loading state on button
- * Enhanced version with spinner support
- * @param {HTMLElement} button - Button element
- * @param {string} text - Loading text (default: 'Loading...')
- * @param {boolean} showSpinner - Show spinner icon (default: false)
- */
-function showButtonLoading(button, text = 'Loading...', showSpinner = false) {
-  if (!button.dataset.originalContent) {
-    button.dataset.originalContent = button.innerHTML;
-  }
-
-  if (showSpinner) {
-    button.innerHTML = `<span class="spinner spinner-sm" style="display: inline-block; margin-right: 0.5rem;"></span>${text}`;
-  } else {
-    button.textContent = text;
-  }
-
-  button.disabled = true;
-  button.style.opacity = '0.7';
-  button.style.cursor = 'not-allowed';
-}
-
-/**
- * Hide loading state on button
- * @param {HTMLElement} button - Button element
- */
-function hideButtonLoading(button) {
-  if (button.dataset.originalContent) {
-    button.innerHTML = button.dataset.originalContent;
-    delete button.dataset.originalContent;
-  }
-
-  button.disabled = false;
-  button.style.opacity = '';
-  button.style.cursor = '';
-}
-
-/**
  * Utility: Promise-based delay
  * @param {number} ms - Milliseconds to delay
  * @returns {Promise}
@@ -131,8 +93,6 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     transitionToSuccess,
     transitionToError,
-    showButtonLoading,
-    hideButtonLoading,
     delay
   };
 }

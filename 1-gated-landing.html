@@ -20,6 +20,9 @@
         <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
           Sign in to JADE
         </h1>
+        <p class="text-sm jade-text-muted max-w-md mx-auto">
+          Passwordless access for all <span class="font-semibold">FREE & PRO</span> users
+        </p>
       </div>
 
       <!-- Sign In Card -->
@@ -68,6 +71,7 @@
   </main>
 
   <script src="js/utils.js"></script>
+  <script src="js/form-validation.js"></script>
   <script src="js/sso-config.js"></script>
   <script src="js/magic-link.js"></script>
   <script>
@@ -77,40 +81,9 @@
     const emailForm = document.getElementById('email-form');
     const continueBtn = document.getElementById('continue-btn');
 
-    // Input validation
-    function validateEmail() {
-      const email = emailInput.value.trim();
-      const errorEl = document.getElementById('email-error');
-
-      if (!email) {
-        emailInput.classList.add('error');
-        errorEl.textContent = 'Please enter your email address';
-        errorEl.style.display = 'block';
-        return false;
-      }
-
-      if (!isValidEmail(email)) {
-        emailInput.classList.add('error');
-        errorEl.textContent = 'Please enter a valid email address';
-        errorEl.style.display = 'block';
-        return false;
-      }
-
-      emailInput.classList.remove('error');
-      errorEl.style.display = 'none';
-      return true;
-    }
-
-    // Real-time validation
-    emailInput.addEventListener('blur', validateEmail);
-
-    // Clear error on input
-    emailInput.addEventListener('input', () => {
-      if (emailInput.classList.contains('error')) {
-        emailInput.classList.remove('error');
-        document.getElementById('email-error').style.display = 'none';
-      }
-      hideError();
+    // Setup real-time email validation
+    setupEmailValidation(emailInput, {
+      errorSelector: '#email-error'
     });
 
     // Form submission - check for SSO or send magic link
@@ -118,7 +91,7 @@
       e.preventDefault();
       hideError();
 
-      if (!validateEmail()) {
+      if (!validateEmailField(emailInput, { errorSelector: '#email-error' })) {
         return;
       }
 

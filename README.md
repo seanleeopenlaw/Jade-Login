@@ -11,10 +11,11 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 **Key Features:**
 - Passwordless authentication (magic link + SSO)
 - Complete onboarding flow with profile setup
-- Streamlined plan selection
+- Streamlined plan selection with Enterprise contact flow
 - Professional design with modular CSS architecture
 - Mobile-responsive and accessible
 - Shared component architecture (reduced ~455+ lines of duplication)
+- Comprehensive code review completed with refactoring plan
 
 ---
 
@@ -68,10 +69,13 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 - **`utilities.css`** - Utility classes, accessibility helpers
 
 ### JavaScript (`js/`)
-- **`utils.js`** - Shared utilities and session management
+- **`utils.js`** - Core utilities (errors, loading, session, toasts)
+- **`components.js`** - ✨ Reusable HTML component factories
+- **`form-validation.js`** - ✨ Form validation utilities
+- **`session-manager.js`** - ✨ Type-safe session management
 - **`sso-config.js`** - SSO provider configuration
 - **`magic-link.js`** - Magic link token generation and validation
-- **`loading-states.js`** - Shared loading transition utilities
+- **`loading-states.js`** - Page transition utilities
 
 ---
 
@@ -143,24 +147,73 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 
 ## 🎨 Design System
 
-### CSS Architecture
+### CSS Component Usage
 
-**Modular Component System:**
-- Tree-shakeable imports
-- BEM-inspired naming
-- `.jade-` namespace to prevent conflicts
-- Fully themeable via CSS variables
-
-**Usage:**
+**Quick Start:**
 ```html
-<!-- Import everything -->
+<!-- Import everything (recommended) -->
 <link rel="stylesheet" href="css/jade.css">
 <body class="jade-theme">
+  <!-- All components available -->
+</body>
+```
 
-<!-- Or import specific components -->
-<link rel="stylesheet" href="css/design-tokens.css">
-<link rel="stylesheet" href="css/components/buttons.css">
-<link rel="stylesheet" href="css/components/forms.css">
+**Common Components:**
+
+```html
+<!-- Buttons -->
+<button class="btn-primary">Primary Action</button>
+<button class="btn-secondary">Secondary Action</button>
+
+<!-- Cards -->
+<div class="card p-6">
+  <!-- Card content -->
+</div>
+
+<!-- Forms -->
+<input type="text" class="input-field" placeholder="Enter text">
+<input type="email" class="input-field" placeholder="your@email.com">
+
+<!-- Error Messages -->
+<div class="error-message">
+  <svg><!-- icon --></svg>
+  <span class="error-text">Error message here</span>
+</div>
+
+<!-- Loading States -->
+<div class="spinner"></div>
+<div class="spinner spinner-sm"></div>
+
+<!-- Badges -->
+<span class="badge-free">FREE</span>
+<span class="badge-pro">PRO</span>
+
+<!-- Toast (JavaScript) -->
+<script>
+  showToast('Success message', 'success', 3000);
+  showToast('Error message', 'error', 3000);
+</script>
+```
+
+**Page Layout:**
+```html
+<body class="jade-theme">
+  <main class="flex-1 flex items-center justify-center px-4 py-12">
+    <div class="max-w-md w-full">
+      <!-- Logo + Title -->
+      <div class="text-center mb-8">
+        <img src="jade_logo.svg" class="h-10 mx-auto mb-8" />
+        <h1 class="text-3xl font-bold mb-3 font-serif">Page Title</h1>
+        <p class="text-sm jade-text-muted">Subtitle text</p>
+      </div>
+
+      <!-- Form Card -->
+      <div class="card p-6 sm:p-8">
+        <!-- Form content -->
+      </div>
+    </div>
+  </main>
+</body>
 ```
 
 ### Color Palette
@@ -359,6 +412,287 @@ open 1-gated-landing.html
 
 ---
 
+## 🛠️ How to Build User Flows
+
+### Creating a New Auth Page
+
+**1. Copy Template Structure:**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Title - JADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/jade.css">
+</head>
+<body class="jade-theme">
+  <main class="flex-1 flex items-center justify-center px-4 py-12">
+    <div class="max-w-md w-full">
+      <!-- Page Header -->
+      <div class="text-center mb-8">
+        <img src="../jade_logo.svg" alt="JADE" class="h-10 mx-auto mb-8" />
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3 font-serif">Your Title</h1>
+        <p class="text-base jade-text-muted">Your subtitle</p>
+      </div>
+
+      <!-- Form Card -->
+      <div class="card p-6 sm:p-8">
+        <!-- Your content here -->
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/utils.js"></script>
+  <!-- Your page-specific JavaScript -->
+</body>
+</html>
+```
+
+**2. Add Form with Validation:**
+```html
+<form id="your-form" class="space-y-5">
+  <div>
+    <label for="email" class="block text-sm font-medium mb-2">Email</label>
+    <input
+      type="email"
+      id="email"
+      class="input-field"
+      placeholder="your@email.com"
+      required
+    />
+    <div id="email-error" style="display: none; color: var(--error); font-size: 0.875rem; margin-top: 0.5rem;"></div>
+  </div>
+
+  <button type="submit" class="btn-primary" id="submit-btn">
+    Continue
+  </button>
+</form>
+
+<script>
+  const form = document.getElementById('your-form');
+  const emailInput = document.getElementById('email');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+
+    if (!isValidEmail(email)) {
+      showError('Please enter a valid email');
+      return;
+    }
+
+    // Show loading state
+    showLoading(submitBtn, 'Processing...');
+
+    // Your logic here
+    await simulateDelay(1000);
+
+    // Store in session
+    setSession('userEmail', email);
+
+    // Redirect
+    window.location.href = 'next-page.html';
+  });
+</script>
+```
+
+**3. Add Loading States:**
+```javascript
+// Show loading (basic)
+showLoading(button, 'Loading...');
+
+// Show loading with spinner
+showLoading(button, 'Sending...', { showSpinner: true });
+
+// Hide loading
+hideLoading(button);
+
+// Show error
+showError('Error message here');
+
+// Hide error
+hideError();
+
+// Show toast
+showToast('Success!', 'success', 3000);
+
+// Delay helper
+await delay(1000); // Wait 1 second
+```
+
+**4. Session Management:**
+
+*Option A: Using SessionManager (Recommended - Type-safe)*
+```javascript
+// Import SessionManager
+// <script src="../js/session-manager.js"></script>
+
+// Store data (type-safe, no typos)
+SessionManager.setUserEmail('user@example.com');
+SessionManager.setNewUser(true);
+SessionManager.setAuthenticated(true);
+
+// Retrieve data
+const email = SessionManager.getUserEmail();
+const isNew = SessionManager.isNewUser();
+
+// Check authentication
+if (!SessionManager.isAuthenticated()) {
+  window.location.href = '../1-gated-landing.html';
+}
+
+// Clear data
+SessionManager.clearAuth();      // Clear auth data only
+SessionManager.clearOnboarding(); // Clear onboarding only
+SessionManager.clearAll();        // Clear everything
+
+// Debug
+SessionManager.debugPrint();      // Log all session data
+```
+
+*Option B: Using raw session functions*
+```javascript
+// Store data (prone to typos)
+setSession('userEmail', 'user@example.com');
+setSession('isNewUser', true);
+
+// Retrieve data
+const email = getSession('userEmail');
+const isNew = getSession('isNewUser');
+```
+
+### Implementing User Flow Logic
+
+**Check if User is New:**
+```javascript
+// In auth/verify.html (after successful login)
+const previousLogin = localStorage.getItem('hasLoggedInBefore');
+if (!previousLogin) {
+  setSession('isNewUser', true);
+  localStorage.setItem('hasLoggedInBefore', 'true');
+}
+```
+
+**Route Based on User State:**
+```javascript
+// Helper function (add to js/utils.js if needed)
+function getPostAuthRedirect(email) {
+  const isNewUser = getSession('isNewUser');
+  const onboardingComplete = getSession('onboardingComplete');
+
+  if (isNewUser && !onboardingComplete) {
+    return 'setup/index.html';  // First-time setup
+  }
+
+  return '2-plan-selection.html';  // Direct to plan selection
+}
+
+// Use in your auth pages
+window.location.href = getPostAuthRedirect(email);
+```
+
+**Detect SSO Availability:**
+```javascript
+// Get auth methods from sso-config.js
+const authMethods = getAuthMethods(email);
+
+if (authMethods.hasSSO) {
+  // Show SSO options
+  window.location.href = 'auth/step2-method.html';
+} else {
+  // Send magic link directly
+  const result = createMagicLinkToken(email);
+  await sendMagicLinkEmail(email, result.magicLink);
+  window.location.href = 'auth/magic-link-sent.html';
+}
+```
+
+### Using Reusable Components
+
+**Import the modules:**
+```html
+<script src="../js/utils.js"></script>
+<script src="../js/components.js"></script>
+<script src="../js/form-validation.js"></script>
+<script src="../js/session-manager.js"></script>
+```
+
+**Create components programmatically:**
+```javascript
+// Create error message container
+const errorMessage = createErrorMessage('error-message');
+document.querySelector('.card').prepend(errorMessage);
+
+// Create page header
+const header = createPageHeader({
+  title: 'Sign In',
+  subtitle: 'Enter your email to continue',
+  logoSrc: '../jade_logo.svg'
+});
+document.querySelector('main > div').prepend(header);
+
+// Create input field with error handling
+const emailField = createInputField({
+  id: 'email',
+  type: 'email',
+  label: 'Email address',
+  placeholder: 'your@email.com',
+  required: true,
+  autocomplete: 'email'
+});
+form.appendChild(emailField);
+
+// Create submit button
+const submitBtn = createButton({
+  id: 'submit-btn',
+  text: 'Continue',
+  type: 'primary'
+});
+form.appendChild(submitBtn);
+```
+
+**Use form validation:**
+```javascript
+// Simple validation
+const emailInput = document.getElementById('email');
+const isValid = validateEmailField(emailInput);
+
+// With custom messages
+const isValid = validateEmailField(emailInput, {
+  errorSelector: '#email-error',
+  emptyMessage: 'Email is required',
+  invalidMessage: 'Invalid email format'
+});
+
+// Setup real-time validation
+setupEmailValidation(emailInput, {
+  errorSelector: '#email-error',
+  checkDomain: true
+});
+
+// Validate other fields
+validateNameField(firstNameInput, {
+  errorSelector: '#firstName-error',
+  fieldName: 'First name'
+});
+
+validatePhoneField(mobileInput, {
+  errorSelector: '#mobile-error'
+});
+
+// Clear all errors
+clearFormErrors(form);
+```
+
+---
+
 ## 🚧 Production Checklist
 
 ### Phase 1: Backend Integration
@@ -390,75 +724,36 @@ open 1-gated-landing.html
 
 ---
 
-## 📝 Changelog
+## 📝 Recent Updates
 
-### Version 4.1 (November 3, 2025) - Demo Flow Optimization
-- 🔧 **BREAKING:** Bypassed `setup-complete.html` transition for streamlined demo flow
-  - Setup pages now redirect directly to `2-plan-selection.html`
-  - Eliminates double transition (setup-complete + app-loading)
-  - Improves demo momentum by reducing intermediate steps
-- 🔧 **Demo optimization:** Removed all data restoration logic
-  - `setup/index.html` - No longer restores firstName, lastName, mobile, wantsAlerts
-  - `setup/alerts.html` - No longer restores court selections
-  - Each demo walkthrough starts from clean state
-- 🐛 Fixed radio button default state issue
-  - "Yes, set up alerts" now always default (removed session restoration override)
-- 🗑️ Removed misleading toast message
-  - "You won't see this offer again" removed (banner still shows)
-  - Kept accurate toast for "Remind me in 7 days"
-- 📝 Updated README with current flow architecture
-  - Added "Demo/Prototype Characteristics" section
-  - Updated all user journey diagrams (removed setup-complete step)
-  - Clarified that setup-complete.html is now legacy/bypassed
+### Version 4.2 (November 3, 2025)
+- Enhanced plan selection UX with circular check icons
+- Added Enterprise contact flow with "Talk to Sales Team" button
+- Fixed price formatting ($696.50 consistency)
+- Improved sign-in page subtitle
+- ✨ **New:** Created reusable component modules
+  - `js/components.js` - HTML component factories (6 functions)
+  - `js/form-validation.js` - Form validation utilities (6 validators)
+  - `js/session-manager.js` - Type-safe session management (30+ methods)
+- 🔧 **Refactoring:** Consolidated button loading functions
+  - Merged duplicate implementations (utils.js + loading-states.js)
+  - Added spinner support to `showLoading()`
+  - Enhanced with opacity and loading state classes
+- ✅ **Migration Complete:**
+  - `1-gated-landing.html` - Now uses `form-validation.js` (35 lines → 3 lines)
+  - `auth/step1-email.html` - Now uses `form-validation.js` (43 lines → 5 lines)
+  - Total code reduction: ~70 lines of duplicate validation logic removed
 
-### Version 4.0 (November 3, 2025)
-- ✨ **NEW:** Complete onboarding/setup flow for first-time users
-  - Personal details page (setup/index.html)
-  - Alert preferences page (setup/alerts.html)
-  - Setup completion with loading animation (setup-complete.html)
-- ✨ **NEW:** Universal app loading transition (app-loading.html)
-- ✨ Extracted shared CSS components:
-  - loading.css (138 lines) - Loading spinners, status icons, animations
-  - stepper.css (100 lines) - Onboarding progress stepper
-- ✨ Extracted shared JavaScript utilities:
-  - loading-states.js (130 lines) - Transition utilities
-- ✨ Improved gated landing page UX:
-  - Removed redundant subtext messages
-  - Simplified to single inline hint
-  - Fixed duplicate error messages
-- ✨ Enhanced radio button UI with animated green checkmark
-- ✨ Implemented toast notification system via sessionStorage
-- ✨ Added mobile number field for account recovery
-- 🔧 Refactored ~455+ lines of duplicated code
-- 🔧 Updated README with 3 clear user flows
-- 📝 Updated personal details helper text
+### Version 4.1 (November 3, 2025)
+- Streamlined demo flow (bypassed setup-complete.html)
+- Removed data restoration for clean demo state
+- Optimized user journey transitions
 
-### Version 3.0 (October 31, 2025)
-- ✨ Refactored CSS into modular component architecture
-- ✨ Split common.css (916 lines) into 10 component files
-- ✨ Added centralized design tokens system
-- ✨ Implemented comprehensive responsive design
-- ✨ Added dark mode support (manual toggle)
-- ✨ Removed "Welcome to JADE" text from plan selection
-- ✨ Fixed button icon alignment
-- ✨ Unified background colors across all pages
-- 🔧 Renamed files for consistent numbering (removed gaps)
-- 🗑️ Removed unused skip-to-content links
-- 📝 Complete README rewrite
-
-### Version 2.0 (October 30, 2025)
-- ✨ Implemented passwordless authentication
-- ✨ Added SSO support (Google/Microsoft)
-- ✨ Created magic link flow
-- ✨ Built auth flow pages
-- 🗑️ Removed password-based registration
-- 🗑️ Removed forgot-password flow
-- 🗑️ Removed offer page (2-offer-page.html)
-
-### Version 1.0 (October 30, 2025)
-- 🎯 Initial 3-page flow
-- 🎨 JADE green branding
-- 📝 Basic documentation
+### Previous Versions
+- v4.0: Complete onboarding/setup flow
+- v3.0: Modular CSS architecture
+- v2.0: Passwordless authentication
+- v1.0: Initial flow
 
 ---
 
@@ -471,4 +766,4 @@ Built with Claude Code for production-ready CSS architecture.
 **Designed for conversion. Built for scale. Optimized for developers.**
 
 *Last Updated: November 3, 2025*
-*Version: 4.1 (Demo Flow Optimization - Streamlined Transitions + Clean State)*
+*Version: 4.2 (UX Polish & Code Quality Review)*

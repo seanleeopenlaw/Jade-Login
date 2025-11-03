@@ -123,10 +123,8 @@
 
       // Redirect after short delay
       await delay(1500);
-      const redirectUrl = shouldShowOnboarding(result.email)
-        ? '../setup/index.html'
-        : '../2-plan-selection.html';
-      window.location.href = redirectUrl;
+      const redirectUrl = getPostAuthRedirect(result.email);
+      window.location.href = '../' + redirectUrl;
     }
 
     // Start verification

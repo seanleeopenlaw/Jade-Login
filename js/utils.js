@@ -31,24 +31,57 @@ function hideError(containerId = 'error-message') {
 
 /**
  * Show loading state on button
+ * Enhanced version with spinner support
+ * @param {HTMLElement} button - Button element
+ * @param {string} text - Loading text (default: 'Loading...')
+ * @param {Object} options - Additional options
+ * @param {boolean} options.showSpinner - Show spinner icon (default: false)
  */
-function showLoading(button, text = 'Loading...') {
-  if (!button.dataset.originalText) {
-    button.dataset.originalText = button.textContent;
+function showLoading(button, text = 'Loading...', options = {}) {
+  const { showSpinner = false } = options;
+
+  // Store original content
+  if (!button.dataset.originalContent) {
+    button.dataset.originalContent = button.innerHTML;
   }
-  button.textContent = text;
+
+  // Update button content
+  if (showSpinner) {
+    button.innerHTML = `<span class="spinner spinner-sm" style="display: inline-block; margin-right: 0.5rem;"></span>${text}`;
+  } else {
+    button.textContent = text;
+  }
+
+  // Disable button with visual feedback
   button.disabled = true;
+  button.classList.add('loading');
+  button.style.opacity = '0.7';
+  button.style.cursor = 'not-allowed';
 }
 
 /**
  * Hide loading state on button
+ * @param {HTMLElement} button - Button element
  */
 function hideLoading(button) {
-  if (button.dataset.originalText) {
-    button.textContent = button.dataset.originalText;
-    delete button.dataset.originalText;
+  if (button.dataset.originalContent) {
+    button.innerHTML = button.dataset.originalContent;
+    delete button.dataset.originalContent;
   }
+
   button.disabled = false;
+  button.classList.remove('loading');
+  button.style.opacity = '';
+  button.style.cursor = '';
+}
+
+/**
+ * Utility: Promise-based delay
+ * @param {number} ms - Milliseconds to delay
+ * @returns {Promise}
+ */
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**
@@ -206,13 +239,30 @@ function clearOnboardingData() {
 }
 
 /**
+ * Check if email belongs to enterprise organization with auto Pro access
+ * @param {string} email - User's email address
+ * @returns {boolean} True if enterprise email
+ */
+function isEnterpriseEmail(email) {
+  const domain = email.toLowerCase().split('@')[1];
+  const enterpriseDomains = ['organisation.com'];
+  return enterpriseDomains.includes(domain);
+}
+
+/**
  * Determine post-auth redirect URL based on user state
  * @param {string} email - User's email address
  * @returns {string} Redirect URL path
  */
 function getPostAuthRedirect(email) {
+  // Enterprise users go directly to Pro app
+  if (isEnterpriseEmail(email)) {
+    return 'app-loading.html?target=pro';
+  }
+
   if (shouldShowOnboarding(email)) {
     return 'setup/index.html';
   }
+
   return '2-plan-selection.html';
 }

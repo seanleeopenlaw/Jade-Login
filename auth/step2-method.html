@@ -21,7 +21,7 @@
         </h1>
         <p class="text-base jade-text-muted mb-2" id="sso-message">This email is managed by your organization.</p>
         <p class="text-base font-semibold text-foreground mb-2" id="user-email-display"></p>
-        <a href="../1-gated-landing.html" class="text-sm link-primary">Change email</a>
+        <a href="../1-gated-landing.html" class="text-sm link-primary">Use Different Email</a>
       </div>
 
       <div class="card p-6 sm:p-8">
@@ -114,10 +114,8 @@
         setSession('authMethod', 'google');
         setSession('isNewUser', true);
 
-        const redirectUrl = shouldShowOnboarding(email)
-          ? '../setup/index.html'
-          : '../2-plan-selection.html';
-        window.location.href = redirectUrl;
+        const redirectUrl = getPostAuthRedirect(email);
+        window.location.href = '../' + redirectUrl;
       }, 1000);
     });
 
@@ -132,10 +130,8 @@
         setSession('authMethod', 'microsoft');
         setSession('isNewUser', true);
 
-        const redirectUrl = shouldShowOnboarding(email)
-          ? '../setup/index.html'
-          : '../2-plan-selection.html';
-        window.location.href = redirectUrl;
+        const redirectUrl = getPostAuthRedirect(email);
+        window.location.href = '../' + redirectUrl;
       }, 1000);
     });
 

@@ -162,6 +162,10 @@
             <li>Advanced security & compliance</li>
             <li>Custom training & onboarding</li>
           </ul>
+
+          <button id="enterprise-contact-btn" class="btn-secondary w-full">
+            Talk to Sales Team
+          </button>
         </div>
       </div>
 
@@ -198,21 +202,7 @@
           Continue to Payment
         </button>
 
-        <!-- Skip Options -->
-        <div class="text-center mt-6 pt-4 border-t jade-border-color">
-          <p class="text-sm jade-text-muted mb-3">Not ready yet?</p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <button id="remind-later-btn" class="text-sm jade-text-primary hover:underline font-medium">
-              Remind me in 7 days
-            </button>
-            <span class="jade-text-muted hidden sm:inline">•</span>
-            <button id="dont-show-btn" class="text-sm jade-text-muted hover:text-foreground hover:underline">
-              Don't show me this again
-            </button>
-          </div>
-        </div>
-
-        <p class="text-xs text-center jade-text-muted mt-4">
+        <p class="text-xs text-center jade-text-muted mt-6">
           Cancel anytime • No long-term commitment<br>
           By subscribing, you agree to our <a href="#" class="jade-text-primary hover:underline">Terms</a> and <a href="#" class="jade-text-primary hover:underline">Privacy Policy</a>.
         </p>
@@ -265,6 +255,10 @@
     let billingPeriod = 'annual';
 
     const PLANS = {
+      free: {
+        monthly: { original: 0, discounted: 0 },
+        annual: { original: 0, discounted: 0 }
+      },
       professional: {
         monthly: { original: 95, discounted: 95 },  // No discount for monthly
         annual: { original: 995, discounted: 696.50 }  // 30% off for annual
@@ -276,13 +270,8 @@
       card.addEventListener('click', () => {
         const plan = card.dataset.plan;
 
+        // Enterprise card doesn't get selected - only button click works
         if (plan === 'enterprise') {
-          window.location.href = 'mailto:sales@jade.com?subject=JADE Enterprise Inquiry';
-          return;
-        }
-
-        if (plan === 'free') {
-          window.location.href = 'app-loading.html?target=free';
           return;
         }
 
@@ -292,6 +281,27 @@
 
         updateSummary();
       });
+    });
+
+    // Enterprise contact button
+    document.getElementById('enterprise-contact-btn').addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent card click
+
+      const btn = document.getElementById('enterprise-contact-btn');
+
+      // Show toast
+      showToast('Our sales team will reach out to you via email', 'success', 3000);
+
+      // Update button state
+      btn.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Contact Requested
+      `;
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+      btn.style.cursor = 'not-allowed';
     });
 
     // Billing period toggle
@@ -317,7 +327,7 @@
       const hasDiscount = billingPeriod === 'annual';
 
       document.getElementById('pro-original').textContent = `$${pricing.original}`;
-      document.getElementById('pro-price').textContent = `$${pricing.discounted}`;
+      document.getElementById('pro-price').textContent = `$${pricing.discounted.toFixed(2)}`;
       document.getElementById('pro-period').textContent = billingPeriod === 'annual' ? '/year' : '/month';
 
       if (hasDiscount) {
@@ -335,69 +345,81 @@
       const discount = pricing.original - pricing.discounted;
       const period = billingPeriod === 'annual' ? 'year' : 'month';
       const periodCap = billingPeriod === 'annual' ? 'Annual' : 'Monthly';
-      const hasDiscount = billingPeriod === 'annual';
+      const hasDiscount = billingPeriod === 'annual' && selectedPlan === 'professional';
 
-      // Update summary header
-      document.getElementById('summary-plan-name').textContent = `JADE Professional ${periodCap}`;
-      document.getElementById('summary-price').textContent = `$${pricing.discounted}`;
-      document.getElementById('summary-period').textContent = `per ${period}`;
+      const subscribeBtn = document.getElementById('subscribe-btn');
+      const breakdownSection = document.querySelector('.space-y-3.mb-6.pb-4.border-b');
+      const totalLabel = document.querySelector('.flex.items-center.justify-between.mb-6 .font-bold.text-base');
 
-      // Update breakdown
-      document.getElementById('breakdown-original').textContent = `$${pricing.original}/${period}`;
-      document.getElementById('total-price').textContent = `$${pricing.discounted}`;
+      if (selectedPlan === 'free') {
+        // Update for Free plan
+        document.getElementById('summary-plan-name').textContent = 'JADE Free';
+        document.getElementById('summary-price').textContent = '$0';
+        document.getElementById('summary-period').textContent = 'forever';
 
-      // Show/hide discount line
-      const discountLabel = document.getElementById('discount-label');
-      const discountAmount = document.getElementById('discount-amount');
+        // Hide breakdown section
+        breakdownSection.style.display = 'none';
 
-      if (hasDiscount) {
-        discountLabel.parentElement.style.display = 'flex';
-        discountLabel.textContent = 'Promotional discount (30%):';
-        discountAmount.textContent = `-$${discount.toFixed(2)}`;
+        // Update total
+        totalLabel.textContent = 'Total:';
+        document.getElementById('total-price').textContent = '$0';
+
+        // Update button
+        subscribeBtn.textContent = 'Continue with Free Version';
       } else {
-        discountLabel.parentElement.style.display = 'none';
+        // Update for Professional plan
+        document.getElementById('summary-plan-name').textContent = `JADE Professional ${periodCap}`;
+        document.getElementById('summary-price').textContent = `$${pricing.discounted.toFixed(2)}`;
+        document.getElementById('summary-period').textContent = `per ${period}`;
+
+        // Show breakdown section
+        breakdownSection.style.display = 'block';
+
+        // Update breakdown
+        document.getElementById('breakdown-original').textContent = `$${pricing.original}/${period}`;
+        document.getElementById('total-price').textContent = `$${pricing.discounted.toFixed(2)}`;
+
+        // Show/hide discount line
+        const discountLabel = document.getElementById('discount-label');
+        const discountAmount = document.getElementById('discount-amount');
+
+        if (hasDiscount) {
+          discountLabel.parentElement.style.display = 'flex';
+          discountLabel.textContent = 'Promotional discount (30%):';
+          discountAmount.textContent = `-$${discount.toFixed(2)}`;
+        } else {
+          discountLabel.parentElement.style.display = 'none';
+        }
+
+        // Update total label
+        totalLabel.textContent = 'Total due today:';
+
+        // Update button
+        subscribeBtn.textContent = 'Continue to Payment';
       }
     }
 
     // Subscribe button
     document.getElementById('subscribe-btn').addEventListener('click', () => {
       const btn = document.getElementById('subscribe-btn');
-      showLoading(btn, 'Processing...');
 
-      // Store subscription details
-      setSession('subscriptionPlan', selectedPlan);
-      setSession('billingPeriod', billingPeriod);
-      setSession('subscriptionPrice', PLANS[selectedPlan][billingPeriod].discounted);
+      if (selectedPlan === 'free') {
+        showLoading(btn, 'Loading...');
+        setTimeout(() => {
+          window.location.href = 'app-loading.html?target=free';
+        }, 800);
+      } else {
+        showLoading(btn, 'Processing...');
 
-      setTimeout(() => {
-        window.location.href = '3-subscription-complete.html';
-      }, 1200);
-    });
+        // Store subscription details
+        setSession('subscriptionPlan', selectedPlan);
+        setSession('billingPeriod', billingPeriod);
+        setSession('subscriptionPrice', PLANS[selectedPlan][billingPeriod].discounted);
 
-    // Remind me later button
-    document.getElementById('remind-later-btn').addEventListener('click', () => {
-      // Store reminder date (7 days from now)
-      const reminderDate = new Date();
-      reminderDate.setDate(reminderDate.getDate() + 7);
-      localStorage.setItem('subscriptionReminderDate', reminderDate.toISOString());
-
-      // Store toast message to show after app loads
-      setSession('showToast', {
-        message: 'Perfect! We\'ll remind you about this offer in 7 days.',
-        type: 'success'
-      });
-
-      // Go to free app
-      window.location.href = 'app-loading.html?target=free';
-    });
-
-    // Don't show again button
-    document.getElementById('dont-show-btn').addEventListener('click', () => {
-      // Store preference to not show subscription page
-      localStorage.setItem('hideSubscriptionOffer', 'true');
-
-      // Go to free app (no toast - banner will still be shown)
-      window.location.href = 'app-loading.html?target=free';
+        setTimeout(() => {
+          window.location.href = '3-subscription-complete.html';
+        }, 1200);
+      }
     });
 
     // Initialize

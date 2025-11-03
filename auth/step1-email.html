@@ -116,8 +116,9 @@
   </footer>
 
   <script src="../js/utils.js"></script>
+  <script src="../js/form-validation.js"></script>
   <script src="../js/sso-config.js"></script>
-  
+
   <script>
     'use strict';
 
@@ -125,47 +126,10 @@
     const emailForm = document.getElementById('email-form');
     const continueBtn = document.getElementById('continue-btn');
 
-    // Input validation
-    function validateEmail() {
-      const email = emailInput.value.trim();
-      const errorEl = document.getElementById('email-error');
-
-      if (!email) {
-        emailInput.classList.add('error');
-        errorEl.textContent = 'Please enter your email address';
-        errorEl.style.display = 'block';
-        return false;
-      }
-
-      if (!isValidEmail(email)) {
-        emailInput.classList.add('error');
-        errorEl.textContent = 'Please enter a valid email address';
-        errorEl.style.display = 'block';
-        return false;
-      }
-
-      if (!isValidDomain(email)) {
-        emailInput.classList.add('error');
-        errorEl.textContent = 'Please use a valid email domain';
-        errorEl.style.display = 'block';
-        return false;
-      }
-
-      emailInput.classList.remove('error');
-      errorEl.style.display = 'none';
-      return true;
-    }
-
-    // Real-time validation
-    emailInput.addEventListener('blur', validateEmail);
-
-    // Clear error on input
-    emailInput.addEventListener('input', () => {
-      if (emailInput.classList.contains('error')) {
-        emailInput.classList.remove('error');
-        document.getElementById('email-error').style.display = 'none';
-      }
-      hideError();
+    // Setup real-time email validation with domain check
+    setupEmailValidation(emailInput, {
+      errorSelector: '#email-error',
+      checkDomain: true
     });
 
     // Form submission
@@ -174,7 +138,7 @@
       hideError();
 
       // Validate email
-      if (!validateEmail()) {
+      if (!validateEmailField(emailInput, { errorSelector: '#email-error', checkDomain: true })) {
         showError('Please enter a valid email address');
         return;
       }
