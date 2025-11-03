@@ -36,7 +36,6 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 #### 3. Onboarding/Setup Flow (`setup/`)
 - **`index.html`** - Personal details (First Name, Last Name, Mobile, Alert preference)
 - **`alerts.html`** - Alert preferences (Court selection)
-- **`setup-complete.html`** - ⚠️ Legacy file (bypassed in current flow - kept for compatibility)
 
 #### 4. Subscription Flow
 - **`2-plan-selection.html`** - Plan selection with Free/Pro/Enterprise options
@@ -295,7 +294,7 @@ Key behaviors for demo purposes:
 - **No data persistence between sessions** - Each page load starts fresh
 - **No data restoration** - Form fields always show defaults (never pre-filled from previous sessions)
 - **SessionStorage cleared on completion** - Onboarding data removed after flow completes
-- **Simplified transitions** - `setup-complete.html` bypassed to reduce friction
+- **Simplified transitions** - Direct routing from setup to plan selection
 - **Mock authentication** - Magic links and SSO are simulated (no backend)
 
 **Why this matters for developers:**
@@ -789,7 +788,7 @@ clearFormErrors(form);
   - Total code reduction: ~70 lines of duplicate validation logic removed
 
 ### Version 4.1 (November 3, 2025)
-- Streamlined demo flow (bypassed setup-complete.html)
+- Streamlined demo flow with direct routing
 - Removed data restoration for clean demo state
 - Optimized user journey transitions
 
