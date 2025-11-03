@@ -83,65 +83,100 @@ Modern passwordless authentication flow with SSO support and streamlined subscri
 
 **All users go through Plan Selection after authentication/setup to see promotional offers**
 
-### Flow 1: First-Time User (Not Previously Registered)
+### 🧪 Test Emails
+Use these emails to test different user flows:
+- **`new@email.com`** - Previously non-registered user (full onboarding)
+- **`normal@gmail.com`** - Returning user (setup completed)
+- **`org@organisation.com`** - Organization user (auto Pro access)
+
+---
+
+### Flow 1: Previously Non-Registered User
+**Test with:** `new@email.com`
+
 **Full onboarding with setup required**
 
 1. **Enter email** → `1-gated-landing.html`
 2. **Authentication:**
-   - SSO detected → `auth/step2-method.html` → Select provider
-   - No SSO → Magic link sent → `auth/magic-link-sent.html` → `auth/verify.html`
+   - Magic link sent → `auth/magic-link-sent.html` → `auth/verify.html`
+   - System detects new user (no previous login history)
 3. **Account Setup** → `setup/index.html` (Personal Details)
+   - First Name, Last Name, Mobile
+   - Alert preference (Yes/No)
 4. **Alert Preferences:**
-   - Yes → `setup/alerts.html` → Configure courts → Direct to Plan Selection
-   - No, not now → Direct to Plan Selection
-5. **Plan Selection (Promotion)** → `2-plan-selection.html` *(All users see this)*
-6. **Choose Plan:**
+   - If Yes → `setup/alerts.html` → Select courts → Direct to Plan Selection
+   - If No → Direct to Plan Selection
+5. **Plan Selection (Promotion)** → `2-plan-selection.html`
+   - Choose Free, Pro, or Enterprise
+   - Can skip offer
+6. **Access App:**
    - Free → `app-loading.html` → `4-main-app-free.html` (with upgrade banner)
    - Pro → `3-subscription-complete.html` → `app-loading.html` → `4-main-app-pro.html`
-   - Enterprise → Contact sales
-   - Skip → "Remind me in 7 days" or "Don't show again"
+   - Enterprise → Shows contact confirmation toast
 
-**Key Characteristic:** Setup required, then immediately shown promotional offer (no intermediate transition)
+**Key Characteristics:**
+- First-time user requiring complete profile setup
+- Goes through full onboarding flow
+- Sees plan selection after setup completion
 
-### Flow 2: Returning User (Setup Already Complete)
-**Direct to promotion after authentication**
+---
+
+### Flow 2: Returning User (Setup Completed)
+**Test with:** `normal@gmail.com`
+
+**Direct to promotion after authentication, no setup needed**
 
 1. **Enter email** → `1-gated-landing.html`
-2. **Authentication** → SSO or Magic Link
-3. **Skip Setup** → Already completed
+2. **Authentication:**
+   - Magic link sent → `auth/magic-link-sent.html` → `auth/verify.html`
+   - System detects returning user (has logged in before)
+3. **Skip Setup** → Already completed previously
 4. **Plan Selection (Promotion)** → `2-plan-selection.html`
-   - Check if user has active subscription
-   - Show promotional offer (30% off) if applicable
-   - Respect user preferences ("Don't show again", reminder dates)
+   - Shows promotional offer (30% off)
+   - Respects user preferences ("Don't show again", reminder dates)
 5. **Access App:**
    - Free tier → `app-loading.html` → `4-main-app-free.html`
    - Pro subscription → `app-loading.html` → `4-main-app-pro.html`
    - Skip offer → Go to app based on current tier
 
-**Key Characteristic:** No setup, promotional offer shown before app entry
+**Key Characteristics:**
+- Returning user with completed setup
+- Skips onboarding entirely
+- Goes directly to plan selection or app
 
-### Flow 3: Returning User (Incomplete Setup)
-**Resume setup, then see promotion**
+---
+
+### Flow 3: Organization User
+**Test with:** `org@organisation.com`
+
+**Auto-assigned Pro access, bypasses plan selection**
 
 1. **Enter email** → `1-gated-landing.html`
-2. **Authentication** → SSO or Magic Link
-3. **Detect Incomplete Setup** → Check onboarding status
-4. **Resume Setup** → Return to incomplete step
-   - Missing personal details → `setup/index.html`
-   - Missing alert preferences → `setup/alerts.html`
-5. **Plan Selection (Promotion)** → `2-plan-selection.html` *(Direct after setup)*
-6. **Access App** → Based on plan choice
+2. **SSO Detection:**
+   - System detects enterprise domain
+   - Shows SSO option (if available) or magic link
+3. **Authentication** → `auth/verify.html`
+4. **Auto Pro Access:**
+   - System automatically grants Pro tier
+   - Bypasses plan selection entirely
+5. **Direct to App:**
+   - `app-loading.html` → `4-main-app-pro.html` (full Pro features)
 
-**Key Characteristic:** Complete interrupted setup, then immediately shown promotional offer
+**Key Characteristics:**
+- Enterprise email domain user
+- Automatically gets Pro tier access
+- Bypasses plan selection and payment flow
+- May require onboarding if first-time user
 
 ---
 
 ### Universal Rule
-**Every user sees Plan Selection page after sign in/setup** to ensure promotional offers reach all users. The page intelligently:
+**Every non-enterprise user sees Plan Selection page after sign in/setup** to ensure promotional offers reach all users. The page intelligently:
 - Shows offers to users without Pro subscription
 - Respects "Don't show again" preferences
 - Checks reminder dates (7-day delay if requested)
 - Routes Pro subscribers directly to app if they've opted out
+- **Exception:** Enterprise users (`@organisation.com`) bypass plan selection
 
 ---
 
@@ -345,12 +380,21 @@ open 1-gated-landing.html
 ```
 
 ### Testing Flow
-1. Enter any email → Checks SSO configuration
-2. For SSO domains (@google.com) → Shows SSO options
-3. For other domains → Sends magic link
-4. Magic link → Auto-generates token, redirects to verify
-5. Plan selection → Choose Free/Pro/Enterprise
-6. Success page → Confetti + Dashboard link
+
+**Use these test emails to experience different user journeys:**
+
+| Email | Flow Type | What Happens |
+|-------|-----------|--------------|
+| `new@email.com` | Previously non-registered user | Full onboarding → Setup → Plan selection → App |
+| `normal@gmail.com` | Returning user | Auth → Plan selection → App (no setup) |
+| `org@organisation.com` | Organization user | Auth → Direct to Pro app (bypasses plan selection) |
+
+**Steps to test:**
+1. Open `1-gated-landing.html` or visit https://jade-login-flow.vercel.app
+2. Enter one of the test emails above
+3. Click "Continue" to proceed through the flow
+4. Follow the authentication and onboarding steps
+5. Experience the complete user journey for that user type
 
 ### LocalStorage/SessionStorage Keys
 ```javascript
