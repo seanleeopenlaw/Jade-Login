@@ -202,9 +202,15 @@
           Continue to Payment
         </button>
 
+        <!-- Free Version Link (shown when Pro is selected) -->
+        <div id="free-version-link" class="text-center mt-4" style="display: none;">
+          <button id="continue-free-btn" class="jade-text-primary hover:opacity-80" style="background: none; border: none; cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: opacity 0.2s;">
+            Not ready yet? Continue with Free version
+          </button>
+        </div>
+
         <p class="text-xs text-center jade-text-muted mt-6">
-          Cancel anytime • No long-term commitment<br>
-          By subscribing, you agree to our <a href="#" class="jade-text-primary hover:underline">Terms</a> and <a href="#" class="jade-text-primary hover:underline">Privacy Policy</a>.
+          You can cancel anytime without lock-in. By subscribing, you agree to our <a href="#" class="jade-text-primary hover:underline">Terms</a> and <a href="#" class="jade-text-primary hover:underline">Privacy Policy</a>.
         </p>
       </div>
 
@@ -350,6 +356,7 @@
       const subscribeBtn = document.getElementById('subscribe-btn');
       const breakdownSection = document.querySelector('.space-y-3.mb-6.pb-4.border-b');
       const totalLabel = document.querySelector('.flex.items-center.justify-between.mb-6 .font-bold.text-base');
+      const freeVersionLink = document.getElementById('free-version-link');
 
       if (selectedPlan === 'free') {
         // Update for Free plan
@@ -366,6 +373,9 @@
 
         // Update button
         subscribeBtn.textContent = 'Continue with Free Version';
+
+        // Hide free version link
+        freeVersionLink.style.display = 'none';
       } else {
         // Update for Professional plan
         document.getElementById('summary-plan-name').textContent = `JADE Professional ${periodCap}`;
@@ -396,6 +406,9 @@
 
         // Update button
         subscribeBtn.textContent = 'Continue to Payment';
+
+        // Show free version link
+        freeVersionLink.style.display = 'block';
       }
     }
 
@@ -420,6 +433,12 @@
           window.location.href = '3-subscription-complete.html';
         }, 1200);
       }
+    });
+
+    // Continue with Free version button
+    document.getElementById('continue-free-btn').addEventListener('click', () => {
+      // Redirect to free app immediately
+      window.location.href = 'app-loading.html?target=free';
     });
 
     // Initialize
