@@ -1,0 +1,23 @@
+SIGN IN TO JADE
+================
+
+Click the link below to securely sign in to your JADE account. This link will expire in 1 hour for your security.
+
+Sign in here:
+{{magic_link_url}}
+
+---
+
+SECURITY TIP
+If you didn't request this sign-in link, you can safely ignore this email. Never share this link with anyone.
+
+---
+
+JADE - Real-Time Legal Intelligence Platform
+{{company_address}}
+
+Privacy Policy: {{privacy_policy_url}}
+Terms of Service: {{terms_url}}
+Support: {{support_url}}
+
+© {{current_year}} JADE. All rights reserved.
