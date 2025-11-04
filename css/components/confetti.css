@@ -3,8 +3,8 @@
  * Success celebration with animated confetti particles
  */
 
-/* Success Icon */
-.success-icon {
+/* Success Celebration Icon (for subscription complete page) */
+.success-celebration-icon {
   width: 100px;
   height: 100px;
   background: linear-gradient(135deg, var(--success) 0%, var(--primary) 100%);

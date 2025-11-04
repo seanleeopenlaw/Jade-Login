@@ -171,3 +171,19 @@
     min-height: 44px; /* Touch-friendly */
   }
 }
+
+/* ============================================
+   SIZE VARIANTS
+   ============================================ */
+
+/* Small Button */
+.btn-sm {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--text-sm);
+}
+
+/* Large Button */
+.btn-lg {
+  padding: var(--spacing-4) var(--spacing-8);
+  font-size: var(--text-lg);
+}

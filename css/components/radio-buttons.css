@@ -6,8 +6,8 @@
 /* Radio Group Container */
 .radio-group {
   display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-2);
 }
 
 /* Radio Option Wrapper */
@@ -29,7 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1rem;
+  padding: var(--spacing-3) var(--spacing-4);
   border: 2px solid var(--border);
   border-radius: var(--radius);
   cursor: pointer;
@@ -44,15 +44,15 @@
   border-color: var(--primary);
   background-color: var(--accent);
   color: var(--primary);
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+  padding-left: var(--spacing-10);
+  padding-right: var(--spacing-10);
 }
 
 /* Checked Icon (Circle with Checkmark) */
 .radio-option input[type="radio"]:checked + label::before {
   content: '';
   position: absolute;
-  left: 1rem;
+  left: var(--spacing-4);
   top: 50%;
   transform: translateY(-50%);
   width: 20px;

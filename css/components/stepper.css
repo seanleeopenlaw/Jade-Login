@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem 0;
+  margin: var(--spacing-8) 0;
 }
 
 /* ===== Stepper Item ===== */
@@ -52,7 +52,7 @@
   font-weight: var(--font-semibold);
   font-size: 1rem;
   transition: all var(--transition-base);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-2);
 }
 
 /* Completed state */
@@ -86,7 +86,7 @@
 /* ===== Responsive ===== */
 @media (max-width: 640px) {
   .stepper {
-    margin: 1.5rem 0;
+    margin: var(--spacing-6) 0;
   }
 
   .stepper-circle {
