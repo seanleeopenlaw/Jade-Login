@@ -23,8 +23,9 @@ This document describes all variables used in the JADE email templates that need
 ### `{{company_address}}`
 **Type:** String (Multiline text)
 **Description:** Company's physical mailing address
-**Example:** `123 Legal Street, Suite 456, San Francisco, CA 94105`
+**Example:** `Level 22, 52 Martin Place, Sydney, NSW 2000, Australia`
 **Note:** Required by CAN-SPAM Act for commercial emails
+**Default:** Level 22, 52 Martin Place, Sydney, NSW 2000, Australia
 
 ### `{{current_year}}`
 **Type:** String (4-digit year)
@@ -37,19 +38,13 @@ This document describes all variables used in the JADE email templates that need
 ### `{{privacy_policy_url}}`
 **Type:** String (URL)
 **Description:** Link to privacy policy page
-**Example:** `https://jade.example.com/privacy`
+**Example:** `https://jade.io/privacy`
 **Default:** `#` (if not provided)
 
-### `{{terms_url}}`
+### `{{contact_us_url}}`
 **Type:** String (URL)
-**Description:** Link to terms of service page
-**Example:** `https://jade.example.com/terms`
-**Default:** `#` (if not provided)
-
-### `{{support_url}}`
-**Type:** String (URL)
-**Description:** Link to support or help center
-**Example:** `https://jade.example.com/support` or `mailto:support@jade.example.com`
+**Description:** Link to contact us page
+**Example:** `https://jade.io/contact`
 **Default:** `#` (if not provided)
 
 ## Implementation Examples
@@ -74,13 +69,12 @@ function renderTemplate(template, variables) {
 
 // Prepare variables
 const variables = {
-  magic_link_url: 'https://jade.example.com/auth/verify?token=abc123',
-  logo_url: 'https://cdn.jade.example.com/images/logo.png',
-  company_address: '123 Legal Street, Suite 456, San Francisco, CA 94105',
+  magic_link_url: 'https://jade.io/auth/verify?token=abc123',
+  logo_url: 'https://cdn.jade.io/images/logo.png',
+  company_address: 'Level 22, 52 Martin Place, Sydney, NSW 2000, Australia',
   current_year: new Date().getFullYear().toString(),
-  privacy_policy_url: 'https://jade.example.com/privacy',
-  terms_url: 'https://jade.example.com/terms',
-  support_url: 'https://jade.example.com/support'
+  privacy_policy_url: 'https://jade.io/privacy',
+  contact_us_url: 'https://jade.io/contact'
 };
 
 // Render templates
@@ -104,13 +98,12 @@ with open('./email-templates/magic-link.txt', 'r') as f:
 
 # Prepare variables
 variables = {
-    'magic_link_url': 'https://jade.example.com/auth/verify?token=abc123',
-    'logo_url': 'https://cdn.jade.example.com/images/logo.png',
-    'company_address': '123 Legal Street, Suite 456, San Francisco, CA 94105',
+    'magic_link_url': 'https://jade.io/auth/verify?token=abc123',
+    'logo_url': 'https://cdn.jade.io/images/logo.png',
+    'company_address': 'Level 22, 52 Martin Place, Sydney, NSW 2000, Australia',
     'current_year': str(datetime.now().year),
-    'privacy_policy_url': 'https://jade.example.com/privacy',
-    'terms_url': 'https://jade.example.com/terms',
-    'support_url': 'https://jade.example.com/support'
+    'privacy_policy_url': 'https://jade.io/privacy',
+    'contact_us_url': 'https://jade.io/contact'
 }
 
 # Replace variables
