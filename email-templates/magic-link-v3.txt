@@ -1,0 +1,16 @@
+Hi {{user_name}},
+
+Your login link is ready! Click here to log into your JADE account:
+{{magic_link_url}}
+
+This link will expire in 15 minutes, and can only be used once.
+
+If you didn't request this link, email help@jade.io immediately.
+
+---
+
+JADE
++61 2 8815 9081 · help@jade.io · JADE.io
+
+© 2000-{{current_year}} BarNetwork Limited (ABN 32 092 121 198)
+Level 22, 52 Martin Place, Sydney, NSW 2000, Australia

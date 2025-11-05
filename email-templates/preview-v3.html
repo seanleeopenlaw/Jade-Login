@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <title>Sign in to JADE</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f7f7f7;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      padding: 48px;
+    }
+
+    .logo {
+      margin-bottom: 32px;
+    }
+
+    .content {
+      color: #1a1a1a;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .content p {
+      margin: 0 0 20px 0;
+    }
+
+    a {
+      color: #00A676;
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e5e5;
+      text-align: center;
+      color: #737373;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .footer a {
+      color: #00A676;
+      text-decoration: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #0a0a0a;
+      }
+      .container {
+        background-color: #1a1a1a;
+      }
+      .content {
+        color: #ffffff;
+      }
+      .footer {
+        color: #a0a0a0;
+        border-top-color: #2d2d2d;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .container {
+        margin: 20px;
+        padding: 32px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCA0MCAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjA0MiAwQzExLjA3NzcgMCAxMS4wOTU3IDAuMDE3OTk4MyAxMS4wOTU3IDAuMDUzNzEwOVYxMC44NTQ1QzExLjA5NTcgMTEuOTgwMSAxMC43NDc5IDEzLjAyNTggMTAuMDUwOCAxMy45MzY1QzkuMjczNDEgMTQuOTU0OSA4LjI1NTEgMTUuNTk3NCA3LjAyMjQ2IDE1Ljg5MjZDNi43NTQ2OCAxNS45NDYyIDYuNTEzNSAxNS45NzMyIDYuMjQ1MTIgMTZDNi4yMDk0IDE2IDYuMTkxNDEgMTUuOTgyIDYuMTkxNDEgMTUuOTQ2M1Y1LjE3MTg4QzYuMTkxNTIgMy44MDUzMiA2LjY3MzI3IDIuNTk5MDQgNy42MTEzMyAxLjYwNzQyQzguMzM1MTUgMC44NTY4NTUgOS4xOTI1MiAwLjM3NDg3NSAxMC4yMTA5IDAuMTMzNzg5QzEwLjQ3ODcgMC4wODAyMjk3IDEwLjc3MzYgMC4wMjY3OTQxIDExLjA0MiAwWk0zLjkzNjI3ZS0wNyA4LjY4MTY0QzAuMTA3MTQ5IDguNjgxNjQgMC4xODc3NzQgOC43MDgwMSAwLjI5NDkyMiA4LjcwODAxQzAuOTEwODE3IDguNzYxNTUgMS40NzM3OSA4Ljk0OTA1IDIuMDM2MTMgOS4yMTY4QzMuMDgxNDIgOS43NTI1MiAzLjg1OTE0IDEwLjUyOTkgNC4zOTU1MSAxMS41NzUyQzQuNjkwMTQgMTIuMTM3NiA0Ljg1MDcxIDEyLjc1NDYgNC45MDQzIDEzLjM5NzVDNC45MzEwOCAxMy41NTgyIDQuOTMwNjYgMTMuNzE5MiA0LjkzMDY2IDEzLjg3OTlWMTUuOTQzNEM0LjkzMDY2IDE1Ljk5NjggNC45MDQwNiAxNS45OTcxIDQuODUwNTkgMTUuOTk3MUM0LjE4MDI5IDE1Ljk0MzUgMy41MzcyMSAxNS43ODI5IDIuOTQ3MjcgMTUuNDg4M0MxLjkyODc4IDE0Ljk3OTMgMS4xNTE1OSAxNC4yMjg5IDAuNjE1MjM1IDEzLjIzNzNDMC4zMjA1OTIgMTIuNzAxNiAwLjE2MDQ0NCAxMi4xMzgxIDAuMDgwMDc4NSAxMS41NDg4QzAuMDUzMjkxNCAxMS40MTQ5IDAuMDUzMTU0NyAxMS4yODA0IDAuMDI2MzY3NiAxMS4xNDY1VjExLjEyMDFDLTAuMDAwNDE1MTgxIDEwLjI4OTMgMS45MjUwM2UtMDcgOS40ODU4IDMuOTM2MjdlLTA3IDguNjgxNjRaTTIwLjc4NTIgNS4wMDk3N0wyMC4wOTc3IDUuMTE5MTRWMTAuNDMxNkMyMC4wOTc3IDExLjA5OTUgMTkuOTU3OCAxMS40Nzg4IDE5LjU3OTEgMTEuOTk3MUwxOC42MDI1IDEzLjMyMjNDMTguMzczNCAxMy4zMTIzIDE4LjE1MzggMTMuMjIyNiAxOC4wMzQyIDEzLjA4M0wxOC43MDIxIDExLjIyOTVWNS4xMTkxNEwxNy44NjUyIDUuMDA5NzdWNC45MTk5MkMxNy44NjUyIDQuNjkwODIgMTcuOTI0OSA0LjQ2MTY1IDE4LjAyNDQgNC4zMzIwM0gyMC44ODQ4TDIwLjc4NTIgNS4wMDk3N1pNMjYuNzc3MyAxMC4zNDQ3TDI3LjMyNTIgMTAuNDU0MVYxMC41NDM5QzI3LjMyNTIgMTAuNzUzMSAyNy4yNjU2IDExLjAwMjEgMjcuMTY2IDExLjEzMThIMjQuNDA1M0wyNC41MDQ5IDEwLjQ1NDFMMjUuMzAyNyAxMC4zNDQ3TDI0LjcxMzkgOC42NTAzOUwyMi43NzA1IDguNzY5NTNMMjIuMjIyNyAxMC4zNDQ3TDIzLjA2OTMgMTAuNDU0MVYxMC41NDM5QzIzLjA2OTMgMTAuNzUzMSAyMy4wMDk2IDExLjAwMjEgMjIuOTE5OSAxMS4xMzE4SDIwLjY3NzdMMjAuNzY3NiAxMC40NTQxTDIxLjIxNTggMTAuMzQ0N0wyMy40Nzg1IDQuMzM0OTZMMjQuNTk0NyA0LjIzNTM1TDI2Ljc3NzMgMTAuMzQ0N1pNMzkuMzc4OSA2LjE0ODQ0QzM5LjIxOTQgNi4yNDgxMSAzOC45MzAyIDYuMjk3ODUgMzguNzEwOSA2LjI5Nzg1SDM4LjYwMTZMMzguMzEyNSA1LjEyMjA3SDM2LjU0NzlWNy4zMDQ2OUgzOC42NTE0QzM4LjY4MTMgNy40MzQyNCAzOC43MDEyIDcuNTkzOTIgMzguNzAxMiA3LjczMzRDMzguNzAxMiA3Ljg3Mjk3IDM4LjY4MTMgOC4wMjI4IDM4LjY1MTQgOC4xNTIzNEwzNy43OTM5IDguMDgyMDNIMzYuNTQ3OVYxMC4zOTQ1TDM4LjQ1MjEgMTAuMjk0OUwzOC43NDEyIDkuMTE5MTRIMzguODUwNkMzOS4wNjk5IDkuMTE5MTQgMzkuMzU5MSA5LjE3ODY1IDM5LjUxODYgOS4yNzgzMlYxMS4xMzE4SDM0LjMzNTlMMzQuNDI0OCAxMC40NTQxTDM1LjE0MjYgMTAuMzQ0N1Y1LjEyMjA3TDM0LjM0NTcgNS4wMTI3VjQuOTIyODVDMzQuMzQ1NyA0LjcxMzY2IDM0LjM5NTYgNC40NjQ2IDM0LjQ5NTEgNC4zMzQ5NkgzOC4xMTMzTDM5LjM3ODkgNC4yMzUzNVY2LjE0ODQ0Wk0zMC42ODc1IDQuMzMyMDNDMzIuNjExIDQuMzMyMDMgMzQuMDM2OSA1LjQ2Nzg4IDM0LjAzNzEgNy43MDAyQzM0LjAzNzEgOS45MzI4NiAzMi40NzIxIDExLjEyOTkgMzAuNjY4IDExLjEyOTlIMjcuNjA4NEwyNy42OTczIDEwLjQ1MjFMMjguNDE1IDEwLjM0MThWNS4xMTkxNEwyNy42MTgyIDUuMDA5NzdWNC45MTk5MkMyNy42MTgyIDQuNzEwNjcgMjcuNjY4IDQuNDYxNjMgMjcuNzY3NiA0LjMzMjAzSDMwLjY4NzVaTTI5LjgyMDMgMTAuMzAxOEwzMC44NzcgMTAuMzkxNkMzMS42OTQzIDEwLjE4MjMgMzIuNDgyNCA5LjQ2NDQxIDMyLjQ4MjQgNy43MDAyQzMyLjQ4MjMgNS43MDcxNSAzMS42MjQ0IDUuMTA5MzggMzAuNTg3OSA1LjEwOTM4SDI5LjgyMDNWMTAuMzAxOFpNMjMuMDA5OCA4LjAzMjIzSDI0LjUwNDlMMjMuODA3NiA1Ljk2ODc1SDIzLjcxNzhMMjMuMDA5OCA4LjAzMjIzWiIgZmlsbD0iIzA4OTQ0NCIvPgo8L3N2Zz4K" alt="JADE" width="70" height="28" style="display: block;">
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <p>Hi Sean,</p>
+
+      <p>Your login link is ready! <a href="https://jade.io/auth/verify?token=sample_token_abc123xyz">Click here</a> to log into your JADE account.</p>
+
+      <p>This link will expire in 15 minutes, and can only be used once.</p>
+
+      <p>If you didn't request this link, email <a href="mailto:help@jade.io">help@jade.io</a> immediately.</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p style="margin: 0 0 8px 0;"><strong>JADE</strong></p>
+      <p style="margin: 0 0 8px 0;">
+        <a href="tel:+61288159081">+61 2 8815 9081</a> ·
+        <a href="mailto:help@jade.io">help@jade.io</a> ·
+        <a href="https://jade.io">JADE.io</a>
+      </p>
+      <p style="margin: 0;">© 2000-2025 BarNetwork Limited (ABN 32 092 121 198)<br>Level 22, 52 Martin Place, Sydney, NSW 2000, Australia</p>
+    </div>
+  </div>
+</body>
+</html>

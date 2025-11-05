@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <title>Sign in to JADE</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f7f7f7;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      padding: 48px;
+    }
+
+    .logo {
+      margin-bottom: 32px;
+    }
+
+    .content {
+      color: #1a1a1a;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .content p {
+      margin: 0 0 20px 0;
+    }
+
+    a {
+      color: #00A676;
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e5e5;
+      text-align: center;
+      color: #737373;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .footer a {
+      color: #00A676;
+      text-decoration: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #0a0a0a;
+      }
+      .container {
+        background-color: #1a1a1a;
+      }
+      .content {
+        color: #ffffff;
+      }
+      .footer {
+        color: #a0a0a0;
+        border-top-color: #2d2d2d;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .container {
+        margin: 20px;
+        padding: 32px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="{{logo_url}}" alt="JADE" width="70" height="28" style="display: block;">
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <p>Hi {{user_name}},</p>
+
+      <p>Your login link is ready! <a href="{{magic_link_url}}">Click here</a> to log into your JADE account.</p>
+
+      <p>This link will expire in 15 minutes, and can only be used once.</p>
+
+      <p>If you didn't request this link, email <a href="mailto:help@jade.io">help@jade.io</a> immediately.</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p style="margin: 0 0 8px 0;"><strong>JADE</strong></p>
+      <p style="margin: 0 0 8px 0;">
+        <a href="tel:+61288159081">+61 2 8815 9081</a> ·
+        <a href="mailto:help@jade.io">help@jade.io</a> ·
+        <a href="https://jade.io">JADE.io</a>
+      </p>
+      <p style="margin: 0;">© 2000-{{current_year}} BarNetwork Limited (ABN 32 092 121 198)<br>Level 22, 52 Martin Place, Sydney, NSW 2000, Australia</p>
+    </div>
+  </div>
+</body>
+</html>
