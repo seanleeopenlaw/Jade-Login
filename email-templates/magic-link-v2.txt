@@ -1,7 +1,7 @@
 SIGN-IN LINK
 ============
 
-Hey {{user_name}}, you asked us to send you a magic link for quickly signing into your JADE account.
+Hey {{user_name}}, you asked us to send you a sign-in link for quickly signing into your JADE account.
 
 Sign in to JADE:
 {{magic_link_url}}
