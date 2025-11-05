@@ -1,16 +1,16 @@
 SIGN-IN LINK
 ============
 
-Hey {{user_name}}, you asked us to send you a sign-in link for quickly signing into your JADE account.
+Hi {{user_name}},
 
-Sign in to JADE:
+Your login link is ready! Click below to log into your JADE account:
 {{magic_link_url}}
 
-The above link is a sign-in link, only meant for you. Please don't share it with anyone. The link will expire in 15 minutes.
+This link will expire in 15 minutes, and can only be used once.
 
 ---
 
-If you did not request this or if you didn't mean to request a sign-in link, then you can just ignore this email - your password will not change.
+If you didn't request this link, email help@jade.io immediately.
 
 ---
 
