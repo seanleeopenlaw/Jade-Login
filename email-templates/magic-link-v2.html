@@ -136,9 +136,13 @@
           <!-- Logo (smaller, top-left aligned) -->
           <tr>
             <td align="left" style="padding: 0 0 32px 0;">
-              <!-- Internal file path - Replace with CDN URL in production -->
-              <!-- Example: https://cdn.jade.io/images/jade-logo.svg -->
-              <img src="{{logo_url}}" alt="JADE" width="80" height="auto" style="display: block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 600; color: #00A676;">
+              <!--
+                JADE Logo - Replace {{logo_url}} with actual URL
+                Development: Use internal path (jade_logo.svg)
+                Production: Use CDN URL (https://cdn.jade.io/images/jade-logo.svg)
+                Current logo size: 40x16 (displays at 100x40 for retina)
+              -->
+              <img src="{{logo_url}}" alt="JADE" width="100" height="40" style="display: block; max-width: 100px; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 600; color: #00A676;">
             </td>
           </tr>
 
