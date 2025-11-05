@@ -127,7 +127,7 @@ for key, value in variables.items():
    - Validate all parameters on backend
 
 2. **Token Expiration:**
-   - Set expiration to 1 hour (configurable)
+   - Set expiration to 15 minutes (configurable)
    - Check expiration on every verification attempt
    - Delete or invalidate token after successful use
 

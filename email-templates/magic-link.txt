@@ -1,7 +1,7 @@
 SIGN IN TO JADE
 ================
 
-Click the link below to securely sign in to your JADE account. This link will expire in 1 hour for your security.
+Click the link below to securely sign in to your JADE account. This link will expire in 15 minutes for your security.
 
 Sign in here:
 {{magic_link_url}}

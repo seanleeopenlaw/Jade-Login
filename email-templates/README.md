@@ -164,7 +164,7 @@ Set up these DNS records for your domain:
 
 - [ ] Use cryptographically secure random tokens (32+ bytes)
 - [ ] Store hashed version in database
-- [ ] Set 1-hour expiration time
+- [ ] Set 15-minute expiration time
 - [ ] Invalidate token after single use
 - [ ] Use HTTPS only for all links
 - [ ] Implement rate limiting (e.g., 5 requests per hour per email)
@@ -289,7 +289,7 @@ Edit the email copy in `magic-link.html`:
 
 1. **Never log magic links** - Only log hashed versions
 2. **Use single-use tokens** - Invalidate after authentication
-3. **Short expiration** - 1 hour is recommended
+3. **Short expiration** - 15 minutes is recommended
 4. **HTTPS only** - Never send magic links over HTTP
 5. **Rate limiting** - Prevent brute force attacks
 6. **User verification** - Confirm email ownership before sending
