@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
   <meta name="x-apple-disable-message-reformatting">
-  <meta name="color-scheme" content="light dark">
-  <meta name="supported-color-schemes" content="light dark">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
   <!--[if mso]>
   <noscript>
     <xml>
@@ -16,7 +16,7 @@
     </xml>
   </noscript>
   <![endif]-->
-  <title>Sign in to Your JADE Account</title>
+  <title>Sign in to JADE</title>
 
   <style>
     /* ============================================
@@ -73,31 +73,6 @@
     }
 
     /* ============================================
-       DARK MODE SUPPORT
-       ============================================ */
-    @media (prefers-color-scheme: dark) {
-      .dark-mode-bg {
-        background-color: #1a1a1a !important;
-      }
-
-      .dark-mode-card {
-        background-color: #2d2d2d !important;
-      }
-
-      .dark-mode-text {
-        color: #ffffff !important;
-      }
-
-      .dark-mode-muted {
-        color: #a0a0a0 !important;
-      }
-
-      .dark-mode-border {
-        border-color: #404040 !important;
-      }
-    }
-
-    /* ============================================
        RESPONSIVE MOBILE STYLES
        ============================================ */
     @media only screen and (max-width: 480px) {
@@ -107,95 +82,136 @@
       }
 
       .mobile-padding {
-        padding: 20px !important;
-      }
-
-      .mobile-text-center {
-        text-align: center !important;
+        padding: 32px 24px !important;
       }
 
       .mobile-button {
-        padding: 14px 32px !important;
+        padding: 16px 48px !important;
         font-size: 16px !important;
       }
     }
   </style>
 </head>
 
-<body style="margin: 0; padding: 0; background-color: #f4f4f4;" class="dark-mode-bg">
-  <!-- Preheader text (hidden but displayed in email preview) -->
+<body style="margin: 0; padding: 0; background-color: #f7f7f7;">
+  <!-- Preheader text -->
   <div style="display: none; max-height: 0px; overflow: hidden;">
-    Your secure sign-in link is ready. Click to access your JADE account.
-  </div>
-
-  <!-- Preheader spacer -->
-  <div style="display: none; max-height: 0px; overflow: hidden;">
-    &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+    Your secure sign-in link to JADE is ready. Click to access your account.
   </div>
 
   <!-- Full width table wrapper -->
-  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f4f4;" class="dark-mode-bg">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f7f7f7;" class="email-bg">
     <tr>
-      <td align="center" style="padding: 40px 20px;">
+      <td align="center" style="padding: 48px 20px;">
 
-        <!-- 600px Container -->
-        <table border="0" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px;" class="mobile-full-width">
+        <!-- 520px Container -->
+        <table border="0" cellpadding="0" cellspacing="0" width="520" style="max-width: 520px;" class="mobile-full-width">
 
-          <!-- Logo Section -->
+          <!-- Logo -->
           <tr>
-            <td align="center" style="padding: 0 0 32px 0;">
-              <!-- Replace with actual JADE logo URL -->
-              <img src="{{logo_url}}" alt="JADE" width="120" height="auto" style="display: block; font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: #00A676;">
+            <td align="left" style="padding: 0 0 32px 0;">
+              <!--
+                ⚠️ IMPORTANT: Replace "jade_logo.png" with absolute CDN URL before sending
+                Example: https://cdn.yoursite.com/images/jade-logo.png
+
+                Relative paths WILL NOT work in actual emails!
+              -->
+              <img src="jade_logo.png" alt="JADE" width="70" height="28" style="display: block; max-width: 70px; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 600; color: #00A676;">
             </td>
           </tr>
 
           <!-- Main Content Card -->
           <tr>
             <td align="center">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);" class="dark-mode-card">
+              <!--
+                ⚠️ NOTE: In Outlook 2016-2019, rounded corners and shadows won't display
+                Card will appear as square box, but all functionality works
+              -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);" class="email-card">
 
                 <!-- Card Content -->
                 <tr>
-                  <td style="padding: 48px 40px;" class="mobile-padding">
+                  <td style="padding: 48px 40px; text-align: center;" class="mobile-padding">
 
-                    <!-- Heading -->
+                    <!-- Icon -->
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td align="center" style="padding: 0 0 24px 0;">
-                          <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 28px; font-weight: 600; line-height: 1.3; color: #1a1a1a;" class="dark-mode-text">
-                            Sign in to JADE
-                          </h1>
+                          <table border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="center" style="width: 64px; height: 64px; background-color: #e6f4ef; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;" class="email-icon-bg">
+                                <!--[if mso]>
+                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:64px;width:64px;v-text-anchor:middle;" arcsize="50%" fillcolor="#e6f4ef" strokecolor="#e6f4ef">
+                                <w:anchorlock/>
+                                <center>
+                                <![endif]-->
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                  <tr>
+                                    <td align="center" style="padding: 18px 0;">
+                                      <!-- SVG for modern clients -->
+                                      <!--[if !mso]><!-->
+                                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                        <path d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V8" stroke="#00A676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <rect x="5" y="11" width="14" height="10" rx="2" stroke="#00A676" stroke-width="2"/>
+                                        <circle cx="12" cy="16" r="1.5" fill="#00A676"/>
+                                      </svg>
+                                      <!--<![endif]-->
+                                      <!-- Emoji fallback for Outlook -->
+                                      <!--[if mso]>
+                                      <span style="font-size: 28px; line-height: 28px;">🔓</span>
+                                      <![endif]-->
+                                    </td>
+                                  </tr>
+                                </table>
+                                <!--[if mso]>
+                                </center>
+                                </v:roundrect>
+                                <![endif]-->
+                              </td>
+                            </tr>
+                          </table>
                         </td>
                       </tr>
                     </table>
 
-                    <!-- Body Text -->
+                    <!-- Heading -->
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
-                        <td style="padding: 0 0 32px 0;">
-                          <p style="margin: 0 0 16px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #4a4a4a;" class="dark-mode-text">
-                            Click the button below to securely sign in to your JADE account. This link will expire in <strong>15 minutes</strong> for your security.
+                        <td align="center" style="padding: 0 0 8px 0;">
+                          <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; color: #1a1a1a;" class="email-text">
+                            Sign-in link is ready
+                          </h1>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" style="padding: 0 0 32px 0;">
+                          <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #737373;" class="email-muted">
+                            Expires in 15 minutes. One-time use only.
                           </p>
                         </td>
                       </tr>
                     </table>
 
-                    <!-- Bulletproof Button -->
+                    <!-- CTA Button -->
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
-                        <td align="center" style="padding: 0 0 32px 0;">
+                        <td align="center" style="padding: 0;">
                           <!--[if mso]>
-                          <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{magic_link_url}}" style="height:52px;v-text-anchor:middle;width:200px;" arcsize="8%" strokecolor="#00A676" fillcolor="#00A676">
+                          <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{MAGIC_LINK_URL}}" style="height:52px;v-text-anchor:middle;width:240px;" arcsize="10%" strokecolor="#00A676" fillcolor="#00A676">
                             <w:anchorlock/>
-                            <center style="color:#ffffff;font-family:sans-serif;font-size:16px;font-weight:600;">Sign In to JADE</center>
+                            <center style="color:#ffffff;font-family:sans-serif;font-size:16px;font-weight:600;">Sign in to JADE</center>
                           </v:roundrect>
                           <![endif]-->
                           <!--[if !mso]><!-->
-                          <table border="0" cellpadding="0" cellspacing="0" style="border-radius: 4px;">
+                          <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
-                              <td align="center" bgcolor="#00A676" style="border-radius: 4px; padding: 16px 40px;" class="mobile-button">
-                                <a href="{{magic_link_url}}" target="_blank" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #ffffff; text-decoration: none; line-height: 1.25;">
-                                  Sign In to JADE
+                              <td align="center" bgcolor="#00A676" style="border-radius: 6px; padding: 16px 48px;" class="mobile-button">
+                                <!--
+                                  ⚠️ REQUIRED: Replace {{MAGIC_LINK_URL}} with actual token URL
+                                  Example: https://jade.io/auth/verify?token=abc123xyz
+                                -->
+                                <a href="{{MAGIC_LINK_URL}}" target="_blank" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #ffffff; text-decoration: none; line-height: 1.25;">
+                                  Sign in to JADE
                                 </a>
                               </td>
                             </tr>
@@ -205,38 +221,27 @@
                       </tr>
                     </table>
 
-                    <!-- Plain Text Fallback -->
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                      <tr>
-                        <td align="center" style="padding: 24px 0 0 0; border-top: 1px solid #e5e5e5;" class="dark-mode-border">
-                          <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.5; color: #737373;" class="dark-mode-muted">
-                            If the button doesn't work, copy and paste this link into your browser:
-                          </p>
-                          <p style="margin: 8px 0 0 0; word-break: break-all;">
-                            <a href="{{magic_link_url}}" target="_blank" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: #00A676; text-decoration: underline;">
-                              {{magic_link_url}}
-                            </a>
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- Security Notice -->
+          <!-- Didn't request message -->
           <tr>
-            <td align="center" style="padding: 24px 20px 0 20px;">
+            <td align="center" style="padding: 24px 20px 32px 20px;">
+              <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #737373;" class="email-muted">
+                Didn't request this? Email <a href="mailto:help@jade.io" style="color: #00A676; text-decoration: none;">help@jade.io</a>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td align="center" style="padding: 0 20px 24px 20px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td align="center" style="padding: 16px; background-color: #fff9e6; border-radius: 4px; border-left: 4px solid #f59e0b;">
-                    <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.5; color: #92400e;">
-                      <strong>Security tip:</strong> If you didn't request this sign-in link, you can safely ignore this email. Never share this link with anyone.
-                    </p>
-                  </td>
+                  <td style="border-top: 1px solid #e5e5e5; font-size: 0; line-height: 0;" class="email-divider">&nbsp;</td>
                 </tr>
               </table>
             </td>
@@ -244,58 +249,36 @@
 
           <!-- Footer -->
           <tr>
-            <td align="center" style="padding: 32px 20px 20px 20px;">
+            <td align="center" style="padding: 0 20px 20px 20px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                <!-- Contact Information -->
+                <!-- Contact -->
                 <tr>
                   <td align="center" style="padding: 0 0 12px 0;">
-                    <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.5; color: #737373;" class="dark-mode-muted">
-                      <strong>The JADE Editorial Team</strong>
-                    </p>
-                    <p style="margin: 4px 0 0 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; line-height: 1.5; color: #00A676;">
-                      <a href="tel:+61288159081" style="color: #00A676; text-decoration: none;">+61 2 8815 9081</a>
-                    </p>
-                    <p style="margin: 4px 0 0 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; line-height: 1.5;">
-                      E: <a href="mailto:help@jade.io" style="color: #00A676; text-decoration: none;">help@jade.io</a>
-                    </p>
-                    <p style="margin: 4px 0 0 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; line-height: 1.5; color: #737373;" class="dark-mode-muted">
-                      Or talk to an Editor on <a href="https://jade.io" style="color: #00A676; text-decoration: none;">JADE.io</a>
+                    <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; line-height: 1.5; color: #737373;" class="email-muted">
+                      <strong>The JADE Editorial Team</strong><br>
+                      <a href="tel:+61288159081" style="color: #00A676; text-decoration: none;">+61 2 8815 9081</a> ·
+                      <a href="mailto:help@jade.io" style="color: #00A676; text-decoration: none;">help@jade.io</a> ·
+                      <a href="https://jade.io" style="color: #00A676; text-decoration: none;">JADE.io</a>
                     </p>
                   </td>
                 </tr>
 
                 <!-- Links -->
                 <tr>
-                  <td align="center" style="padding: 16px 0;">
-                    <table border="0" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="padding: 0 8px;">
-                          <a href="{{privacy_policy_url}}" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: #00A676; text-decoration: none;">Privacy Policy</a>
-                        </td>
-                        <td style="color: #a3a3a3;">·</td>
-                        <td style="padding: 0 8px;">
-                          <a href="{{contact_us_url}}" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: #00A676; text-decoration: none;">Contact us</a>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-
-                <!-- Mailing Address -->
-                <tr>
                   <td align="center" style="padding: 0 0 12px 0;">
-                    <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 11px; line-height: 1.5; color: #a3a3a3;" class="dark-mode-muted">
-                      <strong>Mailing address:</strong><br>
-                      Level 22, 52 Martin Place, Sydney, NSW 2000, Australia
+                    <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 11px; line-height: 1.5; color: #a3a3a3;" class="email-muted">
+                      <a href="https://jade.io/privacy" style="color: #00A676; text-decoration: none;">Privacy Policy</a> ·
+                      <a href="https://jade.io/contact" style="color: #00A676; text-decoration: none;">Contact us</a>
                     </p>
                   </td>
                 </tr>
 
-                <!-- Copyright -->
+                <!-- Address & Copyright -->
                 <tr>
                   <td align="center" style="padding: 0;">
-                    <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 10px; line-height: 1.5; color: #a3a3a3;" class="dark-mode-muted">
-                      Copyright &copy; 2000 - {{current_year}} BarNetwork Limited (ABN 32 092 121 198), All rights reserved.
+                    <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 10px; line-height: 1.5; color: #a3a3a3;" class="email-muted">
+                      Level 22, 52 Martin Place, Sydney, NSW 2000, Australia<br>
+                      © 2000-2025 BarNetwork Limited (ABN 32 092 121 198)
                     </p>
                   </td>
                 </tr>
