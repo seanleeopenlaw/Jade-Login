@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promotional Email Preview — JADE</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .preview-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .preview-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .preview-title {
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .preview-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 16px;
+    }
+
+    .preview-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .tab-button {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .tab-button.active {
+      background: #ffffff;
+      color: #667eea;
+      border-color: #ffffff;
+    }
+
+    .preview-frame {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .frame-header {
+      background: #f3f4f6;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .frame-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ef4444;
+    }
+
+    .frame-dot:nth-child(2) {
+      background: #f59e0b;
+    }
+
+    .frame-dot:nth-child(3) {
+      background: #10b981;
+    }
+
+    .frame-content {
+      height: 80vh;
+      overflow: auto;
+      background: #ffffff;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .text-preview {
+      padding: 40px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      color: #1f2937;
+      display: none;
+    }
+
+    .text-preview.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 12px;
+      }
+
+      .preview-title {
+        font-size: 22px;
+      }
+
+      .preview-tabs {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .frame-content {
+        height: 70vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-container">
+    <div class="preview-header">
+      <h1 class="preview-title">Promotional Email Template</h1>
+      <p class="preview-subtitle">30% Off JADE Professional — Limited Time Offer</p>
+    </div>
+
+    <div class="preview-tabs">
+      <button class="tab-button active" onclick="showPreview('html')">HTML Email</button>
+      <button class="tab-button" onclick="showPreview('text')">Plain Text</button>
+    </div>
+
+    <div class="preview-frame">
+      <div class="frame-header">
+        <div class="frame-dot"></div>
+        <div class="frame-dot"></div>
+        <div class="frame-dot"></div>
+      </div>
+      <div class="frame-content" id="html-preview">
+        <iframe src="promotional-offer.html"></iframe>
+      </div>
+      <div class="text-preview" id="text-preview">Loading...</div>
+    </div>
+  </div>
+
+  <script>
+    // Load plain text content
+    fetch('promotional-offer.txt')
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('text-preview').textContent = text;
+      })
+      .catch(error => {
+        document.getElementById('text-preview').textContent = 'Error loading plain text version.';
+      });
+
+    // Tab switching
+    function showPreview(type) {
+      const buttons = document.querySelectorAll('.tab-button');
+      const htmlPreview = document.getElementById('html-preview');
+      const textPreview = document.getElementById('text-preview');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      if (type === 'html') {
+        buttons[0].classList.add('active');
+        htmlPreview.style.display = 'block';
+        textPreview.classList.remove('active');
+      } else {
+        buttons[1].classList.add('active');
+        htmlPreview.style.display = 'none';
+        textPreview.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
