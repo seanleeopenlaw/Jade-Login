@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding Flow Tester - JADE</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .flow-section {
+      margin-bottom: 30px;
+    }
+
+    .flow-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: #089444;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .step-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .step-description {
+      color: #6b7280;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .feature-list li {
+      padding: 8px 0 8px 30px;
+      position: relative;
+      color: #374151;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #089444;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .test-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #089444;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #067038;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(8, 148, 68, 0.3);
+    }
+
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .btn-secondary:hover {
+      background: #e5e7eb;
+      transform: translateY(-2px);
+    }
+
+    .status {
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border-left: 4px solid #089444;
+    }
+
+    .status h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #1f2937;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .status-item:last-child {
+      border-bottom: none;
+    }
+
+    .status-label {
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .status-value {
+      color: #089444;
+      font-weight: 600;
+    }
+
+    .divider {
+      height: 2px;
+      background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+      margin: 30px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #dcfce7;
+      color: #166534;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge.required {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .code-block {
+      background: #1f2937;
+      color: #f9fafb;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+      margin-top: 15px;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 640px) {
+      .test-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 Onboarding Flow Tester</h1>
+      <p>Test the complete 2-step JADE onboarding experience</p>
+    </div>
+
+    <div class="card">
+      <div class="flow-section">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <div class="step-title">Alert Preferences</div>
+        </div>
+
+        <p class="step-description">
+          Customize which courts and topics to follow. Features searchable multi-select
+          with 14 courts across 6 categories and 92 topics across 10 categories.
+        </p>
+
+        <ul class="feature-list">
+          <li>Preset shortcuts (HCA, Appellate, Supreme Courts)</li>
+          <li>Searchable dropdown with real-time filtering</li>
+          <li>Category headers with sticky positioning</li>
+          <li>Tag display for selected items</li>
+          <li>Skip option available</li>
+          <li><span class="badge">Optional</span> All fields optional</li>
+        </ul>
+
+        <div class="test-buttons">
+          <a href="account-setup-step1.html" class="btn btn-primary">
+            Start Step 1 →
+          </a>
+          <button class="btn btn-secondary" onclick="clearStep1Data()">
+            Clear Step 1 Data
+          </button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="flow-section">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <div class="step-title">Profile Setup</div>
+        </div>
+
+        <p class="step-description">
+          Collect minimal user information. Responsive 2-column grid on desktop,
+          single column on mobile. Only first name is required.
+        </p>
+
+        <ul class="feature-list">
+          <li><span class="badge required">Required</span> First Name (validated)</li>
+          <li>Last Name (optional)</li>
+          <li>Mobile Number with hint "For account recovery only"</li>
+          <li>User Type dropdown (8 options)</li>
+          <li>Purpose textarea (max 500 characters)</li>
+          <li>Skip option with default values</li>
+        </ul>
+
+        <div class="test-buttons">
+          <a href="account-setup-step2.html" class="btn btn-primary">
+            Start Step 2 →
+          </a>
+          <button class="btn btn-secondary" onclick="clearStep2Data()">
+            Clear Step 2 Data
+          </button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="status">
+        <h3>📊 Current Data Status</h3>
+        <div id="status-content">
+          <p style="color: #6b7280; text-align: center; padding: 20px;">
+            No data yet. Start the flow to see stored data here.
+          </p>
+        </div>
+        <button class="btn btn-secondary" onclick="refreshStatus()" style="margin-top: 15px; width: 100%;">
+          Refresh Status
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-bottom: 20px; color: #1f2937;">Developer Tools</h2>
+
+      <div style="margin-bottom: 20px;">
+        <h3 style="margin-bottom: 10px; color: #374151;">Check Stored Data</h3>
+        <p style="color: #6b7280; margin-bottom: 15px; font-size: 0.875rem;">
+          Open browser console and run these commands:
+        </p>
+        <div class="code-block">
+// Step 1 data (sessionStorage)<br>
+JSON.parse(sessionStorage.getItem('jade_onboarding_step1'))<br>
+<br>
+// Step 2 data (localStorage)<br>
+JSON.parse(localStorage.getItem('jade_profile'))
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom: 10px; color: #374151;">Test Navigation Flow</h3>
+        <p style="color: #6b7280; margin-bottom: 15px; font-size: 0.875rem;">
+          Expected flow path:
+        </p>
+        <div class="code-block">
+Step 1 → Step 2 → Plan Selection<br>
+(account-setup-step1.html → account-setup-step2.html → 2-plan-selection.html)
+        </div>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <button class="btn btn-primary" onclick="runFullTest()" style="width: 100%;">
+          🚀 Run Full Flow Test
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function clearStep1Data() {
+      sessionStorage.removeItem('jade_onboarding_step1');
+      alert('Step 1 data cleared from sessionStorage');
+      refreshStatus();
+    }
+
+    function clearStep2Data() {
+      localStorage.removeItem('jade_profile');
+      alert('Step 2 data cleared from localStorage');
+      refreshStatus();
+    }
+
+    function refreshStatus() {
+      const step1Data = sessionStorage.getItem('jade_onboarding_step1');
+      const step2Data = localStorage.getItem('jade_profile');
+      const statusContent = document.getElementById('status-content');
+
+      if (!step1Data && !step2Data) {
+        statusContent.innerHTML = `
+          <p style="color: #6b7280; text-align: center; padding: 20px;">
+            No data yet. Start the flow to see stored data here.
+          </p>
+        `;
+        return;
+      }
+
+      let html = '';
+
+      if (step1Data) {
+        const data = JSON.parse(step1Data);
+        html += `
+          <div class="status-item">
+            <span class="status-label">Step 1 Status:</span>
+            <span class="status-value">✓ Completed</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Courts Selected:</span>
+            <span class="status-value">${data.courts?.length || 0}</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Topics Selected:</span>
+            <span class="status-value">${data.topics?.length || 0}</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Skipped:</span>
+            <span class="status-value">${data.skipped ? 'Yes' : 'No'}</span>
+          </div>
+        `;
+      }
+
+      if (step2Data) {
+        const data = JSON.parse(step2Data);
+        html += `
+          <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #e5e7eb;"></div>
+          <div class="status-item">
+            <span class="status-label">Step 2 Status:</span>
+            <span class="status-value">✓ Completed</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Name:</span>
+            <span class="status-value">${data.firstName || 'N/A'} ${data.lastName || ''}</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">User Type:</span>
+            <span class="status-value">${data.userType || 'Not specified'}</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Skipped:</span>
+            <span class="status-value">${data.skipped ? 'Yes' : 'No'}</span>
+          </div>
+        `;
+      }
+
+      statusContent.innerHTML = html;
+    }
+
+    function runFullTest() {
+      const results = {
+        step1FileExists: false,
+        step2FileExists: false,
+        step1Data: null,
+        step2Data: null
+      };
+
+      // Check stored data
+      const step1Data = sessionStorage.getItem('jade_onboarding_step1');
+      const step2Data = localStorage.getItem('jade_profile');
+
+      if (step1Data) results.step1Data = JSON.parse(step1Data);
+      if (step2Data) results.step2Data = JSON.parse(step2Data);
+
+      console.log('🧪 Onboarding Flow Test Results:', results);
+      console.log('\n📋 Step 1 Data:', results.step1Data);
+      console.log('📋 Step 2 Data:', results.step2Data);
+
+      alert(`Test Complete!\n\nCheck browser console for full results.\n\nStep 1: ${step1Data ? '✓ Has data' : '✗ No data'}\nStep 2: ${step2Data ? '✓ Has data' : '✗ No data'}`);
+    }
+
+    // Auto-refresh status on page load
+    refreshStatus();
+
+    // Auto-refresh every 2 seconds
+    setInterval(refreshStatus, 2000);
+  </script>
+</body>
+</html>

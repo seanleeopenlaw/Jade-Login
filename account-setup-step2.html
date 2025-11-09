@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Setup - Step 2 | JADE</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- JADE Design System -->
+  <link rel="stylesheet" href="css/jade.css">
+
+  <style>
+    /* Page-specific styles */
+
+    /* Form grid - 1 column on mobile, 2 columns on desktop */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-6);
+      margin-bottom: var(--spacing-8);
+    }
+
+    @media (min-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .form-grid .full-width {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* Form group */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2);
+    }
+
+    .form-label {
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      color: var(--foreground);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-1-5);
+    }
+
+    .form-label .required {
+      color: var(--error);
+      font-weight: var(--font-bold);
+    }
+
+    .form-label .optional {
+      color: var(--muted-foreground);
+      font-weight: var(--font-normal);
+      font-size: var(--text-xs);
+    }
+
+    /* Form input */
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: var(--spacing-3) var(--spacing-4);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      background-color: var(--card);
+      color: var(--foreground);
+      font-size: var(--text-base);
+      font-family: var(--font-sans);
+      transition: all var(--transition-base) var(--ease-in-out);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .form-input:hover,
+    .form-select:hover,
+    .form-textarea:hover {
+      border-color: var(--gray-300);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--ring-opacity);
+    }
+
+    .form-input:disabled,
+    .form-select:disabled,
+    .form-textarea:disabled {
+      background-color: var(--disabled-bg);
+      color: var(--disabled-text);
+      cursor: not-allowed;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--muted-foreground);
+    }
+
+    /* Textarea specific */
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+      font-family: var(--font-sans);
+      line-height: var(--leading-relaxed);
+    }
+
+    /* Select specific */
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9L12 15L18 9' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+      padding-right: 2.5rem;
+    }
+
+    .form-select option {
+      padding: var(--spacing-2);
+    }
+
+    /* Error state */
+    .form-input.error,
+    .form-select.error,
+    .form-textarea.error {
+      border-color: var(--error);
+    }
+
+    .form-error {
+      font-size: var(--text-xs);
+      color: var(--error);
+      margin: 0;
+      display: none;
+    }
+
+    .form-error.visible {
+      display: block;
+    }
+
+    /* Button group - matching Step 1 */
+    .button-group {
+      display: flex;
+      gap: var(--spacing-3);
+      margin-top: var(--spacing-8);
+    }
+
+    .button-group > button {
+      flex: 1;
+    }
+
+    @media (max-width: 640px) {
+      .button-group {
+        flex-direction: column-reverse;
+      }
+    }
+  </style>
+</head>
+<body class="jade-theme">
+  <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="max-w-2xl w-full fade-in">
+
+      <!-- Logo -->
+      <div class="text-center mb-8">
+        <img src="jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto" />
+      </div>
+
+      <!-- Stepper -->
+      <div class="stepper">
+        <div class="stepper-item completed">
+          <div class="stepper-circle"></div>
+          <div class="stepper-label">Alert Preferences</div>
+        </div>
+        <div class="stepper-item active">
+          <div class="stepper-circle">2</div>
+          <div class="stepper-label">Profile Setup</div>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3 font-serif leading-tight">
+          Tell us about yourself
+        </h1>
+        <p class="text-base jade-text-muted max-w-xl mx-auto">
+          This helps JADE tailor your experience.
+        </p>
+      </div>
+
+    <!-- Profile Form -->
+    <form id="profile-form" novalidate>
+      <div class="form-grid">
+        <!-- First Name (Required) -->
+        <div class="form-group">
+          <label for="first-name" class="form-label">
+            First Name <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="first-name"
+            name="firstName"
+            class="form-input"
+            placeholder="Enter your first name"
+            required
+            autocomplete="given-name"
+            aria-label="First name"
+            aria-required="true"
+          >
+          <p class="form-error" id="first-name-error" role="alert">Please enter your first name</p>
+        </div>
+
+        <!-- Last Name (Optional) -->
+        <div class="form-group">
+          <label for="last-name" class="form-label">
+            Last Name <span class="optional">(Optional)</span>
+          </label>
+          <input
+            type="text"
+            id="last-name"
+            name="lastName"
+            class="form-input"
+            placeholder="Enter your last name"
+            autocomplete="family-name"
+            aria-label="Last name"
+          >
+        </div>
+
+        <!-- Mobile Number (Optional) - Full width on desktop -->
+        <div class="form-group full-width">
+          <label for="mobile-number" class="form-label">
+            Mobile Number for Account Recovery <span class="optional">(Optional)</span>
+          </label>
+          <input
+            type="tel"
+            id="mobile-number"
+            name="mobileNumber"
+            class="form-input"
+            placeholder="Enter your mobile number"
+            autocomplete="tel"
+            aria-label="Mobile number for account recovery"
+          >
+        </div>
+
+        <!-- User Type (Optional) - Full width on desktop -->
+        <div class="form-group full-width">
+          <label for="user-type" class="form-label">
+            User Type <span class="optional">(Optional)</span>
+          </label>
+          <select
+            id="user-type"
+            name="userType"
+            class="form-select"
+            aria-label="Select your role"
+          >
+            <option value="">Select your role</option>
+            <option value="student">Student</option>
+            <option value="barrister">Barrister</option>
+            <option value="solicitor">Solicitor</option>
+            <option value="judge">Judge</option>
+            <option value="academic">Academic / Researcher</option>
+            <option value="corporate">Corporate Counsel</option>
+            <option value="government">Government Legal</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <!-- Purpose for Using JADE (Optional) - Full width -->
+        <div class="form-group full-width">
+          <label for="purpose" class="form-label">
+            What's the main reason you use JADE? <span class="optional">(Optional)</span>
+          </label>
+          <textarea
+            id="purpose"
+            name="purpose"
+            class="form-textarea"
+            placeholder="e.g. researching cases, tracking appeals, preparing submissions..."
+            maxlength="500"
+            aria-label="Purpose for using JADE"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button type="button" class="btn-secondary" id="skip-button">
+          Skip for now
+        </button>
+        <button type="submit" class="btn-primary" id="continue-button" disabled>
+          Continue to JADE
+        </button>
+      </div>
+    </form>
+    </div>
+  </main>
+
+  <script src="js/utils.js"></script>
+  <script>
+    /**
+     * Profile Setup Form Logic
+     * - Validates first name (required)
+     * - Sanitizes input (trim whitespace)
+     * - Enables/disables submit button
+     * - Handles form submission
+     */
+
+    // Check authentication - redirect if not logged in
+    const isAuthenticated = getSession('isAuthenticated');
+    const userEmail = getSession('userEmail');
+
+    if (!isAuthenticated || !userEmail) {
+      // Not authenticated, redirect to login
+      window.location.href = '1-gated-landing.html';
+    }
+
+    const form = document.getElementById('profile-form');
+    const firstNameInput = document.getElementById('first-name');
+    const lastNameInput = document.getElementById('last-name');
+    const mobileNumberInput = document.getElementById('mobile-number');
+    const userTypeSelect = document.getElementById('user-type');
+    const purposeTextarea = document.getElementById('purpose');
+    const continueButton = document.getElementById('continue-button');
+    const skipButton = document.getElementById('skip-button');
+    const firstNameError = document.getElementById('first-name-error');
+
+    // ============================================
+    // VALIDATION
+    // ============================================
+
+    /**
+     * Validate first name field
+     */
+    function validateFirstName() {
+      const value = firstNameInput.value.trim();
+
+      if (value.length === 0) {
+        firstNameInput.classList.add('error');
+        firstNameError.classList.add('visible');
+        return false;
+      } else {
+        firstNameInput.classList.remove('error');
+        firstNameError.classList.remove('visible');
+        return true;
+      }
+    }
+
+    /**
+     * Check if form is valid and enable/disable submit button
+     */
+    function updateSubmitButton() {
+      const isValid = firstNameInput.value.trim().length > 0;
+      continueButton.disabled = !isValid;
+    }
+
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+
+    // Real-time validation on input
+    firstNameInput.addEventListener('input', () => {
+      updateSubmitButton();
+      // Clear error on input
+      if (firstNameInput.classList.contains('error')) {
+        firstNameInput.classList.remove('error');
+        firstNameError.classList.remove('visible');
+      }
+    });
+
+    // Validate on blur
+    firstNameInput.addEventListener('blur', validateFirstName);
+
+    // Auto-format mobile number (simple formatting)
+    mobileNumberInput.addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+
+      // Australian mobile format: +61 4XX XXX XXX
+      if (value.startsWith('61')) {
+        value = '+' + value;
+      } else if (value.startsWith('0')) {
+        value = '+61 ' + value.substring(1);
+      }
+
+      // Don't auto-format if user is typing freely
+      // Just let them type naturally
+    });
+
+    // ============================================
+    // FORM SUBMISSION
+    // ============================================
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Validate
+      if (!validateFirstName()) {
+        firstNameInput.focus();
+        return;
+      }
+
+      // Collect form data
+      const formData = {
+        firstName: firstNameInput.value.trim(),
+        lastName: lastNameInput.value.trim(),
+        mobileNumber: mobileNumberInput.value.trim(),
+        userType: userTypeSelect.value,
+        purpose: purposeTextarea.value.trim(),
+        completedAt: new Date().toISOString()
+      };
+
+      // Disable button to prevent double submission
+      continueButton.disabled = true;
+      continueButton.innerHTML = `
+        <svg class="animate-spin" style="display: inline-block; width: 16px; height: 16px; margin-right: 8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+        </svg>
+        Saving...
+      `;
+
+      try {
+        // Simulate API call (replace with actual API endpoint)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Save to localStorage for demo
+        localStorage.setItem('jade_profile', JSON.stringify(formData));
+
+        console.log('Profile saved:', formData);
+
+        // Success - redirect to plan selection page
+        window.location.href = '2-plan-selection.html';
+      } catch (error) {
+        console.error('Error saving profile:', error);
+        alert('Something went wrong. Please try again.');
+
+        // Re-enable button
+        continueButton.disabled = false;
+        continueButton.textContent = 'Continue to JADE';
+      }
+    });
+
+    // ============================================
+    // SKIP BUTTON
+    // ============================================
+
+    skipButton.addEventListener('click', () => {
+      // Save minimal data (just that user skipped)
+      const minimalData = {
+        firstName: 'User', // Default name
+        skipped: true,
+        completedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem('jade_profile', JSON.stringify(minimalData));
+
+      // Redirect to plan selection page
+      window.location.href = '2-plan-selection.html';
+    });
+
+    // ============================================
+    // ACCESSIBILITY
+    // ============================================
+
+    // Allow Enter key to submit when inputs are focused
+    form.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        if (!continueButton.disabled) {
+          form.dispatchEvent(new Event('submit'));
+        }
+      }
+    });
+
+    // Initial button state check
+    updateSubmitButton();
+  </script>
+</body>
+</html>

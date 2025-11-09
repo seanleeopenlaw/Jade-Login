@@ -58,29 +58,39 @@
     }
 
     async function loadApp() {
-      // Use shared loading state transition
-      await transitionToSuccess({
-        loadingDuration: 1500,
-        successDelay: 1000
-      });
+      try {
+        // Use shared loading state transition
+        await transitionToSuccess({
+          loadingDuration: 1500,
+          successDelay: 1000
+        });
 
-      // Get redirect target from URL parameter or session
-      const urlParams = new URLSearchParams(window.location.search);
-      const target = urlParams.get('target') || getSession('appTarget') || 'free';
+        // Get redirect target from URL parameter or session
+        const urlParams = new URLSearchParams(window.location.search);
+        const target = urlParams.get('target') || getSession('appTarget') || 'free';
 
-      // Determine redirect URL
-      let redirectUrl;
-      if (target === 'pro') {
-        redirectUrl = '4-main-app-pro.html';
-      } else {
-        redirectUrl = '4-main-app-free.html';
+        console.log('Loading app with target:', target); // Debug log
+
+        // Determine redirect URL
+        let redirectUrl;
+        if (target === 'pro') {
+          redirectUrl = '4-main-app-pro.html';
+        } else {
+          redirectUrl = '4-main-app-free.html';
+        }
+
+        console.log('Redirecting to:', redirectUrl); // Debug log
+
+        // Clear app target from session
+        clearSession('appTarget');
+
+        // Redirect to app
+        window.location.href = redirectUrl;
+      } catch (error) {
+        console.error('Error loading app:', error);
+        // Fallback redirect
+        window.location.href = '4-main-app-free.html';
       }
-
-      // Clear app target from session
-      clearSession('appTarget');
-
-      // Redirect to app
-      window.location.href = redirectUrl;
     }
 
     // Start the app loading process

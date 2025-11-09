@@ -1,0 +1,88 @@
+/**
+ * JADE Section Container Component
+ * Card-style container with icon labels for form sections
+ *
+ * Usage:
+ * <div class="section-container">
+ *   <div class="section-spacing">
+ *     <label class="section-label">
+ *       <svg>...</svg>
+ *       Section Title
+ *     </label>
+ *     <!-- Section content -->
+ *   </div>
+ * </div>
+ */
+
+/* ============================================
+   CONTAINER BOX
+   ============================================ */
+
+.section-container {
+  background-color: var(--card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-8);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   SECTION LABEL WITH ICON
+   ============================================ */
+
+.section-label {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--foreground);
+  margin-bottom: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* Icon inside section label */
+.section-label svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* ============================================
+   SPACING BETWEEN SECTIONS
+   ============================================ */
+
+.section-spacing {
+  margin-bottom: var(--spacing-6);
+}
+
+.section-spacing:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   VARIANTS
+   ============================================ */
+
+/* Compact container with less padding */
+.section-container-compact {
+  padding: var(--spacing-6);
+}
+
+/* Borderless container */
+.section-container-borderless {
+  border: none;
+  box-shadow: none;
+}
+
+/* ============================================
+   RESPONSIVE - MOBILE
+   ============================================ */
+
+@media (max-width: 640px) {
+  .section-container {
+    padding: var(--spacing-6);
+  }
+
+  .section-label {
+    font-size: var(--text-sm);
+  }
+}

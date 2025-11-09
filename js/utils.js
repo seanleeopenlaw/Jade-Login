@@ -76,15 +76,6 @@ function hideLoading(button) {
 }
 
 /**
- * Utility: Promise-based delay
- * @param {number} ms - Milliseconds to delay
- * @returns {Promise}
- */
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/**
  * Validate email format
  */
 function isValidEmail(email) {
@@ -261,7 +252,7 @@ function getPostAuthRedirect(email) {
   }
 
   if (shouldShowOnboarding(email)) {
-    return 'setup/index.html';
+    return 'account-setup-step1.html';
   }
 
   return '2-plan-selection.html';

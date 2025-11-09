@@ -50,10 +50,14 @@
   --border: #e5e7eb;
   --input: #e5e7eb;
   --ring: #089444;
+  --ring-opacity: rgba(8, 148, 68, 0.1); /* 10% opacity primary for focus states */
 
   /* Additional Neutral Shades */
+  --gray-50: #f9fafb;      /* Very light gray - subtle hover states */
   --gray-100: #f3f4f6;
+  --gray-150: #e8eaed;     /* Between 100-200 - subtle borders */
   --gray-200: #e5e7eb;
+  --gray-250: #dcdfe3;     /* Between 200-300 - scrollbar hover */
   --gray-300: #d1d5db;
   --gray-400: #b4b4b4;
   --gray-500: #6b7280;
@@ -123,6 +127,16 @@
   --spacing-20: 5rem;      /* 80px */
   --spacing-24: 6rem;      /* 96px */
 
+  /* ===== Gap Utilities (for flex/grid) ===== */
+
+  --gap-1: 0.25rem;        /* 4px */
+  --gap-2: 0.5rem;         /* 8px */
+  --gap-3: 0.75rem;        /* 12px */
+  --gap-4: 1rem;           /* 16px */
+  --gap-5: 1.25rem;        /* 20px */
+  --gap-6: 1.5rem;         /* 24px */
+  --gap-8: 2rem;           /* 32px */
+
   /* ===== Border Radius ===== */
 
   --radius-none: 0;
@@ -183,6 +197,17 @@
   --animation-duration-fast: 150ms;
   --animation-duration-base: 300ms;
   --animation-duration-slow: 500ms;
+
+  /* ===== SVG Icons ===== */
+
+  /* Check icon - white stroke (for green backgrounds) */
+  --icon-check-white: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.3333 4L6 11.3333L2.66667 8' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+  /* Check icon - green stroke (for light backgrounds) */
+  --icon-check-green: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.3333 4L6 11.3333L2.66667 8' stroke='%23089444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+  /* Chevron down icon */
+  --icon-chevron-down: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9L12 15L18 9' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* ============================================
@@ -386,6 +411,18 @@
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+@keyframes checkboxPop {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

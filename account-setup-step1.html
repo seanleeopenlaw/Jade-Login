@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set up your alerts - JADE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/jade.css">
+  <style>
+    /* Page-specific styles */
+    .section-spacing {
+      margin-bottom: 24px;
+    }
+
+    /* Button group */
+    .button-group {
+      display: flex;
+      gap: var(--spacing-3);
+      margin-top: var(--spacing-8);
+    }
+
+    .button-group > button {
+      flex: 1;
+    }
+
+    @media (max-width: 640px) {
+      .button-group {
+        flex-direction: column-reverse;
+      }
+    }
+  </style>
+</head>
+<body class="jade-theme">
+  <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="max-w-2xl w-full fade-in">
+
+      <!-- Logo -->
+      <div class="text-center mb-8">
+        <img src="jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto" />
+      </div>
+
+      <!-- Stepper -->
+      <div class="stepper">
+        <div class="stepper-item active">
+          <div class="stepper-circle">1</div>
+          <div class="stepper-label">Alert Preferences</div>
+        </div>
+        <div class="stepper-item">
+          <div class="stepper-circle">2</div>
+          <div class="stepper-label">Profile Setup</div>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3 font-serif leading-tight">
+          Set up your alerts
+        </h1>
+        <p class="text-base jade-text-muted max-w-xl mx-auto">
+          Choose the courts and topics you'd like to follow.
+        </p>
+      </div>
+
+      <!-- Preset Checkboxes -->
+      <div class="preset-checkbox-grid">
+        <div class="preset-checkbox-item">
+          <input type="checkbox" id="preset-hca" value="hca">
+          <label for="preset-hca">
+            <span class="preset-label">High Court of Australia</span>
+          </label>
+        </div>
+        <div class="preset-checkbox-item">
+          <input type="checkbox" id="preset-appellate" value="appellate">
+          <label for="preset-appellate">
+            <span class="preset-label">Appellate Courts</span>
+          </label>
+        </div>
+        <div class="preset-checkbox-item">
+          <input type="checkbox" id="preset-supreme" value="supreme">
+          <label for="preset-supreme">
+            <span class="preset-label">Supreme Courts</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider">
+        Or customise your own alerts
+      </div>
+
+      <!-- Customisation Box -->
+      <div class="section-container">
+        <!-- Select by Court -->
+        <div class="section-spacing">
+          <label class="section-label">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;">
+              <path d="M10 18v-7" />
+              <path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z" />
+              <path d="M14 18v-7" />
+              <path d="M18 18v-7" />
+              <path d="M3 22h18" />
+              <path d="M6 18v-7" />
+            </svg>
+            Select by Court
+          </label>
+          <div class="searchable-select" id="court-searchable">
+            <button type="button" class="searchable-select-trigger" id="court-trigger">
+              <span class="searchable-select-trigger-text">Select courts...</span>
+              <svg class="searchable-select-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <span class="searchable-select-counter" id="court-counter" style="display: none;">0</span>
+            <div class="searchable-select-dropdown" id="court-dropdown">
+              <div class="searchable-select-search">
+                <div style="position: relative;">
+                  <input
+                    type="text"
+                    class="searchable-select-input"
+                    placeholder="Search courts..."
+                    id="court-search-input"
+                  />
+                  <svg class="searchable-select-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="searchable-select-options" id="court-options"></div>
+            </div>
+          </div>
+          <div class="searchable-select-tags" id="court-tags"></div>
+        </div>
+
+        <!-- Select by Topic -->
+        <div class="section-spacing">
+          <label class="section-label">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;">
+              <path d="M4 9h16"/>
+              <path d="M4 15h16"/>
+              <path d="M10 3L8 21"/>
+              <path d="M16 3L14 21"/>
+            </svg>
+            Select by Topic
+          </label>
+          <div class="searchable-select" id="topic-searchable">
+            <button type="button" class="searchable-select-trigger" id="topic-trigger">
+              <span class="searchable-select-trigger-text">Select topics...</span>
+              <svg class="searchable-select-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <span class="searchable-select-counter" id="topic-counter" style="display: none;">0</span>
+            <div class="searchable-select-dropdown" id="topic-dropdown">
+              <div class="searchable-select-search">
+                <div style="position: relative;">
+                  <input
+                    type="text"
+                    class="searchable-select-input"
+                    placeholder="Search topics..."
+                    id="topic-search-input"
+                  />
+                  <svg class="searchable-select-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="searchable-select-options" id="topic-options"></div>
+            </div>
+          </div>
+          <div class="searchable-select-tags" id="topic-tags"></div>
+        </div>
+      </div>
+
+      <!-- Bottom Buttons -->
+      <div class="button-group">
+        <button type="button" class="btn-secondary" id="skip-btn">
+          Skip for now
+        </button>
+        <button type="button" class="btn-primary" id="next-btn">
+          Next →
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/utils.js"></script>
+  <script src="js/searchable-select.js"></script>
+  <script>
+    'use strict';
+
+    // Check authentication - redirect if not logged in
+    const isAuthenticated = getSession('isAuthenticated');
+    const userEmail = getSession('userEmail');
+
+    if (!isAuthenticated || !userEmail) {
+      // Not authenticated, redirect to login
+      window.location.href = '1-gated-landing.html';
+    }
+
+    // Court data - organized by categories
+    const courts = {
+      categories: [
+        {
+          name: 'High Court',
+          items: [
+            { value: 'HCA', label: 'High Court of Australia' },
+            { value: 'HCASJ', label: 'High Court - Single Justice Judgments' },
+            { value: 'UKPCHCA', label: 'Privy Council - Appeals from HCA' }
+          ]
+        },
+        {
+          name: 'State & Territory Courts of Appeal',
+          items: [
+            { value: 'NSWCA', label: 'NSW Court of Appeal' },
+            { value: 'NSWCCA', label: 'NSW Court of Criminal Appeal' },
+            { value: 'VSCA', label: 'Victorian Court of Appeal' },
+            { value: 'QCA', label: 'Queensland Court of Appeal' },
+            { value: 'WASCA', label: 'WA Court of Appeal' },
+            { value: 'SASCA', label: 'SA Court of Appeal' },
+            { value: 'ACTCA', label: 'ACT Court of Appeal' },
+            { value: 'NTCA', label: 'NT Court of Appeal' }
+          ]
+        },
+        {
+          name: 'Supreme Courts',
+          items: [
+            { value: 'NSWSC', label: 'NSW Supreme Court' },
+            { value: 'VSC', label: 'Victorian Supreme Court' },
+            { value: 'QSC', label: 'Queensland Supreme Court' },
+            { value: 'WASC', label: 'WA Supreme Court' },
+            { value: 'SASC', label: 'SA Supreme Court' },
+            { value: 'TASSC', label: 'Tasmanian Supreme Court' },
+            { value: 'ACTSC', label: 'ACT Supreme Court' },
+            { value: 'NTSC', label: 'NT Supreme Court' }
+          ]
+        },
+        {
+          name: 'Commonwealth Courts',
+          items: [
+            { value: 'FCA', label: 'Federal Court of Australia' },
+            { value: 'FCAFC', label: 'Federal Court - Full Court' },
+            { value: 'FedCFamC1A', label: 'Federal Circuit & Family Court - Div 1 Appellate' },
+            { value: 'FamCA', label: 'Family Court of Australia' }
+          ]
+        },
+        {
+          name: 'District & Lower Courts',
+          items: [
+            { value: 'NSWDC', label: 'NSW District Court' },
+            { value: 'VCC', label: 'Victorian County Court' },
+            { value: 'QDC', label: 'Queensland District Court' },
+            { value: 'SADC', label: 'SA District Court' },
+            { value: 'WADC', label: 'WA District Court' }
+          ]
+        },
+        {
+          name: 'Tribunals',
+          items: [
+            { value: 'AATA', label: 'Administrative Appeals Tribunal' },
+            { value: 'FWC', label: 'Fair Work Commission' },
+            { value: 'NSWCAT', label: 'NSW Civil and Administrative Tribunal' },
+            { value: 'VCAT', label: 'Victorian Civil and Administrative Tribunal' },
+            { value: 'QCAT', label: 'Queensland Civil and Administrative Tribunal' }
+          ]
+        }
+      ]
+    };
+
+    // Topic data - organized by categories
+    const topics = {
+      categories: [
+        {
+          name: 'Constitutional & Public Law',
+          items: [
+            { value: 'administrative-law', label: 'Administrative Law' },
+            { value: 'constitutional', label: 'Constitutional Law' },
+            { value: 'electoral', label: 'Electoral' },
+            { value: 'freedom-information', label: 'Freedom of Information and Privacy' },
+            { value: 'human-rights', label: 'Human Rights' },
+            { value: 'local-government', label: 'Local Government' },
+            { value: 'parliamentary-elections', label: 'Parliamentary Elections' }
+          ]
+        },
+        {
+          name: 'Criminal Law',
+          items: [
+            { value: 'criminal', label: 'Criminal Law and Procedure' },
+            { value: 'extradition', label: 'Extradition' },
+            { value: 'proceeds-crime', label: 'Proceeds of Crime' }
+          ]
+        },
+        {
+          name: 'Commercial & Corporate',
+          items: [
+            { value: 'banking-finance', label: 'Banking and Finance' },
+            { value: 'bankruptcy', label: 'Bankruptcy' },
+            { value: 'commercial', label: 'Commercial' },
+            { value: 'competition', label: 'Competition' },
+            { value: 'consumer', label: 'Consumer' },
+            { value: 'consumer-protection', label: 'Consumer Law & Protection' },
+            { value: 'contract', label: 'Contract' },
+            { value: 'corporations', label: 'Corporations and Associations' },
+            { value: 'insolvency', label: 'Insolvency' },
+            { value: 'insurance', label: 'Insurance' },
+            { value: 'trade-commerce', label: 'Trade and Commerce' },
+            { value: 'trade-practices', label: 'Trade Practices' }
+          ]
+        },
+        {
+          name: 'Property & Real Estate',
+          items: [
+            { value: 'agricultural-tenancy', label: 'Agricultural Tenancy' },
+            { value: 'land-property', label: 'Land and Property' },
+            { value: 'mortgages', label: 'Mortgages and Securities' },
+            { value: 'native-title', label: 'Native Title' },
+            { value: 'residential-tenancy', label: 'Residential Tenancy' },
+            { value: 'retail-lease', label: 'Retail Lease' }
+          ]
+        },
+        {
+          name: 'Employment & Industrial',
+          items: [
+            { value: 'employment', label: 'Employment' },
+            { value: 'industrial', label: 'Industrial Law' },
+            { value: 'workers-compensation', label: 'Workers\' Compensation' }
+          ]
+        },
+        {
+          name: 'Family & Personal',
+          items: [
+            { value: 'adoption', label: 'Adoption' },
+            { value: 'family', label: 'Family' },
+            { value: 'family-child-welfare', label: 'Family and Child Welfare' },
+            { value: 'guardianship', label: 'Guardianship' },
+            { value: 'mental-health', label: 'Mental Health' },
+            { value: 'power-attorney', label: 'Power of Attorney' },
+            { value: 'succession', label: 'Succession, Wills and Probate' }
+          ]
+        },
+        {
+          name: 'Torts & Personal Injury',
+          items: [
+            { value: 'accident-compensation', label: 'Accident Compensation' },
+            { value: 'compensation', label: 'Compensation' },
+            { value: 'damages', label: 'Damages' },
+            { value: 'negligence', label: 'Negligence' },
+            { value: 'torts', label: 'Torts' }
+          ]
+        },
+        {
+          name: 'Migration & Immigration',
+          items: [
+            { value: 'migration', label: 'Migration' },
+            { value: 'migration-citizenship', label: 'Migration and Citizenship' }
+          ]
+        },
+        {
+          name: 'Intellectual Property',
+          items: [
+            { value: 'ip', label: 'Intellectual Property' }
+          ]
+        },
+        {
+          name: 'Other Practice Areas',
+          items: [
+            { value: 'admiralty-maritime', label: 'Admiralty and Maritime Law' },
+            { value: 'aviation', label: 'Aviation' },
+            { value: 'building-construction', label: 'Building and Construction' },
+            { value: 'communications-media', label: 'Communications, Media and Defamation' },
+            { value: 'cultural-heritage', label: 'Cultural Heritage and Art' },
+            { value: 'customs-excise', label: 'Customs and Excise' },
+            { value: 'education', label: 'Education' },
+            { value: 'environment', label: 'Environment' },
+            { value: 'gaming', label: 'Gaming' },
+            { value: 'health-medical', label: 'Health and Medical Law' },
+            { value: 'licensing', label: 'Licensing' },
+            { value: 'primary-industries', label: 'Primary Industries' },
+            { value: 'social-security', label: 'Social Security' },
+            { value: 'sports-law', label: 'Sports Law' },
+            { value: 'superannuation', label: 'Superannuation' },
+            { value: 'taxation', label: 'Taxation and Revenue' },
+            { value: 'traffic', label: 'Traffic Law' },
+            { value: 'transportation', label: 'Transportation' }
+          ]
+        }
+      ]
+    };
+
+    // Preset mappings
+    const presets = {
+      hca: ['HCA', 'HCASJ', 'UKPCHCA'],
+      appellate: ['NSWCA', 'NSWCCA', 'VSCA', 'QCA', 'WASCA', 'SASCA', 'ACTCA', 'NTCA'],
+      supreme: ['NSWSC', 'VSC', 'QSC', 'WASC', 'SASC', 'TASSC', 'ACTSC', 'NTSC']
+    };
+
+    // Initialize searchable selects
+    const courtSelect = new SearchableSelect('court', courts);
+    const topicSelect = new SearchableSelect('topic', topics);
+
+    // Get elements
+    const presetCheckboxes = document.querySelectorAll('.preset-checkbox-item input[type="checkbox"]');
+    const nextBtn = document.getElementById('next-btn');
+    const skipBtn = document.getElementById('skip-btn');
+
+    // Preset checkbox change handlers
+    presetCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const preset = checkbox.value;
+        const courtCodes = presets[preset];
+
+        if (checkbox.checked) {
+          // Select matching courts
+          courtCodes.forEach(code => courtSelect.select(code));
+        } else {
+          // Deselect matching courts
+          courtCodes.forEach(code => courtSelect.deselect(code));
+        }
+      });
+    });
+
+    // Save selections and proceed
+    function saveAndProceed() {
+      setSession('alertPreferences', {
+        courts: courtSelect.getSelected(),
+        topics: topicSelect.getSelected(),
+        skipped: false
+      });
+
+      // Navigate to step 2
+      window.location.href = 'account-setup-step2.html';
+    }
+
+    // Next button handler
+    nextBtn.addEventListener('click', saveAndProceed);
+
+    // Skip button handler
+    skipBtn.addEventListener('click', () => {
+      setSession('alertPreferences', {
+        courts: [],
+        topics: [],
+        skipped: true
+      });
+      window.location.href = 'account-setup-step2.html';
+    });
+  </script>
+</body>
+</html>

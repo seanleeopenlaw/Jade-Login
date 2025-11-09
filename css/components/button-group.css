@@ -1,0 +1,65 @@
+/**
+ * JADE Button Group Component
+ * Consistent button grouping for multi-button layouts
+ */
+
+/* ===== Button Group Container ===== */
+.button-group {
+  display: flex;
+  gap: var(--gap-3);
+  margin-top: var(--spacing-8);
+}
+
+.button-group > button,
+.button-group > a {
+  flex: 1;
+}
+
+/* ===== Responsive Layout ===== */
+@media (max-width: 640px) {
+  .button-group {
+    flex-direction: column-reverse;
+  }
+
+  .button-group > button,
+  .button-group > a {
+    width: 100%;
+  }
+}
+
+/* ===== Button Group Variants ===== */
+
+/* Horizontal alignment (default is space-between with flex: 1) */
+.button-group.button-group-start {
+  justify-content: flex-start;
+}
+
+.button-group.button-group-center {
+  justify-content: center;
+}
+
+.button-group.button-group-end {
+  justify-content: flex-end;
+}
+
+/* Fixed width buttons (don't stretch) */
+.button-group.button-group-fixed > button,
+.button-group.button-group-fixed > a {
+  flex: 0 0 auto;
+}
+
+/* Compact spacing */
+.button-group.button-group-compact {
+  gap: var(--gap-2);
+  margin-top: var(--spacing-4);
+}
+
+/* Stacked (always vertical, no mobile override) */
+.button-group.button-group-stacked {
+  flex-direction: column;
+}
+
+.button-group.button-group-stacked > button,
+.button-group.button-group-stacked > a {
+  width: 100%;
+}

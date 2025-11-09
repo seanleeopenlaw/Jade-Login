@@ -11,6 +11,10 @@
   color: var(--primary);
 }
 
+.jade-text-success {
+  color: var(--primary);
+}
+
 .jade-bg-primary {
   background-color: var(--primary);
   color: var(--primary-foreground);
@@ -22,6 +26,65 @@
 
 .jade-border-color {
   border-color: var(--border);
+}
+
+/* ============================================
+   TYPOGRAPHY UTILITIES
+   ============================================ */
+
+/* Font Families */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Font Weights */
+.font-normal {
+  font-weight: var(--font-normal);
+}
+
+.font-medium {
+  font-weight: var(--font-medium);
+}
+
+.font-semibold {
+  font-weight: var(--font-semibold);
+}
+
+.font-bold {
+  font-weight: var(--font-bold);
+}
+
+/* Line Heights */
+.leading-none {
+  line-height: var(--leading-none);
+}
+
+.leading-tight {
+  line-height: var(--leading-tight);
+}
+
+.leading-snug {
+  line-height: var(--leading-snug);
+}
+
+.leading-normal {
+  line-height: var(--leading-normal);
+}
+
+.leading-relaxed {
+  line-height: var(--leading-relaxed);
+}
+
+.leading-loose {
+  line-height: var(--leading-loose);
 }
 
 /* ============================================
@@ -100,6 +163,20 @@
 /* Fade In */
 .fade-in {
   animation: fadeIn 0.4s ease-in;
+}
+
+/* Fade In with Delay */
+.fade-in-delay {
+  animation: fadeIn 0.4s ease-in 0.2s both;
+}
+
+/* ============================================
+   IMAGE UTILITIES
+   ============================================ */
+
+/* Invert logo (for dark backgrounds) */
+.logo-invert {
+  filter: brightness(0) invert(1);
 }
 
 /* Note: @keyframes fadeIn and slideDown are defined in design-tokens.css */

@@ -1,0 +1,134 @@
+/**
+ * JADE Preset Checkbox Component
+ * Large, prominent card-style checkboxes for primary selections
+ * Extends base checkbox-grid.css with larger, card-like styling
+ */
+
+/* ============================================
+   GRID LAYOUT
+   ============================================ */
+
+.preset-checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
+}
+
+@media (min-width: 640px) {
+  .preset-checkbox-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ============================================
+   CHECKBOX ITEM CONTAINER
+   ============================================ */
+
+.preset-checkbox-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+}
+
+/* Hide Native Input */
+.preset-checkbox-item input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* ============================================
+   LARGE CARD-STYLE LABEL
+   ============================================ */
+
+.preset-checkbox-item label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  background-color: var(--card);
+  height: 100%;
+  width: 100%;
+  min-height: 100px;
+  text-align: center;
+  box-shadow: var(--shadow-xs);
+}
+
+/* ============================================
+   INTERACTIVE STATES
+   ============================================ */
+
+/* Hover State */
+.preset-checkbox-item label:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Focus State (for keyboard navigation) */
+.preset-checkbox-item input[type="checkbox"]:focus-visible + label {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Checked State */
+.preset-checkbox-item input[type="checkbox"]:checked + label {
+  border-color: var(--primary);
+  background-color: var(--accent);
+}
+
+/* ============================================
+   CUSTOM CHECKBOX VISUAL
+   ============================================ */
+
+.preset-checkbox-item label::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-right: var(--spacing-3);
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+}
+
+/* Checked Checkbox with Checkmark */
+.preset-checkbox-item input[type="checkbox"]:checked + label::before {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: checkboxPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ============================================
+   LABEL TEXT STYLING
+   ============================================ */
+
+.preset-label {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  color: var(--foreground);
+}
+
+/* ============================================
+   RESPONSIVE - MOBILE
+   ============================================ */
+
+@media (max-width: 640px) {
+  .preset-label {
+    font-size: var(--text-sm);
+  }
+
+  .preset-checkbox-item label {
+    min-height: 80px;
+  }
+}
