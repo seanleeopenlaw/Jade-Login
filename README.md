@@ -1,833 +1,264 @@
-# JADE Login Flow - Passwordless Authentication & Subscription
+# JADE Login Flow
 
-Modern passwordless authentication flow with SSO support and streamlined subscription experience.
-
-## 🎯 Overview
+Modern passwordless authentication flow with onboarding and subscription.
 
 ```
 📧 EMAIL → 🔐 AUTH → 👤 SETUP → 💎 PLAN → ✅ SUCCESS → 🚀 APP
 ```
 
-**Key Features:**
-- Passwordless authentication (magic link + SSO)
-- Complete onboarding flow with profile setup
-- Streamlined plan selection with Enterprise contact flow
-- Professional design with modular CSS architecture
-- Mobile-responsive and accessible
-- Shared component architecture (reduced ~455+ lines of duplication)
-- Comprehensive code review completed with refactoring plan
-
 ---
 
-## 📁 File Structure
+## 🚀 Quick Start
 
-### Main Flow
-
-#### 1. Entry Point
-- **`index.html`** - Auto-redirects to landing page
-- **`1-gated-landing.html`** - Email entry point with SSO detection
-
-#### 2. Authentication Flow (`auth/`)
-- **`step1-email.html`** - Email entry (alternative entry)
-- **`step2-method.html`** - SSO selection (Google/Microsoft) or Magic Link
-- **`magic-link-sent.html`** - Confirmation page after sending magic link
-- **`verify.html`** - Magic link verification and authentication
-
-#### 3. Onboarding/Setup Flow (`setup/`)
-- **`index.html`** - Personal details (First Name, Last Name, Mobile, Alert preference)
-- **`alerts.html`** - Alert preferences (Court selection)
-
-#### 4. Subscription Flow
-- **`2-plan-selection.html`** - Plan selection with Free/Pro/Enterprise options
-- **`3-subscription-complete.html`** - Success page with confetti animation
-- **`app-loading.html`** - Universal loading transition to main app
-
-#### 5. Main Application
-- **`4-main-app-free.html`** - Free tier with upgrade banner
-- **`4-main-app-pro.html`** - Pro tier (full access)
-
-### CSS Architecture (`css/`)
-
-#### Core
-- **`jade.css`** - Main entry point (imports all components)
-- **`design-tokens.css`** - CSS variables and design system
-
-#### Components (`css/components/`)
-- **`badges.css`** - User badges (FREE/PRO), promotional badges
-- **`buttons.css`** - Primary, secondary, toggle buttons
-- **`cards.css`** - Card components and plan cards
-- **`checkbox-grid.css`** - ✨ Multi-select checkbox grid layout
-- **`confetti.css`** - ✨ Success celebration confetti animation
-- **`forms.css`** - Input fields, checkboxes, form elements
-- **`layout.css`** - Main container, sidebar, content area
-- **`loading.css`** - Loading spinners, status icons, animations
-- **`messages.css`** - Error and success messages
-- **`navigation.css`** - Header, nav links, search bar
-- **`radio-buttons.css`** - ✨ Custom styled radio button groups
-- **`results.css`** - Search results display
-- **`stepper.css`** - Onboarding progress stepper
-- **`toast.css`** - Toast notifications
-- **`utilities.css`** - Utility classes, accessibility helpers
-
-### JavaScript (`js/`)
-- **`utils.js`** - Core utilities (errors, loading, session, toasts)
-- **`components.js`** - ✨ Reusable HTML component factories
-- **`form-validation.js`** - ✨ Form validation utilities
-- **`session-manager.js`** - ✨ Type-safe session management
-- **`sso-config.js`** - SSO provider configuration
-- **`magic-link.js`** - Magic link token generation and validation
-- **`loading-states.js`** - Page transition utilities
-
----
-
-## 🔐 User Flows
-
-**All users go through Plan Selection after authentication/setup to see promotional offers**
-
-### 🧪 Test Emails
-Use these emails to test different user flows:
-- **`new@email.com`** - Previously non-registered user (full onboarding)
-- **`normal@gmail.com`** - Returning user (setup completed)
-- **`org@organisation.com`** - Organization user (auto Pro access)
-
----
-
-### Flow 1: Previously Non-Registered User
-**Test with:** `new@email.com`
-
-**Full onboarding with setup required**
-
-1. **Enter email** → `1-gated-landing.html`
-2. **Authentication:**
-   - Magic link sent → `auth/magic-link-sent.html` → `auth/verify.html`
-   - System detects new user (no previous login history)
-3. **Account Setup** → `setup/index.html` (Personal Details)
-   - First Name, Last Name, Mobile
-   - Alert preference (Yes/No)
-4. **Alert Preferences:**
-   - If Yes → `setup/alerts.html` → Select courts → Direct to Plan Selection
-   - If No → Direct to Plan Selection
-5. **Plan Selection (Promotion)** → `2-plan-selection.html`
-   - Choose Free, Pro, or Enterprise
-   - Can skip offer
-6. **Access App:**
-   - Free → `app-loading.html` → `4-main-app-free.html` (with upgrade banner)
-   - Pro → `3-subscription-complete.html` → `app-loading.html` → `4-main-app-pro.html`
-   - Enterprise → Shows contact confirmation toast
-
-**Key Characteristics:**
-- First-time user requiring complete profile setup
-- Goes through full onboarding flow
-- Sees plan selection after setup completion
-
----
-
-### Flow 2: Returning User (Setup Completed)
-**Test with:** `normal@gmail.com`
-
-**Direct to promotion after authentication, no setup needed**
-
-1. **Enter email** → `1-gated-landing.html`
-2. **Authentication:**
-   - Magic link sent → `auth/magic-link-sent.html` → `auth/verify.html`
-   - System detects returning user (has logged in before)
-3. **Skip Setup** → Already completed previously
-4. **Plan Selection (Promotion)** → `2-plan-selection.html`
-   - Shows promotional offer (30% off)
-   - All users see plan selection for promotional visibility
-5. **Access App:**
-   - Free tier → `app-loading.html` → `4-main-app-free.html`
-   - Pro subscription → `app-loading.html` → `4-main-app-pro.html`
-
-**Key Characteristics:**
-- Returning user with completed setup
-- Skips onboarding entirely
-- Goes directly to plan selection or app
-
----
-
-### Flow 3: Organization User
-**Test with:** `org@organisation.com`
-
-**Auto-assigned Pro access, bypasses plan selection**
-
-1. **Enter email** → `1-gated-landing.html`
-2. **SSO Detection:**
-   - System detects enterprise domain
-   - Shows SSO option (if available) or magic link
-3. **Authentication** → `auth/verify.html`
-4. **Auto Pro Access:**
-   - System automatically grants Pro tier
-   - Bypasses plan selection entirely
-5. **Direct to App:**
-   - `app-loading.html` → `4-main-app-pro.html` (full Pro features)
-
-**Key Characteristics:**
-- Enterprise email domain user
-- Automatically gets Pro tier access
-- Bypasses plan selection and payment flow
-- May require onboarding if first-time user
-
----
-
-### Plan Selection Flow
-**Every non-enterprise user sees Plan Selection page after sign in/setup** to ensure promotional offers reach all users. The page:
-- Displays Free, Professional (30% off), and Enterprise options
-- Shows clear pricing and feature comparisons
-- Allows users to choose their preferred tier
-- **Exception:** Enterprise users (`@organisation.com`) bypass plan selection and get auto-assigned Pro access
-
----
-
-## 🎨 Design System
-
-### CSS Component Usage
-
-**Quick Start:**
-```html
-<!-- Import everything (recommended) -->
-<link rel="stylesheet" href="css/jade.css">
-<body class="jade-theme">
-  <!-- All components available -->
-</body>
-```
-
-**Common Components:**
-
-```html
-<!-- Buttons (with size variants) -->
-<button class="btn-primary btn-sm">Small Primary</button>
-<button class="btn-primary">Default Primary</button>
-<button class="btn-primary btn-lg">Large Primary</button>
-<button class="btn-secondary">Secondary Action</button>
-
-<!-- Cards (with size variants) -->
-<div class="card card-sm">Small Card</div>
-<div class="card">Default Card</div>
-<div class="card card-lg">Large Card</div>
-
-<!-- Forms (with size variants) -->
-<input type="text" class="input-field input-sm" placeholder="Small input">
-<input type="text" class="input-field" placeholder="Default input">
-<input type="text" class="input-field input-lg" placeholder="Large input">
-<input type="email" class="input-field" placeholder="your@email.com">
-
-<!-- Error Messages -->
-<div class="error-message">
-  <svg><!-- icon --></svg>
-  <span class="error-text">Error message here</span>
-</div>
-
-<!-- Loading States -->
-<div class="spinner"></div>
-<div class="spinner spinner-sm"></div>
-
-<!-- Badges -->
-<span class="badge-free">FREE</span>
-<span class="badge-pro">PRO</span>
-
-<!-- Toast (JavaScript) -->
-<script>
-  showToast('Success message', 'success', 3000);
-  showToast('Error message', 'error', 3000);
-</script>
-```
-
-**Page Layout:**
-```html
-<body class="jade-theme">
-  <main class="flex-1 flex items-center justify-center px-4 py-12">
-    <div class="max-w-md w-full">
-      <!-- Logo + Title -->
-      <div class="text-center mb-8">
-        <img src="jade_logo.svg" class="h-10 mx-auto mb-8" />
-        <h1 class="text-3xl font-bold mb-3 font-serif">Page Title</h1>
-        <p class="text-sm jade-text-muted">Subtitle text</p>
-      </div>
-
-      <!-- Form Card -->
-      <div class="card p-6 sm:p-8">
-        <!-- Form content -->
-      </div>
-    </div>
-  </main>
-</body>
-```
-
-### Color Palette
-```css
-/* Light Mode (Default) */
---primary: #089444        /* JADE Green */
---background: #f7f9fc     /* Light Blue-Gray */
---foreground: #374151     /* Dark Gray */
---card: #ffffff          /* White */
---accent: #e0f2fe        /* Light Blue */
---border: #e5e7eb        /* Light Gray */
---success: #22c55e       /* Green */
---error: #dc2626         /* Red */
-```
-
-**Dark Mode Support:** Available via `data-theme="dark"` attribute (disabled by default)
-
-### Typography
-- **Headings:** Lora (serif) - professional elegance
-- **Body:** Alegreya Sans (sans-serif) - clean readability
-- **Monospace:** IBM Plex Mono - numbers and code
-
-### Responsive Design
-- **Mobile:** 640px and below
-- **Tablet:** 768px and below
-- **Desktop:** Above 768px
-
----
-
-## 💻 Technical Details
-
-### Stack
-- **HTML5:** Semantic markup
-- **CSS:** Modular component architecture with CSS variables
-- **Tailwind CSS:** Utility-first via CDN (for layout only)
-- **Vanilla JavaScript:** ES6+, no framework dependencies
-- **SessionStorage:** For auth state management
-
-### ⚠️ Demo/Prototype Characteristics
-
-**This is a design prototype to demonstrate user flow - not a production app.**
-
-Key behaviors for demo purposes:
-- **No data persistence between sessions** - Each page load starts fresh
-- **No data restoration** - Form fields always show defaults (never pre-filled from previous sessions)
-- **SessionStorage cleared on completion** - Onboarding data removed after flow completes
-- **Simplified transitions** - Direct routing from setup to plan selection
-- **Mock authentication** - Magic links and SSO are simulated (no backend)
-
-**Why this matters for developers:**
-- Easier to demonstrate flow repeatedly without clearing browser data
-- Each walkthrough starts from clean state
-- Focus on UX/UI rather than data management
-- Simplified for stakeholder presentations and user testing
-
-### Key Features
-
-#### CSS
-- **Enterprise-grade design system** with complete token architecture
-- All spacing values use design tokens (--spacing-0 through --spacing-24)
-- Comprehensive size variant system (sm, md, lg) across all components
-- Namespaced classes (`.jade-*`) to prevent Tailwind conflicts
-- Scoped global selectors (`.jade-theme`)
-- Comprehensive responsive design
-- Dark mode support (manual toggle)
-- **Storybook-ready:** 10/10 production readiness score
-
-#### JavaScript
-- Email validation
-- SSO detection
-- Magic link token generation
-- Session management
-- Toast notifications
-- Loading states
-- Form validation
-
-### Browser Support
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
----
-
-## 📊 Plan Comparison
-
-| Feature | Free | Professional | Enterprise |
-|---------|------|--------------|------------|
-| **Price** | $0 | $696.50/year | Custom |
-| **Discount** | - | 30% off ($995) | Negotiable |
-| **Search** | Advanced Search, Citator | + Focus Matches, Clips | Everything |
-| **Library** | Basic Alerts, Marks | + Export, Uploads, Citations | + API Access |
-| **Visualization** | - | Full Suite | + Custom Tools |
-| **Support** | Community | Email | Dedicated Manager |
-
----
-
-## 🎯 Key UX Decisions
-
-### What We Built & Why
-
-| Decision | Rationale |
-|----------|-----------|
-| Passwordless auth | Reduced friction, modern security |
-| SSO detection | Smart routing, fewer clicks |
-| Dismissible banner | Respects user choice |
-| Free tier available | Risk-free trial |
-| Clean plan selection | Clear pricing, no tricks |
-| Confetti animation | Positive reinforcement |
-
-### Design Philosophy
-1. **Minimal Friction:** Passwordless = fewer steps
-2. **User Choice:** Can start with free tier
-3. **Transparency:** Clear pricing, no hidden fees
-4. **Professional:** Design for legal professionals
-5. **Accessibility:** WCAG compliant, keyboard navigation
-6. **Performance:** Fast loading, optimized CSS
-
----
-
-## 🛠️ Local Development
-
-### Quick Start
 ```bash
-# Clone repository
+# Clone and run
 git clone https://github.com/seanleeopenlaw/Jade-Login.git
 cd Jade-Login
-
-# Open in browser
 open 1-gated-landing.html
+
+# Or visit deployed version
+https://jade-login-flow.vercel.app
 ```
 
-### Testing Flow
+### Test Emails
 
-**Use these test emails to experience different user journeys:**
+| Email | Flow |
+|-------|------|
+| `new@email.com` | New user → Full onboarding → Setup → Plan → App |
+| `normal@gmail.com` | Returning user → Auth → Plan → App |
+| `org@organisation.com` | Enterprise → Auth → Auto Pro access |
 
-| Email | Flow Type | What Happens |
-|-------|-----------|--------------|
-| `new@email.com` | Previously non-registered user | Full onboarding → Setup → Plan selection → App |
-| `normal@gmail.com` | Returning user | Auth → Plan selection → App (no setup) |
-| `org@organisation.com` | Organization user | Auth → Direct to Pro app (bypasses plan selection) |
+---
 
-**Steps to test:**
-1. Open `1-gated-landing.html` or visit https://jade-login-flow.vercel.app
-2. Enter one of the test emails above
-3. Click "Continue" to proceed through the flow
-4. Follow the authentication and onboarding steps
-5. Experience the complete user journey for that user type
+## 📁 Project Structure
 
-### LocalStorage/SessionStorage Keys
-```javascript
-// Authentication (sessionStorage)
-'authEmail': 'user@example.com'
-'isAuthenticated': 'true'
-'authMethod': 'google' | 'microsoft' | 'magicLink'
-'isNewUser': 'true'
-'userEmail': 'user@example.com'
-'userName': 'John Doe'
+### Main Pages
 
-// Magic Link (sessionStorage)
-'pendingMagicLink': { token, expires, email, magicLink }
+```
+/
+├── index.html                      # Entry point (redirects to landing)
+├── 1-gated-landing.html           # Email entry + SSO detection
+│
+├── auth/
+│   ├── step2-method.html          # SSO/Magic Link selection
+│   ├── magic-link-sent.html       # Email confirmation
+│   └── verify.html                # Token verification
+│
+├── account-setup-step1.html       # Alert preferences
+├── account-setup-step2.html       # Profile details
+│
+├── 2-plan-selection.html          # Free/Pro/Enterprise plans
+├── 3-subscription-complete.html   # Success page
+├── app-loading.html               # Loading transition
+│
+├── 4-main-app-free.html          # Free tier app
+├── 4-main-app-pro.html           # Pro tier app
+└── welcome.html                   # Feature introduction
+```
 
-// Onboarding/Setup (sessionStorage)
-'onboardingData': {
-  firstName: 'John',
-  lastName: 'Doe',
-  mobile: '+1234567890',
-  wantsAlerts: true,
-  selectedCourts: ['HCA', 'NSWCA']
-}
-'onboardingComplete': 'true'
+### CSS Architecture
 
-// Subscription (sessionStorage)
-'subscriptionPlan': 'professional'
-'billingPeriod': 'annual'
-'subscriptionPrice': '696.50'
+```
+css/
+├── jade.css                       # Main entry (imports all)
+├── design-tokens.css             # Variables & tokens
+└── components/
+    ├── buttons.css, button-group.css
+    ├── forms.css, radio-buttons.css
+    ├── cards.css, badges.css
+    ├── stepper.css, confetti.css
+    ├── searchable-select.css
+    └── ... (19 components total)
+```
 
-// Toast Messages (sessionStorage)
-'showToast': { message: 'Success!', type: 'success' }
+### JavaScript
 
-// User History (localStorage)
-'hasSeenOffer': 'true'
-'hasLoggedInBefore': 'true'
+```
+js/
+├── utils.js                      # Core utilities
+├── searchable-select.js          # Multi-select component
+├── form-validation.js            # Validation helpers
+├── loading-states.js             # Page transitions
+├── magic-link.js                 # Auth token logic
+└── sso-config.js                 # SSO provider config
 ```
 
 ---
 
-## 🔐 Security Considerations
+## 🔐 Authentication Flow
 
-### Implemented (Prototype)
-- Magic link token expiration (15 minutes)
-- Secure token generation (random + timestamp)
-- Session-based authentication
-- Form validation
-- HTTPS-ready
+### New User (`new@email.com`)
+1. Enter email → Detect new user
+2. Magic link verification
+3. **Account Setup:** Alert preferences → Profile details
+4. Plan selection (Free/Pro/Enterprise)
+5. App access
 
-### Production Requirements
-- Backend token validation
-- Rate limiting on magic link requests
-- CSRF protection
-- Session timeout
-- Proper SSO OAuth flow
-- Database for user management
-- Encryption for sensitive data
+### Returning User (`normal@gmail.com`)
+1. Enter email → Detect returning
+2. Magic link verification
+3. **Skip setup** (already completed)
+4. Plan selection
+5. App access
+
+### Enterprise User (`org@organisation.com`)
+1. Enter email → Detect enterprise domain
+2. SSO or magic link
+3. **Auto Pro access** (bypass plan selection)
+4. Direct to Pro app
 
 ---
 
-## 🛠️ How to Build User Flows
+## 💻 Tech Stack
 
-### Creating a New Auth Page
+- **HTML5** - Semantic markup
+- **CSS** - Modular component system with design tokens
+- **Tailwind CSS** - Layout utilities (CDN)
+- **Vanilla JavaScript** - ES6+, no frameworks
+- **SessionStorage** - Demo state management
 
-**1. Copy Template Structure:**
+### Design System
+
+- **Colors:** JADE Green (#089444), professional palette
+- **Typography:** Lora (serif), Alegreya Sans (body), IBM Plex Mono (code)
+- **Components:** 19 production-ready, Storybook-compatible
+- **Responsive:** Mobile-first, 640px/768px/1024px breakpoints
+
+---
+
+## 📚 Documentation
+
+Full documentation available:
+
+- **[Component Library](docs/COMPONENT-LIBRARY.md)** - All 19 components with examples
+- **[Onboarding Flow](docs/ONBOARDING-FLOW.md)** - Detailed user journey maps
+- **[Quick Start Guide](docs/QUICK-START.md)** - Developer setup
+- **[Searchable Select](docs/components/SEARCHABLE-SELECT.md)** - Multi-select component
+- **[Refactoring Summary](REFACTORING-SUMMARY.md)** - Code quality report
+
+---
+
+## 🎨 Component Usage
+
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Title - JADE</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/jade.css">
-</head>
+<!-- Import design system -->
+<link rel="stylesheet" href="css/jade.css">
 <body class="jade-theme">
-  <main class="flex-1 flex items-center justify-center px-4 py-12">
-    <div class="max-w-md w-full">
-      <!-- Page Header -->
-      <div class="text-center mb-8">
-        <img src="../jade_logo.svg" alt="JADE" class="h-10 mx-auto mb-8" />
-        <h1 class="text-3xl sm:text-4xl font-bold mb-3 font-serif">Your Title</h1>
-        <p class="text-base jade-text-muted">Your subtitle</p>
-      </div>
 
-      <!-- Form Card -->
-      <div class="card p-6 sm:p-8">
-        <!-- Your content here -->
-      </div>
-    </div>
-  </main>
+  <!-- Buttons -->
+  <button class="btn-primary">Primary</button>
+  <button class="btn-secondary">Secondary</button>
 
-  <script src="../js/utils.js"></script>
-  <!-- Your page-specific JavaScript -->
+  <!-- Forms -->
+  <input type="email" class="input-field" placeholder="your@email.com">
+
+  <!-- Cards -->
+  <div class="card p-6">Card content</div>
+
+  <!-- Loading -->
+  <div class="spinner"></div>
+
+  <!-- Badges -->
+  <span class="user-badge">PRO</span>
 </body>
-</html>
 ```
 
-**2. Add Form with Validation:**
-```html
-<form id="your-form" class="space-y-5">
-  <div>
-    <label for="email" class="block text-sm font-medium mb-2">Email</label>
-    <input
-      type="email"
-      id="email"
-      class="input-field"
-      placeholder="your@email.com"
-      required
-    />
-    <div id="email-error" style="display: none; color: var(--error); font-size: 0.875rem; margin-top: 0.5rem;"></div>
-  </div>
+**See [Component Library](docs/COMPONENT-LIBRARY.md) for complete reference.**
 
-  <button type="submit" class="btn-primary" id="submit-btn">
-    Continue
-  </button>
-</form>
+---
 
-<script>
-  const form = document.getElementById('your-form');
-  const emailInput = document.getElementById('email');
-  const submitBtn = document.getElementById('submit-btn');
+## 🛠️ Development
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+### Session Keys
 
-    const email = emailInput.value.trim();
-
-    if (!isValidEmail(email)) {
-      showError('Please enter a valid email');
-      return;
-    }
-
-    // Show loading state
-    showLoading(submitBtn, 'Processing...');
-
-    // Your logic here
-    await simulateDelay(1000);
-
-    // Store in session
-    setSession('userEmail', email);
-
-    // Redirect
-    window.location.href = 'next-page.html';
-  });
-</script>
-```
-
-**3. Add Loading States:**
 ```javascript
-// Show loading (basic)
-showLoading(button, 'Loading...');
+// Authentication
+SessionManager.setUserEmail('user@example.com');
+SessionManager.setAuthenticated(true);
+SessionManager.isNewUser();
 
-// Show loading with spinner
-showLoading(button, 'Sending...', { showSpinner: true });
+// Or raw access
+setSession('userEmail', 'user@example.com');
+getSession('isAuthenticated');
+```
 
-// Hide loading
+### Utility Functions
+
+```javascript
+// Form validation
+validateEmailField(input);
+setupEmailValidation(input);
+
+// Loading states
+showLoading(button, 'Processing...');
 hideLoading(button);
 
-// Show error
-showError('Error message here');
-
-// Hide error
-hideError();
-
-// Show toast
+// Toast notifications
 showToast('Success!', 'success', 3000);
 
 // Delay helper
-await delay(1000); // Wait 1 second
+await delay(1000);
 ```
 
-**4. Session Management:**
+### SSO Detection
 
-*Option A: Using SessionManager (Recommended - Type-safe)*
 ```javascript
-// Import SessionManager
-// <script src="../js/session-manager.js"></script>
-
-// Store data (type-safe, no typos)
-SessionManager.setUserEmail('user@example.com');
-SessionManager.setNewUser(true);
-SessionManager.setAuthenticated(true);
-
-// Retrieve data
-const email = SessionManager.getUserEmail();
-const isNew = SessionManager.isNewUser();
-
-// Check authentication
-if (!SessionManager.isAuthenticated()) {
-  window.location.href = '../1-gated-landing.html';
-}
-
-// Clear data
-SessionManager.clearAuth();      // Clear auth data only
-SessionManager.clearOnboarding(); // Clear onboarding only
-SessionManager.clearAll();        // Clear everything
-
-// Debug
-SessionManager.debugPrint();      // Log all session data
-```
-
-*Option B: Using raw session functions*
-```javascript
-// Store data (prone to typos)
-setSession('userEmail', 'user@example.com');
-setSession('isNewUser', true);
-
-// Retrieve data
-const email = getSession('userEmail');
-const isNew = getSession('isNewUser');
-```
-
-### Implementing User Flow Logic
-
-**Check if User is New:**
-```javascript
-// In auth/verify.html (after successful login)
-const previousLogin = localStorage.getItem('hasLoggedInBefore');
-if (!previousLogin) {
-  setSession('isNewUser', true);
-  localStorage.setItem('hasLoggedInBefore', 'true');
-}
-```
-
-**Route Based on User State:**
-```javascript
-// Helper function (add to js/utils.js if needed)
-function getPostAuthRedirect(email) {
-  const isNewUser = getSession('isNewUser');
-  const onboardingComplete = getSession('onboardingComplete');
-
-  if (isNewUser && !onboardingComplete) {
-    return 'setup/index.html';  // First-time setup
-  }
-
-  return '2-plan-selection.html';  // Direct to plan selection
-}
-
-// Use in your auth pages
-window.location.href = getPostAuthRedirect(email);
-```
-
-**Detect SSO Availability:**
-```javascript
-// Get auth methods from sso-config.js
 const authMethods = getAuthMethods(email);
-
 if (authMethods.hasSSO) {
   // Show SSO options
-  window.location.href = 'auth/step2-method.html';
 } else {
-  // Send magic link directly
-  const result = createMagicLinkToken(email);
-  await sendMagicLinkEmail(email, result.magicLink);
-  window.location.href = 'auth/magic-link-sent.html';
+  // Send magic link
 }
 ```
 
-### Using Reusable Components
+---
 
-**Import the modules:**
-```html
-<script src="../js/utils.js"></script>
-<script src="../js/components.js"></script>
-<script src="../js/form-validation.js"></script>
-<script src="../js/session-manager.js"></script>
-```
+## ⚠️ Demo Notes
 
-**Create components programmatically:**
-```javascript
-// Create error message container
-const errorMessage = createErrorMessage('error-message');
-document.querySelector('.card').prepend(errorMessage);
+This is a **prototype** for demonstrating UX flow:
 
-// Create page header
-const header = createPageHeader({
-  title: 'Sign In',
-  subtitle: 'Enter your email to continue',
-  logoSrc: '../jade_logo.svg'
-});
-document.querySelector('main > div').prepend(header);
+- No backend - authentication is simulated
+- SessionStorage only - no persistence between page loads
+- Mock data - no real API calls
+- Clean state - onboarding data cleared after completion
 
-// Create input field with error handling
-const emailField = createInputField({
-  id: 'email',
-  type: 'email',
-  label: 'Email address',
-  placeholder: 'your@email.com',
-  required: true,
-  autocomplete: 'email'
-});
-form.appendChild(emailField);
+**For production:**
+- Add backend authentication service
+- Implement real magic link emails
+- Set up database and API
+- Add payment processing (Stripe)
+- Implement session management
+- Add analytics and monitoring
 
-// Create submit button
-const submitBtn = createButton({
-  id: 'submit-btn',
-  text: 'Continue',
-  type: 'primary'
-});
-form.appendChild(submitBtn);
-```
+---
 
-**Use form validation:**
-```javascript
-// Simple validation
-const emailInput = document.getElementById('email');
-const isValid = validateEmailField(emailInput);
+## 📦 Deployment
 
-// With custom messages
-const isValid = validateEmailField(emailInput, {
-  errorSelector: '#email-error',
-  emptyMessage: 'Email is required',
-  invalidMessage: 'Invalid email format'
-});
+**Live Demo:** https://jade-login-flow.vercel.app
 
-// Setup real-time validation
-setupEmailValidation(emailInput, {
-  errorSelector: '#email-error',
-  checkDomain: true
-});
+```bash
+# Deploy to Vercel
+vercel --prod
 
-// Validate other fields
-validateNameField(firstNameInput, {
-  errorSelector: '#firstName-error',
-  fieldName: 'First name'
-});
-
-validatePhoneField(mobileInput, {
-  errorSelector: '#mobile-error'
-});
-
-// Clear all errors
-clearFormErrors(form);
+# Or push to main branch (auto-deploys)
+git push origin main
 ```
 
 ---
 
-## 🚧 Production Checklist
+## 🎯 Key Features
 
-### Phase 1: Backend Integration
-- [ ] Set up authentication service (Auth0/FusionAuth)
-- [ ] Implement magic link email sending
-- [ ] Add database for user accounts
-- [ ] Build API endpoints
-- [ ] Add session management
-
-### Phase 2: Payment Integration
-- [ ] Integrate Stripe/payment processor
-- [ ] Add webhook handlers
-- [ ] Implement subscription management
-- [ ] Set up billing portal
-- [ ] Add receipt emails
-
-### Phase 3: Polish
-- [ ] Add proper error handling
-- [ ] Implement analytics (Mixpanel/GA)
-- [ ] Set up monitoring
-- [ ] Add A/B testing framework
-- [ ] Performance optimization
-
-### Phase 4: Launch
-- [ ] Security audit
-- [ ] Load testing
-- [ ] User acceptance testing
-- [ ] Staged rollout
+- ✅ Passwordless authentication (magic link + SSO)
+- ✅ Smart user routing (new vs. returning)
+- ✅ 2-step account setup flow
+- ✅ Plan selection with promotional pricing
+- ✅ Enterprise auto-provisioning
+- ✅ Production-ready CSS architecture
+- ✅ Mobile-responsive design
+- ✅ Accessible (WCAG compliant)
 
 ---
 
-## 📝 Recent Updates
+**Built with Claude Code** | [GitHub](https://github.com/seanleeopenlaw/Jade-Login) | [Live Demo](https://jade-login-flow.vercel.app)
 
-### Version 5.0 (November 4, 2025)
-- ✨ **Complete CSS Refactoring** - Enterprise-ready design system
-  - **Priority 3:** Replaced all hardcoded spacing values with design tokens
-    - Updated `checkbox-grid.css`, `radio-buttons.css`, `stepper.css`, `badges.css`
-    - 18+ hardcoded values → CSS variables
-  - **Priority 4:** Added comprehensive size variant system
-    - Buttons: `.btn-sm`, `.btn-lg` (small/large variants)
-    - Inputs: `.input-sm`, `.input-lg` (form field sizes)
-    - Cards: `.card-sm`, `.card-lg` (card padding variants)
-  - **Bug Fix:** Resolved CSS class naming conflict (`.success-icon` → `.success-celebration-icon`)
-  - **Storybook Ready:** 10/10 - All components production-ready with consistent naming
-  - **Total Time:** 100 minutes vs 10-14 hours estimated
-- 🎨 **Simplified Plan Selection Flow**
-  - Removed "Don't show again" and reminder preferences
-  - Streamlined user journey for better conversion
-  - All non-enterprise users see plan selection once
-
-### Version 4.2 (November 3, 2025)
-- Enhanced plan selection UX with circular check icons
-- Added Enterprise contact flow with "Talk to Sales Team" button
-- Fixed price formatting ($696.50 consistency)
-- Improved sign-in page subtitle
-- ✨ **New:** Created reusable component modules
-  - `js/components.js` - HTML component factories (6 functions)
-  - `js/form-validation.js` - Form validation utilities (6 validators)
-  - `js/session-manager.js` - Type-safe session management (30+ methods)
-- 🔧 **Refactoring:** Consolidated button loading functions
-  - Merged duplicate implementations (utils.js + loading-states.js)
-  - Added spinner support to `showLoading()`
-  - Enhanced with opacity and loading state classes
-- ✅ **Migration Complete:**
-  - `1-gated-landing.html` - Now uses `form-validation.js` (35 lines → 3 lines)
-  - `auth/step1-email.html` - Now uses `form-validation.js` (43 lines → 5 lines)
-  - Total code reduction: ~70 lines of duplicate validation logic removed
-
-### Version 4.1 (November 3, 2025)
-- Streamlined demo flow with direct routing
-- Removed data restoration for clean demo state
-- Optimized user journey transitions
-
-### Previous Versions
-- v4.0: Complete onboarding/setup flow
-- v3.0: Modular CSS architecture
-- v2.0: Passwordless authentication
-- v1.0: Initial flow
-
----
-
-## 🎉 Contributors
-
-Built with Claude Code for production-ready CSS architecture.
-
----
-
-**Designed for conversion. Built for scale. Optimized for developers.**
-
-*Last Updated: November 4, 2025*
-*Version: 5.0 (CSS Refactoring Complete - Enterprise Ready)*
+*Last Updated: 2025-01-09*
