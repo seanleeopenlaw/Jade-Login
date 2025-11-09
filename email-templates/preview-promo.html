@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Promotional Email Preview — JADE</title>
+  <title>30% Promo Email Preview</title>
   <style>
     * {
       margin: 0;
@@ -13,7 +13,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #1a1a1a;
       min-height: 100vh;
       padding: 40px 20px;
     }
@@ -30,14 +30,14 @@
 
     .preview-title {
       color: #ffffff;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .preview-subtitle {
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 16px;
+      color: #a3a3a3;
+      font-size: 14px;
     }
 
     .preview-tabs {
@@ -48,12 +48,11 @@
     }
 
     .tab-button {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
+      background: #2a2a2a;
       color: #ffffff;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      padding: 12px 24px;
-      border-radius: 8px;
+      border: 1px solid #404040;
+      padding: 10px 20px;
+      border-radius: 6px;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
@@ -61,27 +60,27 @@
     }
 
     .tab-button:hover {
-      background: rgba(255, 255, 255, 0.3);
-      border-color: rgba(255, 255, 255, 0.5);
+      background: #333333;
+      border-color: #505050;
     }
 
     .tab-button.active {
-      background: #ffffff;
-      color: #667eea;
-      border-color: #ffffff;
+      background: #00A676;
+      color: #ffffff;
+      border-color: #00A676;
     }
 
     .preview-frame {
       background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
       overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
 
     .frame-header {
-      background: #f3f4f6;
+      background: #2a2a2a;
       padding: 12px 16px;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid #404040;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -103,7 +102,7 @@
     }
 
     .frame-content {
-      height: 80vh;
+      height: 75vh;
       overflow: auto;
       background: #ffffff;
     }
@@ -117,10 +116,10 @@
     .text-preview {
       padding: 40px;
       font-family: 'Courier New', monospace;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.8;
       white-space: pre-wrap;
-      color: #1f2937;
+      color: #1a1a1a;
       display: none;
     }
 
@@ -134,7 +133,7 @@
       }
 
       .preview-title {
-        font-size: 22px;
+        font-size: 20px;
       }
 
       .preview-tabs {
@@ -151,8 +150,8 @@
 <body>
   <div class="preview-container">
     <div class="preview-header">
-      <h1 class="preview-title">Promotional Email Template</h1>
-      <p class="preview-subtitle">30% Off JADE Professional — Limited Time Offer</p>
+      <h1 class="preview-title">30% Off Promotional Email</h1>
+      <p class="preview-subtitle">JADE Professional — Email Template Preview</p>
     </div>
 
     <div class="preview-tabs">
@@ -167,7 +166,7 @@
         <div class="frame-dot"></div>
       </div>
       <div class="frame-content" id="html-preview">
-        <iframe src="promotional-offer.html"></iframe>
+        <iframe src="promo-30-percent.html"></iframe>
       </div>
       <div class="text-preview" id="text-preview">Loading...</div>
     </div>
@@ -175,7 +174,7 @@
 
   <script>
     // Load plain text content
-    fetch('promotional-offer.txt')
+    fetch('promo-30-percent.txt')
       .then(response => response.text())
       .then(text => {
         document.getElementById('text-preview').textContent = text;
