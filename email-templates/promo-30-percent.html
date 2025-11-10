@@ -90,16 +90,24 @@
         font-size: 16px !important;
       }
 
-      .mobile-price {
-        font-size: 44px !important;
-      }
-
       .mobile-header-text {
-        font-size: 26px !important;
+        font-size: 32px !important;
       }
 
       .mobile-header-padding {
-        padding: 24px 24px !important;
+        padding: 32px 24px !important;
+      }
+
+      .mobile-header-icon {
+        width: 64px !important;
+        height: 64px !important;
+      }
+
+      /* Feature cards stack vertically on mobile */
+      .feature-card-cell {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 0 12px 0 !important;
       }
     }
   </style>
@@ -163,7 +171,7 @@
                             <tr>
                               <!-- Left: Icon -->
                               <td width="100" valign="middle" style="padding-right: 8px;">
-                                <svg width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="#d1fae5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                                <svg width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="#d1fae5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;" class="mobile-header-icon">
                                   <path d="M5.8 11.1 2 22l10.7-3.79"></path>
                                   <path d="M4 3h.01"></path>
                                   <path d="M22 8h.01"></path>
@@ -212,7 +220,7 @@
                       <!-- Row 1 -->
                       <tr>
                         <!-- Feature 1: Advanced Search -->
-                        <td width="50%" valign="top" style="padding: 0 6px 12px 0;">
+                        <td width="50%" valign="top" style="padding: 0 6px 12px 0;" class="feature-card-cell">
                           <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border-radius: 12px; min-height: 88px;">
                             <tr>
                               <td style="padding: 20px; height: 88px; vertical-align: middle;">
@@ -241,7 +249,7 @@
                           </table>
                         </td>
                         <!-- Feature 2: Citation Checking -->
-                        <td width="50%" valign="top" style="padding: 0 0 12px 6px;">
+                        <td width="50%" valign="top" style="padding: 0 0 12px 6px;" class="feature-card-cell">
                           <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border-radius: 12px; min-height: 88px;">
                             <tr>
                               <td style="padding: 20px; height: 88px; vertical-align: middle;">
@@ -274,7 +282,7 @@
                       <!-- Row 2 -->
                       <tr>
                         <!-- Feature 3: Precedent Tracker -->
-                        <td width="50%" valign="top" style="padding: 0 6px 0 0;">
+                        <td width="50%" valign="top" style="padding: 0 6px 0 0;" class="feature-card-cell">
                           <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border-radius: 12px; min-height: 88px;">
                             <tr>
                               <td style="padding: 20px; height: 88px; vertical-align: middle;">
@@ -304,7 +312,7 @@
                           </table>
                         </td>
                         <!-- Feature 4: Visualize Complexity -->
-                        <td width="50%" valign="top" style="padding: 0 0 0 6px;">
+                        <td width="50%" valign="top" style="padding: 0 0 0 6px;" class="feature-card-cell">
                           <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border-radius: 12px; min-height: 88px;">
                             <tr>
                               <td style="padding: 20px; height: 88px; vertical-align: middle;">
@@ -409,8 +417,7 @@
                   <td align="center" style="padding: 0 0 12px 0;">
                     <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 11px; line-height: 1.5; color: #a3a3a3;" class="email-muted">
                       <a href="https://jade.io/privacy" style="color: #00A676; text-decoration: none;">Privacy Policy</a> ·
-                      <a href="https://jade.io/contact" style="color: #00A676; text-decoration: none;">Contact us</a> ·
-                      <a href="#" style="color: #00A676; text-decoration: none;">Unsubscribe</a>
+                      <a href="https://jade.io/contact" style="color: #00A676; text-decoration: none;">Contact us</a>
                     </p>
                   </td>
                 </tr>
