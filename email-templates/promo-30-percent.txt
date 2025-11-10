@@ -8,15 +8,7 @@ JADE
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-PRICING
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-$995 → $696.50/year
-First year only
-
-Then $995/year · Annual billing
-
-WHY UPGRADE TO PROFESSIONAL:
+WHAT YOU GET WITH PROFESSIONAL:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 🔍 Find what matters faster          👥 Work smarter with your team
@@ -34,7 +26,6 @@ https://jade-login-flow.vercel.app/2-plan-selection.html
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Annual subscriptions only. Auto-renews at standard rate.
 Questions? Email help@jade.io
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
