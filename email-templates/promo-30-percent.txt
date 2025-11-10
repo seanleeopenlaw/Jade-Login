@@ -8,34 +8,25 @@ JADE
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-JADE Professional makes legal research faster and more
-accurate, so you'll find what you need a little easier.
-Get going with 30% off your first year.
-
-WHAT YOU GET:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🔍 JADE Clips & Focus Matches
-   Search legislation efficiently
-
-🔗 Export & Share
-   Collaborate with your team seamlessly
-
-✓ Automated Citation Checking
-   Verify references instantly
-
-🔔 Advanced Alerts
-   Stay updated on case law changes
-
-📊 Visualisation Tools
-   Understand complex statutes easily
-
 PRICING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 $995 → $696.50/year
+Annual subscriptions only
 
-*Offer applies to annual subscriptions only
+WHAT YOU GET WITH PROFESSIONAL:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 JADE Clips                    🔗 Export & Share
+   Search legislation efficiently    Collaborate seamlessly
+
+✓ Citation Checking              🔔 Advanced Alerts
+   Verify references instantly       Stay updated on case law
+
+📊 Visualisation Tools
+   Understand complex statutes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 JOIN NOW:
 https://jade-login-flow.vercel.app/2-plan-selection.html
