@@ -109,12 +109,16 @@
     }
 
     /* Feature cards: full width when stacked on mobile */
-    @media only screen and (max-width: 560px) {
+    @media only screen and (max-width: 480px) {
       .stack-column {
         display: block !important;
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 0 12px 0 !important;
+      }
+
+      .stack-column:last-child {
+        padding-bottom: 0 !important;
       }
     }
   </style>
@@ -232,7 +236,7 @@
                           <![endif]-->
 
                           <!-- Feature 1: Focus Matches -->
-                          <div class="stack-column" style="display: inline-block; width: 100%; max-width: 270px; vertical-align: top; padding: 0 6px 12px 0;">
+                          <div class="stack-column" style="display: inline-block; width: calc(50% - 6px); max-width: 264px; vertical-align: top; padding: 0 12px 12px 0;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border-radius: 12px;">
                               <tr>
                                 <td style="padding: 20px; vertical-align: middle;">
@@ -267,7 +271,7 @@
                           <![endif]-->
 
                           <!-- Feature 2: Citation Checking -->
-                          <div class="stack-column" style="display: inline-block; width: 100%; max-width: 270px; vertical-align: top; padding: 0 0 12px 6px;">
+                          <div class="stack-column" style="display: inline-block; width: calc(50% - 6px); max-width: 264px; vertical-align: top; padding: 0 0 12px 12px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border-radius: 12px;">
                               <tr>
                                 <td style="padding: 20px; vertical-align: middle;">
@@ -305,7 +309,7 @@
                           <![endif]-->
 
                           <!-- Feature 3: Precedent Tracker -->
-                          <div class="stack-column" style="display: inline-block; width: 100%; max-width: 270px; vertical-align: top; padding: 0 6px 0 0;">
+                          <div class="stack-column" style="display: inline-block; width: calc(50% - 6px); max-width: 264px; vertical-align: top; padding: 0 12px 0 0;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border-radius: 12px;">
                               <tr>
                                 <td style="padding: 20px; vertical-align: middle;">
@@ -341,7 +345,7 @@
                           <![endif]-->
 
                           <!-- Feature 4: Legislation Visualisations -->
-                          <div class="stack-column" style="display: inline-block; width: 100%; max-width: 270px; vertical-align: top; padding: 0 0 0 6px;">
+                          <div class="stack-column" style="display: inline-block; width: calc(50% - 6px); max-width: 264px; vertical-align: top; padding: 0 0 0 12px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border-radius: 12px;">
                               <tr>
                                 <td style="padding: 20px; vertical-align: middle;">
