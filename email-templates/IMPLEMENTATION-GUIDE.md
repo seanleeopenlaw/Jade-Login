@@ -50,15 +50,34 @@ If required by law (CAN-SPAM, GDPR), add before line 423:
 
 ## 📱 Mobile Responsive Features
 
+### Hybrid Responsive Pattern (Email Client Compatible)
+
+This template uses the **hybrid responsive pattern** for maximum email client compatibility:
+
+**Desktop behavior (>560px):**
+- 2 cards per row (side-by-side)
+- Cards use `display: inline-block` with `max-width: 270px`
+- Natural wrapping when viewport is too narrow
+
+**Mobile behavior (<560px):**
+- Cards automatically stack vertically
+- Each card becomes full-width
+- 12px bottom margin for spacing
+
+**How it works:**
+- Uses `display: inline-block` divs (not CSS media queries)
+- Works in Gmail (which strips `<style>` tags)
+- MSO conditionals for Outlook desktop compatibility
+
 ### Automatic Behavior on <480px Screens:
 
 ✅ **Header icon:** 88px → 64px
 ✅ **Header text:** 52px → 32px
-✅ **Feature cards:** 2-column → 1-column stack
+✅ **Feature cards:** 2-column → 1-column stack (hybrid pattern)
 ✅ **Button padding:** Optimized for thumb taps
 ✅ **Container width:** 600px → 100% fluid
 
-**No additional code needed.** Media queries handle everything automatically.
+**No media query dependency.** Hybrid pattern works in all email clients, including Gmail mobile.
 
 ---
 
