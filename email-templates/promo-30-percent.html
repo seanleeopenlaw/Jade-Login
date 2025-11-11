@@ -90,17 +90,8 @@
         font-size: 16px !important;
       }
 
-      .mobile-header-text {
-        font-size: 32px !important;
-      }
-
-      .mobile-header-padding {
-        padding: 32px 24px !important;
-      }
-
-      .mobile-header-icon {
-        width: 64px !important;
-        height: 64px !important;
+      .mobile-header-price {
+        font-size: 40px !important;
       }
 
       .mobile-wrapper-padding {
@@ -113,7 +104,7 @@
 <body style="margin: 0; padding: 0; background-color: #f7f7f7;">
   <!-- Preheader text -->
   <div style="display: none; max-height: 0px; overflow: hidden;">
-    Congratulations! You just unlocked 30% off JADE Professional. Find what matters faster, work smarter with your team, and never miss an update.
+    Save $300 on JADE Professional Annual Plan. Premium legal research now $695/year (was $995). Offer ends 30 November.
   </div>
 
   <!-- Full width table wrapper -->
@@ -146,50 +137,52 @@
               -->
               <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);" class="email-card">
 
-                <!-- Header Image Banner -->
+                <!-- Header - Simple Green -->
                 <tr>
-                  <td style="background: linear-gradient(135deg, #00A676 0%, #008c5e 100%); border-radius: 12px 12px 0 0; padding: 48px 40px 40px; text-align: center;" class="mobile-header-padding">
+                  <td style="background: linear-gradient(135deg, #00A676 0%, #008c5e 100%); border-radius: 12px 12px 0 0; padding: 48px 40px; text-align: center;" class="mobile-padding">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td align="center">
-                          <!-- Limited Time Offer Badge -->
-                          <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto 24px auto;">
+                          <!-- 30% OFF - Main Headline -->
+                          <h1 style="margin: 0 0 12px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 56px; font-weight: 700; line-height: 1.1; color: #ffffff; letter-spacing: 1px;" class="mobile-header-price">
+                            30% OFF
+                          </h1>
+
+                          <!-- Plan Subtext -->
+                          <p style="margin: 0 0 20px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: 500; color: #ffffff; opacity: 0.95;">
+                            JADE Professional (Annual Plan Only)
+                          </p>
+
+                          <!-- Price Comparison -->
+                          <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto 16px auto;">
                             <tr>
-                              <td style="background-color: rgba(255, 255, 255, 0.25); border-radius: 20px; padding: 8px 16px;">
-                                <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: #ffffff;">
-                                  Limited Time Offer Unlocked!
+                              <td align="center" valign="middle">
+                                <!-- Old Price (strike-through) -->
+                                <p style="margin: 0; padding-right: 10px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 20px; font-weight: 400; color: #ffffff; opacity: 0.6; text-decoration: line-through;">
+                                  $995
+                                </p>
+                              </td>
+                              <td align="center" valign="middle">
+                                <!-- Arrow -->
+                                <p style="margin: 0; padding-right: 10px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 20px; font-weight: 400; color: #ffffff; opacity: 0.7;">
+                                  →
+                                </p>
+                              </td>
+                              <td align="center" valign="middle">
+                                <!-- New Price -->
+                                <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 32px; font-weight: 700; line-height: 1.1; color: #ffffff;">
+                                  $695<span style="font-size: 18px; font-weight: 500;">/year</span>
                                 </p>
                               </td>
                             </tr>
                           </table>
 
-                          <!-- Icon + Headline Layout (Centered) -->
+                          <!-- Save Pill -->
                           <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
                             <tr>
-                              <!-- Left: Icon -->
-                              <td width="100" valign="middle" style="padding-right: 8px;">
-                                <svg width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="#d1fae5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;" class="mobile-header-icon">
-                                  <path d="M5.8 11.1 2 22l10.7-3.79"></path>
-                                  <path d="M4 3h.01"></path>
-                                  <path d="M22 8h.01"></path>
-                                  <path d="M15 2h.01"></path>
-                                  <path d="M22 20h.01"></path>
-                                  <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12v0c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"></path>
-                                  <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11v0c-.11.7-.72 1.22-1.43 1.22H17"></path>
-                                  <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98v0C9.52 4.9 9 5.52 9 6.23V7"></path>
-                                  <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"></path>
-                                </svg>
-                              </td>
-                              <!-- Right: Headline -->
-                              <td valign="middle" align="left">
-                                <h1 style="margin: 0 0 8px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 52px; font-weight: 700; line-height: 1.1; color: #ffffff;" class="mobile-header-text">
-                                  30% off
-                                </h1>
-                                <p style="margin: 0 0 12px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 600; color: #ffffff; opacity: 0.95;">
-                                  JADE Professional
-                                </p>
-                                <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 18px; font-weight: 600; color: #ffffff; opacity: 0.9;">
-                                  Annual Plan: $695/year
+                              <td style="background-color: rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 6px 14px;">
+                                <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 600; color: #ffffff; letter-spacing: 0.3px;">
+                                  Save $300 (≈ $58/month)
                                 </p>
                               </td>
                             </tr>
@@ -208,8 +201,8 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td align="center" style="padding: 0 0 24px 0;">
-                          <h2 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 20px; font-weight: 600; color: #1a1a1a;">
-                            JADE Professional: where the magic really happens
+                          <h2 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 18px; font-weight: 400; color: #1a1a1a;">
+                            <strong>JADE Professional</strong>: where the magic really happens
                           </h2>
                         </td>
                       </tr>
@@ -375,6 +368,17 @@
                       </tr>
                     </table>
 
+                    <!-- Offer Expiry -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td align="center" style="padding: 16px 0 0 0;">
+                          <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 500; color: #737373;">
+                            Offer available only until 30 November
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+
                   </td>
                 </tr>
               </table>
@@ -384,9 +388,6 @@
           <!-- Fine Print -->
           <tr>
             <td align="center" style="padding: 24px 20px 32px 20px;">
-              <p style="margin: 0 0 8px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #737373;" class="email-muted">
-                <strong>30% off annual plan only.</strong> Offer ends 31 November. Save $300/year.
-              </p>
               <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #737373;" class="email-muted">
                 Questions? Email <a href="mailto:help@jade.io" style="color: #00A676; text-decoration: none;">help@jade.io</a>
               </p>
