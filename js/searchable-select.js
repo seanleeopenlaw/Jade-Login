@@ -150,11 +150,13 @@ class SearchableSelect {
       if (filtered.length > 0) {
         hasResults = true;
 
-        // Category header
-        const header = document.createElement('div');
-        header.className = 'searchable-select-category';
-        header.textContent = category.name;
-        this.optionsContainer.appendChild(header);
+        // Category header - only render if name is not empty
+        if (category.name && category.name.trim() !== '') {
+          const header = document.createElement('div');
+          header.className = 'searchable-select-category';
+          header.textContent = category.name;
+          this.optionsContainer.appendChild(header);
+        }
 
         // Options
         filtered.forEach(opt => {

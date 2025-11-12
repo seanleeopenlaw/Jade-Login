@@ -164,6 +164,22 @@
         flex-direction: column-reverse;
       }
     }
+
+    /* Section header styling - matching alert preferences */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-4);
+      padding-bottom: var(--spacing-3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-size: var(--text-base);
+      font-weight: var(--font-bold);
+      color: var(--foreground);
+    }
   </style>
 </head>
 <body class="jade-theme">
@@ -197,109 +213,117 @@
         </p>
       </div>
 
-    <!-- Profile Form -->
-    <form id="profile-form" novalidate>
-      <div class="form-grid">
-        <!-- First Name (Required) -->
-        <div class="form-group">
-          <label for="first-name" class="form-label">
-            First Name <span class="required">*</span>
-          </label>
-          <input
-            type="text"
-            id="first-name"
-            name="firstName"
-            class="form-input"
-            placeholder="Enter your first name"
-            required
-            autocomplete="given-name"
-            aria-label="First name"
-            aria-required="true"
-          >
-          <p class="form-error" id="first-name-error" role="alert">Please enter your first name</p>
-        </div>
-
-        <!-- Last Name (Optional) -->
-        <div class="form-group">
-          <label for="last-name" class="form-label">
-            Last Name <span class="optional">(Optional)</span>
-          </label>
-          <input
-            type="text"
-            id="last-name"
-            name="lastName"
-            class="form-input"
-            placeholder="Enter your last name"
-            autocomplete="family-name"
-            aria-label="Last name"
-          >
-        </div>
-
-        <!-- Mobile Number (Optional) - Full width on desktop -->
-        <div class="form-group full-width">
-          <label for="mobile-number" class="form-label">
-            Mobile Number for Account Recovery <span class="optional">(Optional)</span>
-          </label>
-          <input
-            type="tel"
-            id="mobile-number"
-            name="mobileNumber"
-            class="form-input"
-            placeholder="Enter your mobile number"
-            autocomplete="tel"
-            aria-label="Mobile number for account recovery"
-          >
-        </div>
-
-        <!-- User Type (Optional) - Full width on desktop -->
-        <div class="form-group full-width">
-          <label for="user-type" class="form-label">
-            User Type <span class="optional">(Optional)</span>
-          </label>
-          <select
-            id="user-type"
-            name="userType"
-            class="form-select"
-            aria-label="Select your role"
-          >
-            <option value="">Select your role</option>
-            <option value="student">Student</option>
-            <option value="barrister">Barrister</option>
-            <option value="solicitor">Solicitor</option>
-            <option value="judge">Judge</option>
-            <option value="academic">Academic / Researcher</option>
-            <option value="corporate">Corporate Counsel</option>
-            <option value="government">Government Legal</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        <!-- Purpose for Using JADE (Optional) - Full width -->
-        <div class="form-group full-width">
-          <label for="purpose" class="form-label">
-            What's the main reason you use JADE? <span class="optional">(Optional)</span>
-          </label>
-          <textarea
-            id="purpose"
-            name="purpose"
-            class="form-textarea"
-            placeholder="e.g. researching cases, tracking appeals, preparing submissions..."
-            maxlength="500"
-            aria-label="Purpose for using JADE"
-          ></textarea>
-        </div>
+    <!-- Profile Form Card -->
+    <div class="section-container">
+      <!-- Section Header -->
+      <div class="section-header">
+        <h3 class="section-title">Profile Information</h3>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="button-group">
-        <button type="button" class="btn-secondary" id="skip-button">
-          Skip for now
-        </button>
-        <button type="submit" class="btn-primary" id="continue-button" disabled>
-          Continue to JADE
-        </button>
-      </div>
-    </form>
+      <form id="profile-form" novalidate>
+        <div class="form-grid">
+          <!-- First Name (Required) -->
+          <div class="form-group">
+            <label for="first-name" class="form-label">
+              First Name <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="first-name"
+              name="firstName"
+              class="form-input"
+              placeholder="For personalised messages"
+              required
+              autocomplete="given-name"
+              aria-label="First name"
+              aria-required="true"
+            >
+            <p class="form-error" id="first-name-error" role="alert">Please enter your first name</p>
+          </div>
+
+          <!-- Last Name (Optional) -->
+          <div class="form-group">
+            <label for="last-name" class="form-label">
+              Last Name <span class="optional">(Optional)</span>
+            </label>
+            <input
+              type="text"
+              id="last-name"
+              name="lastName"
+              class="form-input"
+              placeholder="To improve email deliverability"
+              autocomplete="family-name"
+              aria-label="Last name"
+            >
+          </div>
+
+          <!-- Mobile Number (Optional) - Full width on desktop -->
+          <div class="form-group full-width">
+            <label for="mobile-number" class="form-label">
+              Mobile Number for Account Recovery <span class="optional">(Optional)</span>
+            </label>
+            <input
+              type="tel"
+              id="mobile-number"
+              name="mobileNumber"
+              class="form-input"
+              placeholder="Enter your mobile number"
+              autocomplete="tel"
+              aria-label="Mobile number for account recovery"
+            >
+          </div>
+
+          <!-- Your Role (Optional) - Full width on desktop -->
+          <div class="form-group full-width">
+            <label for="user-type" class="form-label">
+              Your Role <span class="optional">(Optional)</span>
+            </label>
+            <select
+              id="user-type"
+              name="userType"
+              class="form-select"
+              aria-label="Select your role"
+            >
+              <option value="">Select your role to personalise JADE</option>
+              <option value="student">Student</option>
+              <option value="barrister">Barrister</option>
+              <option value="solicitor">Solicitor</option>
+              <option value="judge">Judge</option>
+              <option value="academic">Academic / Researcher</option>
+              <option value="corporate">Corporate Counsel</option>
+              <option value="government">Government Legal</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Purpose for Using JADE (Optional) - Full width -->
+          <div class="form-group full-width">
+            <label for="purpose" class="form-label">
+              What's the main reason you use JADE? <span class="optional">(Optional)</span>
+            </label>
+            <textarea
+              id="purpose"
+              name="purpose"
+              class="form-textarea"
+              placeholder="e.g. researching cases, tracking appeals, preparing submissions..."
+              maxlength="500"
+              aria-label="Purpose for using JADE"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+          <button type="button" class="btn-secondary" id="skip-button">
+            Skip for now
+          </button>
+          <button type="submit" class="btn-primary" id="continue-button" disabled>
+            Complete
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- End Profile Form Card -->
     </div>
   </main>
 
@@ -442,7 +466,7 @@
 
         // Re-enable button
         continueButton.disabled = false;
-        continueButton.textContent = 'Continue to JADE';
+        continueButton.textContent = 'Complete';
       }
     });
 

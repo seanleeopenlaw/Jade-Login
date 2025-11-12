@@ -184,6 +184,13 @@
   margin-top: 0;
 }
 
+/* Hide empty category headers */
+.searchable-select-category:empty {
+  display: none;
+  padding: 0;
+  margin: 0;
+}
+
 /* Option Item - shadcn/ui command item style */
 .searchable-select-option {
   padding: 0.5rem 0.5rem;

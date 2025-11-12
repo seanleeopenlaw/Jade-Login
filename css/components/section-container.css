@@ -22,7 +22,7 @@
   background-color: var(--card);
   border: 2px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-8);
+  padding: var(--spacing-6);
   box-shadow: var(--shadow-sm);
 }
 
@@ -78,10 +78,6 @@
    ============================================ */
 
 @media (max-width: 640px) {
-  .section-container {
-    padding: var(--spacing-6);
-  }
-
   .section-label {
     font-size: var(--text-sm);
   }

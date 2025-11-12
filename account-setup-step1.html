@@ -15,6 +15,46 @@
       margin-bottom: 24px;
     }
 
+    /* Helper text for form fields */
+    .helper-text {
+      font-size: var(--text-sm);
+      color: var(--muted-foreground);
+      margin: var(--spacing-2) 0 0 0;
+      line-height: var(--leading-relaxed);
+    }
+
+    /* Form textarea */
+    .form-textarea {
+      display: block;
+      width: 100%;
+      padding: var(--spacing-3) var(--spacing-4);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      background-color: var(--card);
+      color: var(--foreground);
+      font-size: var(--text-base);
+      font-family: var(--font-sans);
+      line-height: var(--leading-relaxed);
+      transition: all var(--transition-base) var(--ease-in-out);
+      box-shadow: var(--shadow-xs);
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-textarea:hover {
+      border-color: var(--gray-300);
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--ring-opacity);
+    }
+
+    .form-textarea::placeholder {
+      color: var(--muted-foreground);
+    }
+
     /* Button group */
     .button-group {
       display: flex;
@@ -26,16 +66,236 @@
       flex: 1;
     }
 
-    @media (max-width: 640px) {
-      .button-group {
-        flex-direction: column-reverse;
+    /* Hide individual selector tags - we'll show them in builder */
+    .searchable-select-tags {
+      display: none;
+    }
+
+    /* Two-column layout for desktop */
+    .content-with-builder {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-6);
+    }
+
+    @media (min-width: 1024px) {
+      .content-with-builder {
+        grid-template-columns: 2fr 3fr;
       }
     }
+
+    /* Builder Sidebar */
+    .builder-sidebar {
+      display: flex;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      flex-direction: column;
+      min-height: 400px;
+    }
+
+    /* Sticky on desktop only */
+    @media (min-width: 1024px) {
+      .builder-sidebar {
+        position: sticky;
+        top: 2rem;
+        height: 100%;
+        min-height: 600px;
+        max-height: calc(100vh - 4rem);
+      }
+    }
+
+    .builder-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-4);
+      padding-bottom: var(--spacing-3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .builder-title {
+      font-size: var(--text-base);
+      font-weight: var(--font-bold);
+      color: var(--foreground);
+    }
+
+    .builder-clear {
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      color: var(--primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: opacity 0.2s;
+    }
+
+    .builder-clear:hover {
+      opacity: 0.7;
+    }
+
+    .builder-content {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: var(--spacing-4);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    /* Center content when empty state is shown */
+    .builder-content:has(.builder-empty) {
+      align-items: center;
+      justify-content: center;
+    }
+
+    .builder-pills-wrapper {
+      width: 100%;
+    }
+
+    .builder-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .builder-empty-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: var(--spacing-4);
+      opacity: 0.3;
+      color: var(--muted-foreground);
+    }
+
+    .builder-empty-text {
+      font-size: var(--text-sm);
+      color: var(--muted-foreground);
+      line-height: var(--leading-relaxed);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-4);
+      padding-bottom: var(--spacing-3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-size: var(--text-base);
+      font-weight: var(--font-bold);
+      color: var(--foreground);
+    }
+
+    .builder-pills {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-4);
+      width: 100%;
+      padding-top: var(--spacing-2);
+    }
+
+    .builder-category {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2);
+    }
+
+    .builder-category-header {
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-bottom: var(--spacing-2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .builder-category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+    }
+
+    .builder-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2);
+      padding: 0.25rem 0.625rem;
+      background-color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--foreground);
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      transition: all 200ms ease;
+      animation: pillFadeIn 200ms ease;
+    }
+
+    .builder-pill:hover {
+      background-color: var(--gray-150);
+    }
+
+    .builder-pill-remove {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted-foreground);
+      font-weight: 500;
+      font-size: 1.125rem;
+      line-height: 1;
+      transition: color 150ms ease;
+      margin-left: 0.25rem;
+    }
+
+    .builder-pill-remove:hover {
+      color: var(--foreground);
+    }
+
+    @keyframes pillFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .builder-actions {
+      display: flex;
+      flex-direction: row;
+      gap: var(--spacing-3);
+      padding-top: var(--spacing-3);
+      border-top: 1px solid var(--border);
+    }
+
+    .builder-actions > button {
+      flex: 1;
+    }
+
+    /* Floating Button and Drawer - Hidden (not used in mobile) */
+    .floating-button,
+    .drawer-overlay,
+    .drawer-panel {
+      display: none !important;
+    }
+
   </style>
 </head>
 <body class="jade-theme">
-  <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-    <div class="max-w-2xl w-full fade-in">
+  <main id="main-content" class="flex-1 px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="max-w-5xl mx-auto fade-in">
 
       <!-- Logo -->
       <div class="text-center mb-8">
@@ -43,7 +303,7 @@
       </div>
 
       <!-- Stepper -->
-      <div class="stepper">
+      <div class="stepper" style="max-width: 42rem; margin-left: auto; margin-right: auto;">
         <div class="stepper-item active">
           <div class="stepper-circle">1</div>
           <div class="stepper-label">Alert Preferences</div>
@@ -60,39 +320,86 @@
           Set up your alerts
         </h1>
         <p class="text-base jade-text-muted max-w-xl mx-auto">
-          Choose the courts and topics you'd like to follow.
+          Get daily email updates on decisions and topics of interest to you. You can turn off these alerts at any time.
         </p>
       </div>
 
-      <!-- Preset Checkboxes -->
-      <div class="preset-checkbox-grid">
-        <div class="preset-checkbox-item">
-          <input type="checkbox" id="preset-hca" value="hca">
-          <label for="preset-hca">
-            <span class="preset-label">High Court of Australia</span>
-          </label>
-        </div>
-        <div class="preset-checkbox-item">
-          <input type="checkbox" id="preset-appellate" value="appellate">
-          <label for="preset-appellate">
-            <span class="preset-label">Appellate Courts</span>
-          </label>
-        </div>
-        <div class="preset-checkbox-item">
-          <input type="checkbox" id="preset-supreme" value="supreme">
-          <label for="preset-supreme">
-            <span class="preset-label">Supreme Courts</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Divider -->
-      <div class="divider">
-        Or customise your own alerts
-      </div>
-
-      <!-- Customisation Box -->
+      <!-- Two-column layout with builder -->
+      <div class="content-with-builder">
+        <!-- Main Content Column -->
+        <div>
+      <!-- Alert Selection Card -->
       <div class="section-container">
+        <!-- Section Header -->
+        <div class="section-header">
+          <h3 class="section-title">Alert Settings</h3>
+        </div>
+
+        <!-- Preset Checkboxes -->
+        <div class="preset-checkbox-grid">
+          <div class="preset-checkbox-item">
+            <input type="checkbox" id="preset-hca" value="hca">
+            <label for="preset-hca">
+              <span class="preset-label">High Court of Australia</span>
+            </label>
+          </div>
+          <div class="preset-checkbox-item">
+            <input type="checkbox" id="preset-appellate" value="appellate">
+            <label for="preset-appellate">
+              <span class="preset-label">Intermediate Appellate Courts</span>
+            </label>
+          </div>
+          <div class="preset-checkbox-item">
+            <input type="checkbox" id="preset-supreme" value="supreme">
+            <label for="preset-supreme">
+              <span class="preset-label">Supreme & Federal Courts</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider">
+          Additional options
+        </div>
+        <!-- Select by Jurisdiction -->
+        <div class="section-spacing">
+          <label class="section-label">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+              <path d="M2 12h20"/>
+            </svg>
+            Select by Jurisdiction
+          </label>
+          <div class="searchable-select" id="jurisdiction-searchable">
+            <button type="button" class="searchable-select-trigger" id="jurisdiction-trigger">
+              <span class="searchable-select-trigger-text">Select one or more options</span>
+              <svg class="searchable-select-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <span class="searchable-select-counter" id="jurisdiction-counter" style="display: none;">0</span>
+            <div class="searchable-select-dropdown" id="jurisdiction-dropdown">
+              <div class="searchable-select-search">
+                <div style="position: relative;">
+                  <input
+                    type="text"
+                    class="searchable-select-input"
+                    placeholder="Search jurisdictions..."
+                    id="jurisdiction-search-input"
+                  />
+                  <svg class="searchable-select-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="searchable-select-options" id="jurisdiction-options"></div>
+            </div>
+          </div>
+          <div class="searchable-select-tags" id="jurisdiction-tags"></div>
+        </div>
+
         <!-- Select by Court -->
         <div class="section-spacing">
           <label class="section-label">
@@ -104,11 +411,11 @@
               <path d="M3 22h18" />
               <path d="M6 18v-7" />
             </svg>
-            Select by Court
+            Select by Court or Tribunal
           </label>
           <div class="searchable-select" id="court-searchable">
             <button type="button" class="searchable-select-trigger" id="court-trigger">
-              <span class="searchable-select-trigger-text">Select courts...</span>
+              <span class="searchable-select-trigger-text">Select one or more options</span>
               <svg class="searchable-select-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
@@ -135,56 +442,60 @@
           <div class="searchable-select-tags" id="court-tags"></div>
         </div>
 
-        <!-- Select by Topic -->
+        <!-- Additional Requirements Text Box -->
         <div class="section-spacing">
-          <label class="section-label">
+          <label for="additional-requirements" class="section-label">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;">
-              <path d="M4 9h16"/>
-              <path d="M4 15h16"/>
-              <path d="M10 3L8 21"/>
-              <path d="M16 3L14 21"/>
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
             </svg>
-            Select by Topic
+            Any other requirements? <span style="color: var(--muted-foreground); font-weight: var(--font-normal); font-size: var(--text-sm);">(Optional)</span>
           </label>
-          <div class="searchable-select" id="topic-searchable">
-            <button type="button" class="searchable-select-trigger" id="topic-trigger">
-              <span class="searchable-select-trigger-text">Select topics...</span>
-              <svg class="searchable-select-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <span class="searchable-select-counter" id="topic-counter" style="display: none;">0</span>
-            <div class="searchable-select-dropdown" id="topic-dropdown">
-              <div class="searchable-select-search">
-                <div style="position: relative;">
-                  <input
-                    type="text"
-                    class="searchable-select-input"
-                    placeholder="Search topics..."
-                    id="topic-search-input"
-                  />
-                  <svg class="searchable-select-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                  </svg>
-                </div>
-              </div>
-              <div class="searchable-select-options" id="topic-options"></div>
-            </div>
-          </div>
-          <div class="searchable-select-tags" id="topic-tags"></div>
+          <textarea
+            id="additional-requirements"
+            name="additionalRequirements"
+            class="form-textarea"
+            placeholder="e.g. alerts for specific legislation, practice area guidance, or custom filtering options..."
+            maxlength="1000"
+            aria-label="Additional requirements"
+          ></textarea>
+          <p class="helper-text">Our team will reach out to help with your requirements</p>
         </div>
       </div>
 
-      <!-- Bottom Buttons -->
-      <div class="button-group">
-        <button type="button" class="btn-secondary" id="skip-btn">
-          Skip for now
-        </button>
-        <button type="button" class="btn-primary" id="next-btn">
-          Next →
-        </button>
+        </div>
+        <!-- End Main Content Column -->
+
+        <!-- Builder Sidebar (Desktop) -->
+        <aside id="builder-sidebar" class="builder-sidebar">
+          <div class="builder-header">
+            <h3 class="builder-title">Selected (<span id="builder-count">0</span>)</h3>
+            <button class="builder-clear" id="builder-clear-btn">Clear All</button>
+          </div>
+          <div class="builder-content">
+            <div id="builder-pills" class="builder-pills-wrapper">
+              <div class="builder-empty">
+                <svg class="builder-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                </svg>
+                <p class="builder-empty-text">No alert options are selected.</p>
+              </div>
+            </div>
+          </div>
+          <div class="builder-actions">
+            <button type="button" class="btn-secondary" id="builder-skip-btn">
+              Skip for now
+            </button>
+            <button type="button" class="btn-primary" id="builder-continue-btn">
+              Continue
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </aside>
+        <!-- End Builder Sidebar -->
       </div>
+      <!-- End content-with-builder -->
     </div>
   </main>
 
@@ -205,6 +516,12 @@
     // Court data - organized by categories
     const courts = {
       categories: [
+        {
+          name: '', // Empty name = no category header
+          items: [
+            { value: 'ALL_COURTS', label: 'All Courts & Tribunals' }
+          ]
+        },
         {
           name: 'High Court',
           items: [
@@ -274,6 +591,12 @@
     // Topic data - organized by categories
     const topics = {
       categories: [
+        {
+          name: '', // Empty name = no category header
+          items: [
+            { value: 'ALL_TOPICS', label: 'All Topics' }
+          ]
+        },
         {
           name: 'Constitutional & Public Law',
           items: [
@@ -391,43 +714,279 @@
       ]
     };
 
+    // Jurisdiction data - flat list without categories
+    const jurisdictions = [
+      { value: 'ALL', label: 'All Jurisdictions' },
+      { value: 'CTH', label: 'Commonwealth (CTH)' },
+      { value: 'NSW', label: 'New South Wales (NSW)' },
+      { value: 'VIC', label: 'Victoria (VIC)' },
+      { value: 'QLD', label: 'Queensland (QLD)' },
+      { value: 'WA', label: 'Western Australia (WA)' },
+      { value: 'SA', label: 'South Australia (SA)' },
+      { value: 'TAS', label: 'Tasmania (TAS)' },
+      { value: 'ACT', label: 'Australian Capital Territory (ACT)' },
+      { value: 'NT', label: 'Northern Territory (NT)' },
+      { value: 'NZ', label: 'New Zealand (NZ)' }
+    ];
+
+    // Jurisdiction to courts mappings
+    const jurisdictionCourtMappings = {
+      NSW: ['NSWCA', 'NSWCCA', 'NSWSC', 'NSWDC', 'NSWCAT'],
+      VIC: ['VSCA', 'VSC', 'VCC', 'VCAT'],
+      QLD: ['QCA', 'QSC', 'QDC', 'QCAT'],
+      WA: ['WASCA', 'WASC', 'WADC'],
+      SA: ['SASCA', 'SASC', 'SADC'],
+      TAS: ['TASSC'],
+      ACT: ['ACTCA', 'ACTSC'],
+      NT: ['NTCA', 'NTSC'],
+      CTH: ['HCA', 'HCASJ', 'UKPCHCA', 'FCA', 'FCAFC', 'FedCFamC1A', 'FamCA', 'AATA', 'FWC'],
+      NZ: [] // New Zealand courts to be added
+    };
+
     // Preset mappings
     const presets = {
       hca: ['HCA', 'HCASJ', 'UKPCHCA'],
       appellate: ['NSWCA', 'NSWCCA', 'VSCA', 'QCA', 'WASCA', 'SASCA', 'ACTCA', 'NTCA'],
-      supreme: ['NSWSC', 'VSC', 'QSC', 'WASC', 'SASC', 'TASSC', 'ACTSC', 'NTSC']
+      supreme: ['NSWSC', 'VSC', 'QSC', 'WASC', 'SASC', 'TASSC', 'ACTSC', 'NTSC', 'FCA', 'FCAFC', 'FedCFamC1A', 'FamCA']
     };
 
-    // Initialize searchable selects
-    const courtSelect = new SearchableSelect('court', courts);
-    const topicSelect = new SearchableSelect('topic', topics);
+    // Store original courts data
+    const allCourts = courts;
 
-    // Get elements
-    const presetCheckboxes = document.querySelectorAll('.preset-checkbox-item input[type="checkbox"]');
-    const nextBtn = document.getElementById('next-btn');
-    const skipBtn = document.getElementById('skip-btn');
+    // Helper function to get dynamic "All Courts" label based on filters
+    function getAllCourtsLabel(selectedJurisdictions, selectedPresets) {
+      let label = 'All';
+
+      // Add preset level info
+      if (selectedPresets.length > 0) {
+        const presetNames = selectedPresets.map(preset => {
+          if (preset === 'hca') return 'High Court';
+          if (preset === 'appellate') return 'Appellate';
+          if (preset === 'supreme') return 'Supreme & Federal';
+          return preset;
+        }).join(' + ');
+        label += ` ${presetNames}`;
+      }
+
+      label += ' Courts & Tribunals';
+
+      // Add jurisdiction info
+      if (selectedJurisdictions.length > 0 && !selectedJurisdictions.includes('ALL')) {
+        const jurisdictionNames = selectedJurisdictions
+          .filter(j => j !== 'ALL')
+          .join(', ');
+        label += ` in ${jurisdictionNames}`;
+      }
+
+      return label;
+    }
+
+    // Helper function to get active preset filters
+    function getActivePresets() {
+      const activePresets = [];
+      presetCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          activePresets.push(checkbox.value);
+        }
+      });
+      return activePresets;
+    }
+
+    // Helper function to filter courts by jurisdiction only (preset doesn't filter)
+    function filterCourts(selectedJurisdictions, selectedPresets) {
+      let filteredCourts;
+
+      // Get allowed court codes based on selected jurisdictions
+      const allowedCourtCodes = new Set();
+
+      // Filter by jurisdiction only - preset doesn't affect available options
+      if (selectedJurisdictions.length === 0 || selectedJurisdictions.includes('ALL')) {
+        // Show all courts
+        filteredCourts = JSON.parse(JSON.stringify(allCourts)); // Deep clone - show all
+      } else {
+        // Add jurisdiction-specific courts
+        selectedJurisdictions.forEach(jurisdiction => {
+          const courtCodes = jurisdictionCourtMappings[jurisdiction];
+          if (courtCodes) {
+            courtCodes.forEach(code => allowedCourtCodes.add(code));
+          }
+        });
+
+        // Add ALL preset courts to always show them regardless of jurisdiction filter
+        selectedPresets.forEach(presetValue => {
+          const presetCourts = presets[presetValue];
+          if (presetCourts) {
+            presetCourts.forEach(courtCode => {
+              allowedCourtCodes.add(courtCode);
+            });
+          }
+        });
+
+        // Filter courts data to only include allowed courts (jurisdiction + preset courts)
+        filteredCourts = {
+          categories: allCourts.categories.map(category => ({
+            name: category.name,
+            items: category.items.filter(court =>
+              court.value === 'ALL_COURTS' || allowedCourtCodes.has(court.value)
+            )
+          })).filter(category => category.items.length > 0) // Remove empty categories
+        };
+      }
+
+      // Update the "All Courts & Tribunals" label dynamically
+      // Find the ALL_COURTS option in any category
+      for (const category of filteredCourts.categories) {
+        const allCourtsOption = category.items.find(item => item.value === 'ALL_COURTS');
+        if (allCourtsOption) {
+          allCourtsOption.label = getAllCourtsLabel(selectedJurisdictions, selectedPresets);
+          break;
+        }
+      }
+
+      return filteredCourts;
+    }
+
+    // Helper function to get all court codes from filtered data (excluding ALL_COURTS)
+    function getAllCourtCodesFromData(courtsData) {
+      const codes = [];
+      courtsData.categories.forEach(category => {
+        category.items.forEach(court => {
+          if (court.value !== 'ALL_COURTS') {
+            codes.push(court.value);
+          }
+        });
+      });
+      return codes;
+    }
+
+    // Helper function to get all topic codes (excluding ALL_TOPICS)
+    function getAllTopicCodes() {
+      const codes = [];
+      topics.categories.forEach(category => {
+        category.items.forEach(topic => {
+          if (topic.value !== 'ALL_TOPICS') {
+            codes.push(topic.value);
+          }
+        });
+      });
+      return codes;
+    }
+
+    // Initialize searchable selects with callbacks
+    const courtSelect = new SearchableSelect('court', courts, {
+      triggerPlaceholder: 'Select one or more options',
+      onSelect: (value, option, selected) => {
+        // If "ALL_COURTS" is selected, select all visible courts
+        if (value === 'ALL_COURTS') {
+          const allCourtCodes = getAllCourtCodesFromData(courtSelect.options);
+          allCourtCodes.forEach(code => {
+            if (code !== 'ALL_COURTS') {
+              courtSelect.select(code);
+            }
+          });
+          // Deselect the ALL_COURTS option itself
+          setTimeout(() => {
+            courtSelect.deselect('ALL_COURTS');
+          }, 0);
+        }
+      }
+    });
+
+    // Get elements first (needed for getActivePresets)
+    const presetCheckboxes = document.querySelectorAll('#preset-hca, #preset-appellate, #preset-supreme');
+
+    // Helper function to update court selector based on both filters
+    function updateCourtSelector() {
+      const selectedJurisdictions = jurisdictionSelect.getSelected();
+      const selectedPresets = getActivePresets();
+
+      // Apply both jurisdiction and preset filters
+      const filteredCourts = filterCourts(selectedJurisdictions, selectedPresets);
+
+      // Update court selector's options
+      courtSelect.options = filteredCourts;
+
+      // Re-render court options
+      courtSelect.renderOptions();
+
+      // Get allowed court codes from filtered results
+      const allowedCourtCodes = new Set();
+      filteredCourts.categories.forEach(category => {
+        category.items.forEach(court => {
+          if (court.value !== 'ALL_COURTS') {
+            allowedCourtCodes.add(court.value);
+          }
+        });
+      });
+
+      // Add all preset courts to allowedCourtCodes to protect them from being deselected
+      selectedPresets.forEach(presetValue => {
+        const presetCourts = presets[presetValue];
+        if (presetCourts) {
+          presetCourts.forEach(courtCode => {
+            allowedCourtCodes.add(courtCode);
+          });
+        }
+      });
+
+      // Deselect courts that are no longer visible (excluding preset courts)
+      const currentCourts = courtSelect.getSelected();
+      currentCourts.forEach(courtCode => {
+        if (!allowedCourtCodes.has(courtCode)) {
+          courtSelect.deselect(courtCode);
+        }
+      });
+    }
+
+    // Jurisdiction select with onChange handler
+    const jurisdictionSelect = new SearchableSelect('jurisdiction', jurisdictions, {
+      triggerPlaceholder: 'Select one or more options',
+      onChange: (selectedJurisdictions) => {
+        updateCourtSelector();
+      }
+    });
 
     // Preset checkbox change handlers
     presetCheckboxes.forEach(checkbox => {
       checkbox.addEventListener('change', () => {
-        const preset = checkbox.value;
-        const courtCodes = presets[preset];
+        const presetValue = checkbox.value;
+        const isChecked = checkbox.checked;
 
-        if (checkbox.checked) {
-          // Select matching courts
-          courtCodes.forEach(code => courtSelect.select(code));
+        if (isChecked) {
+          // Add preset courts to selection
+          const presetCourts = presets[presetValue];
+          if (presetCourts) {
+            presetCourts.forEach(courtCode => {
+              if (!courtSelect.selected.has(courtCode)) {
+                courtSelect.select(courtCode);
+              }
+            });
+          }
         } else {
-          // Deselect matching courts
-          courtCodes.forEach(code => courtSelect.deselect(code));
+          // Remove preset courts from selection
+          const presetCourts = presets[presetValue];
+          if (presetCourts) {
+            presetCourts.forEach(courtCode => {
+              if (courtSelect.selected.has(courtCode)) {
+                courtSelect.deselect(courtCode);
+              }
+            });
+          }
         }
+
+        // Re-filter court selector when preset changes
+        updateCourtSelector();
       });
     });
 
     // Save selections and proceed
     function saveAndProceed() {
+      const additionalRequirements = document.getElementById('additional-requirements').value.trim();
+
       setSession('alertPreferences', {
+        jurisdictions: jurisdictionSelect.getSelected(),
         courts: courtSelect.getSelected(),
-        topics: topicSelect.getSelected(),
+        additionalRequirements: additionalRequirements,
         skipped: false
       });
 
@@ -435,18 +994,199 @@
       window.location.href = 'account-setup-step2.html';
     }
 
-    // Next button handler
-    nextBtn.addEventListener('click', saveAndProceed);
-
-    // Skip button handler
-    skipBtn.addEventListener('click', () => {
+    // Skip handler
+    function skipPreferences() {
       setSession('alertPreferences', {
+        jurisdictions: [],
         courts: [],
-        topics: [],
+        additionalRequirements: '',
         skipped: true
       });
       window.location.href = 'account-setup-step2.html';
+    }
+
+    // ============================================
+    // BUILDER VIEW - Two-way synchronization
+    // ============================================
+
+    // Get builder elements
+    const builderSidebar = document.getElementById('builder-sidebar');
+    const builderPills = document.getElementById('builder-pills');
+    const builderCount = document.getElementById('builder-count');
+    const builderClearBtn = document.getElementById('builder-clear-btn');
+    const builderSkipBtn = document.getElementById('builder-skip-btn');
+    const builderContinueBtn = document.getElementById('builder-continue-btn');
+
+    // Helper: Find option by value (search both courts and jurisdictions)
+    function findOptionByValue(value) {
+      // Check courts
+      const courtOption = courtSelect.findOption(value);
+      if (courtOption) return { ...courtOption, type: 'court' };
+
+      // Check jurisdictions
+      const jurisdictionOption = jurisdictions.find(j => j.value === value);
+      if (jurisdictionOption) return { ...jurisdictionOption, type: 'jurisdiction' };
+
+      return null;
+    }
+
+    // Helper: Get all selected items (courts + jurisdictions)
+    function getAllSelectedItems() {
+      const selectedCourts = courtSelect.getSelected();
+      const selectedJurisdictions = jurisdictionSelect.getSelected();
+      return [...selectedCourts, ...selectedJurisdictions];
+    }
+
+    // Helper: Render pills in a container
+    function renderPills(container) {
+      const selectedCourts = courtSelect.getSelected();
+      const selectedJurisdictions = jurisdictionSelect.getSelected();
+
+      if (selectedCourts.length === 0 && selectedJurisdictions.length === 0) {
+        container.innerHTML = `
+          <div class="builder-empty">
+            <svg class="builder-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            <p class="builder-empty-text">No alert options are selected.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Create pills wrapper
+      const pillsWrapper = document.createElement('div');
+      pillsWrapper.className = 'builder-pills';
+
+      // Helper to create a pill element
+      function createPill(value, option, type) {
+        const pill = document.createElement('div');
+        pill.className = 'builder-pill';
+        pill.innerHTML = `
+          <span>${option.label}</span>
+          <span class="builder-pill-remove" data-value="${value}" data-type="${type}">×</span>
+        `;
+        return pill;
+      }
+
+      // Render Courts & Tribunals section
+      if (selectedCourts.length > 0) {
+        const courtsCategory = document.createElement('div');
+        courtsCategory.className = 'builder-category';
+
+        const courtsHeader = document.createElement('div');
+        courtsHeader.className = 'builder-category-header';
+        courtsHeader.textContent = 'Courts & Tribunals';
+        courtsCategory.appendChild(courtsHeader);
+
+        const courtsPills = document.createElement('div');
+        courtsPills.className = 'builder-category-pills';
+
+        selectedCourts.forEach(value => {
+          // Try to find option in current dropdown options first
+          let option = courtSelect.findOption(value);
+
+          // If not found (e.g., preset court not in filtered results), search in allCourts
+          if (!option) {
+            for (const category of allCourts.categories) {
+              option = category.items.find(item => item.value === value);
+              if (option) break;
+            }
+          }
+
+          if (option) {
+            courtsPills.appendChild(createPill(value, option, 'court'));
+          }
+        });
+
+        courtsCategory.appendChild(courtsPills);
+        pillsWrapper.appendChild(courtsCategory);
+      }
+
+      // Render Jurisdictions section
+      if (selectedJurisdictions.length > 0) {
+        const jurisdictionsCategory = document.createElement('div');
+        jurisdictionsCategory.className = 'builder-category';
+
+        const jurisdictionsHeader = document.createElement('div');
+        jurisdictionsHeader.className = 'builder-category-header';
+        jurisdictionsHeader.textContent = 'Jurisdictions';
+        jurisdictionsCategory.appendChild(jurisdictionsHeader);
+
+        const jurisdictionsPills = document.createElement('div');
+        jurisdictionsPills.className = 'builder-category-pills';
+
+        selectedJurisdictions.forEach(value => {
+          const option = jurisdictions.find(j => j.value === value);
+          if (option) {
+            jurisdictionsPills.appendChild(createPill(value, option, 'jurisdiction'));
+          }
+        });
+
+        jurisdictionsCategory.appendChild(jurisdictionsPills);
+        pillsWrapper.appendChild(jurisdictionsCategory);
+      }
+
+      // Clear container and add pills wrapper
+      container.innerHTML = '';
+      container.appendChild(pillsWrapper);
+
+      // Add click handlers to all remove buttons
+      container.querySelectorAll('.builder-pill-remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const value = btn.dataset.value;
+          const type = btn.dataset.type;
+
+          // Deselect from appropriate dropdown
+          if (type === 'court') {
+            courtSelect.deselect(value);
+          } else if (type === 'jurisdiction') {
+            jurisdictionSelect.deselect(value);
+          }
+        });
+      });
+    }
+
+    // Helper: Update all counts and visibility
+    function updateBuilder() {
+      const count = getAllSelectedItems().length;
+
+      // Update count
+      builderCount.textContent = count;
+
+      // Render pills
+      renderPills(builderPills);
+    }
+
+    // Connect dropdowns to builder
+    courtSelect.config.onChange = () => {
+      updateBuilder();
+    };
+
+    jurisdictionSelect.config.onChange = (selectedJurisdictions) => {
+      updateCourtSelector(); // Existing filter logic
+      updateBuilder(); // Update builder
+    };
+
+    // Clear All button
+    builderClearBtn.addEventListener('click', () => {
+      courtSelect.clear();
+      jurisdictionSelect.clear();
+
+      // Uncheck all preset checkboxes
+      presetCheckboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      });
+
+      updateBuilder();
     });
+
+    // Builder action buttons - direct handlers
+    builderSkipBtn.addEventListener('click', skipPreferences);
+    builderContinueBtn.addEventListener('click', saveAndProceed);
+
+    // Initialize builder on page load
+    updateBuilder();
   </script>
 </body>
 </html>
