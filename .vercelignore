@@ -1,0 +1,7 @@
+# Email templates (not for deployment)
+email-templates/
+
+# Development files
+.DS_Store
+*.md
+docs/
