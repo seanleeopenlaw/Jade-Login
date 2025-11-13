@@ -19,10 +19,10 @@
       <!-- Loading State -->
       <div id="loading-state" class="fade-in">
         <div class="spinner mb-6"></div>
-        <h1 class="text-2xl font-bold mb-3 font-serif">
+        <h1 class="text-2xl font-bold mb-3 font-serif" id="loading-title">
           Verifying your sign-in link...
         </h1>
-        <p class="jade-text-muted">Please wait a moment</p>
+        <p class="jade-text-muted" id="loading-subtitle">Please wait a moment</p>
       </div>
 
       <!-- Success State -->
@@ -33,10 +33,10 @@
             <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h1 class="text-2xl font-bold mb-3 font-serif jade-text-primary">
+        <h1 class="text-2xl font-bold mb-3 font-serif jade-text-primary" id="success-title">
           Sign-in successful!
         </h1>
-        <p class="jade-text-muted mb-4">Redirecting you to JADE...</p>
+        <p class="jade-text-muted mb-4" id="success-subtitle">Redirecting you to JADE...</p>
       </div>
 
       <!-- Error State -->
@@ -72,8 +72,21 @@
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const email = urlParams.get('email');
+    const method = urlParams.get('method'); // 'code' or null (magic link)
 
     const errorMessage = document.getElementById('error-message');
+    const loadingTitle = document.getElementById('loading-title');
+    const loadingSubtitle = document.getElementById('loading-subtitle');
+    const successTitle = document.getElementById('success-title');
+    const successSubtitle = document.getElementById('success-subtitle');
+
+    // Update messages based on verification method
+    if (method === 'code') {
+      loadingTitle.textContent = 'Verifying your code...';
+      loadingSubtitle.textContent = 'Please wait a moment';
+      successTitle.textContent = 'Code verified!';
+      successSubtitle.textContent = 'Redirecting you to JADE...';
+    }
 
     async function showError(message) {
       document.getElementById('loading-state').style.display = 'none';
@@ -86,28 +99,52 @@
       if (errorIcon) errorIcon.classList.add('show');
     }
 
-    // Verify token
+    // Verify code or token
     async function verifyAndLogin() {
       // Simulate network delay
       await delay(1500);
 
-      if (!token || !email) {
-        showError('Invalid sign-in link. Please request a new one.');
-        return;
-      }
+      let result;
+      let authEmail;
 
-      // Verify token
-      const result = verifyMagicLinkToken(decodeURIComponent(email), token);
+      if (method === 'code') {
+        // Verification code flow
+        const verifiedCode = getSession('verifiedCode');
+        authEmail = getSession('authEmail');
 
-      if (!result.valid) {
-        showError(result.error);
-        return;
+        if (!verifiedCode || !authEmail) {
+          showError('Invalid verification code. Please try again.');
+          return;
+        }
+
+        // In production: verify code against backend
+        // For demo: accept any 6-digit code
+        result = {
+          valid: true,
+          email: authEmail
+        };
+      } else {
+        // Magic link flow
+        if (!token || !email) {
+          showError('Invalid sign-in link. Please request a new one.');
+          return;
+        }
+
+        // Verify token
+        result = verifyMagicLinkToken(decodeURIComponent(email), token);
+
+        if (!result.valid) {
+          showError(result.error);
+          return;
+        }
+
+        authEmail = result.email;
       }
 
       // Success! Create session
-      setSession('userEmail', result.email);
+      setSession('userEmail', authEmail);
       setSession('isAuthenticated', true);
-      setSession('authMethod', 'magic-link');
+      setSession('authMethod', method === 'code' ? 'verification-code' : 'magic-link');
       setSession('loginTime', new Date().toISOString());
 
       // Check if new user (simple check: no previous login)
@@ -128,7 +165,7 @@
 
       // Redirect after short delay
       await delay(1500);
-      const redirectUrl = getPostAuthRedirect(result.email);
+      const redirectUrl = getPostAuthRedirect(authEmail);
       window.location.href = '../' + redirectUrl;
     }
 

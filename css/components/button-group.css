@@ -16,16 +16,7 @@
 }
 
 /* ===== Responsive Layout ===== */
-@media (max-width: 640px) {
-  .button-group {
-    flex-direction: column-reverse;
-  }
-
-  .button-group > button,
-  .button-group > a {
-    width: 100%;
-  }
-}
+/* Removed mobile column-reverse - buttons stay side-by-side on all screens */
 
 /* ===== Button Group Variants ===== */
 

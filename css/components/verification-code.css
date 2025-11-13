@@ -1,0 +1,93 @@
+/**
+ * JADE Verification Code Component
+ * Reusable 6-digit verification code input with design token integration
+ */
+
+/* ===== Verification Code Container ===== */
+.verification-code-container {
+  display: flex;
+  justify-content: center;
+  gap: var(--input-code-gap-sm);
+}
+
+/* Desktop: larger gap */
+@media (min-width: 640px) {
+  .verification-code-container {
+    gap: var(--input-code-gap);
+  }
+}
+
+/* ===== Verification Code Digit Input ===== */
+.verification-code-digit {
+  /* Sizing */
+  width: var(--input-code-width-sm);
+  height: var(--input-code-height-sm);
+
+  /* Layout */
+  text-align: center;
+
+  /* Typography */
+  font-size: var(--input-code-font-size);
+  font-weight: var(--font-semibold);
+  font-family: var(--font-sans);
+
+  /* Borders and Background */
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--card);
+  color: var(--foreground);
+
+  /* Effects */
+  transition: all var(--transition-base) var(--ease-in-out);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Desktop: larger inputs */
+@media (min-width: 640px) {
+  .verification-code-digit {
+    width: var(--input-code-width);
+    height: var(--input-code-height);
+  }
+}
+
+/* ===== States ===== */
+
+/* Hover */
+.verification-code-digit:hover {
+  border-color: var(--gray-300);
+}
+
+/* Focus */
+.verification-code-digit:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: var(--focus-ring);
+}
+
+/* Disabled */
+.verification-code-digit:disabled {
+  background-color: var(--muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Error State */
+.verification-code-digit.error {
+  border-color: var(--error);
+}
+
+.verification-code-digit.error:focus {
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--error-bg);
+}
+
+/* ===== Verification Button Wrapper ===== */
+.verification-button-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--spacing-4);
+}
+
+.verification-button-wrapper > button {
+  width: 100%;
+  max-width: 320px;
+}

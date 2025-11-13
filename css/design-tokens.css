@@ -192,6 +192,27 @@
   --container-max-width: 1280px;
   --container-padding: 1rem;
 
+  /* ===== Input Components ===== */
+
+  /* Input Heights (for standard form inputs) */
+  --input-height-sm: 2.5rem;       /* 40px */
+  --input-height-md: 3rem;         /* 48px */
+  --input-height-lg: 3.5rem;       /* 56px */
+
+  /* Verification Code Input Sizes */
+  --input-code-width-sm: 2.5rem;   /* 40px - mobile */
+  --input-code-height-sm: 3.125rem; /* 50px - mobile */
+  --input-code-width: 2.75rem;     /* 44px - desktop */
+  --input-code-height: 3.375rem;   /* 54px - desktop */
+  --input-code-gap-sm: var(--spacing-1-5); /* 6px - mobile */
+  --input-code-gap: var(--gap-2);  /* 8px - desktop */
+  --input-code-font-size: 1.25rem; /* 20px */
+
+  /* Focus Ring */
+  --focus-ring-width: 3px;
+  --focus-ring-color: var(--ring-opacity);
+  --focus-ring: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+
   /* ===== Animation ===== */
 
   --animation-duration-fast: 150ms;
