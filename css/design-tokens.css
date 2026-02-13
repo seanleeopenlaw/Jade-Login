@@ -55,6 +55,7 @@
   /* Additional Neutral Shades */
   --gray-50: #f9fafb;      /* Very light gray - subtle hover states */
   --gray-100: #f3f4f6;
+  --gray-125: #eeeff3;     /* Value card background */
   --gray-150: #e8eaed;     /* Between 100-200 - subtle borders */
   --gray-200: #e5e7eb;
   --gray-250: #dcdfe3;     /* Between 200-300 - scrollbar hover */
@@ -65,6 +66,9 @@
   --gray-700: #374151;
   --gray-800: #1f2937;
   --gray-900: #111827;
+
+  /* Primary Tints (light green) */
+  --primary-50: #dceadf;   /* Very light primary - icon backgrounds */
 
   /* Success Variants */
   --success-text: #065f46;
@@ -110,6 +114,7 @@
   /* ===== Spacing ===== */
 
   --spacing-0: 0;
+  --spacing-0-5: 0.125rem; /* 2px */
   --spacing-1: 0.25rem;    /* 4px */
   --spacing-1-5: 0.375rem; /* 6px */
   --spacing-2: 0.5rem;     /* 8px */

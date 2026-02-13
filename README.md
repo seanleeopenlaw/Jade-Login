@@ -14,7 +14,7 @@ Modern passwordless authentication flow with onboarding and subscription.
 # Clone and run
 git clone https://github.com/seanleeopenlaw/Jade-Login.git
 cd Jade-Login
-open 1-gated-landing.html
+open index.html
 
 # Or visit deployed version
 https://jade-login-flow.vercel.app
@@ -36,8 +36,7 @@ https://jade-login-flow.vercel.app
 
 ```
 /
-├── index.html                      # Entry point (redirects to landing)
-├── 1-gated-landing.html           # Email entry + SSO detection
+├── index.html                      # Email entry + SSO detection (Landing page)
 │
 ├── auth/
 │   ├── step2-method.html          # SSO/Magic Link selection

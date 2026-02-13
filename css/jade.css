@@ -49,6 +49,7 @@
 @import url('components/stepper.css');
 @import url('components/success-celebration.css');
 @import url('components/confetti.css');
+@import url('components/auth-footer.css');
 
 /**
  * IMPORTANT: Add class="jade-theme" to your <body> or main wrapper element

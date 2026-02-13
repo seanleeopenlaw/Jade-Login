@@ -34,24 +34,24 @@
 </head>
 <body class="jade-theme">
   <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="max-w-md w-full fade-in text-center">
+    <article class="max-w-md w-full fade-in text-center">
       <!-- Logo - Click to continue (Demo) -->
       <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto mb-8 demo-logo" id="demo-logo" title="Click to simulate magic link (Demo)" />
 
-      <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;" id="page-title">
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3 page-title" id="page-title">
         Check your email
       </h1>
 
       <!-- Description (changes based on view) -->
-      <div id="description-container">
+      <section id="description-container">
         <p class="text-lg text-foreground mb-2" id="main-description">
           We sent a sign-in link to
         </p>
         <p class="text-lg font-semibold text-primary mb-6" id="sent-email"></p>
-      </div>
+      </section>
 
       <!-- Instructions Card (Magic Link only) -->
-      <div id="instructions-card" class="card p-6 mb-6 text-left">
+      <section id="instructions-card" class="card p-6 mb-6 text-left">
         <div class="instruction-item mb-4">
           <svg class="instruction-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 8L10.89 13.26C11.23 13.47 11.61 13.59 12 13.59C12.39 13.59 12.77 13.47 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -88,10 +88,10 @@
             Need help? <a href="mailto:help@jade.io" class="link-primary font-semibold hover:underline">Contact Support Team</a>
           </p>
         </div>
-      </div>
+      </section>
 
       <!-- Magic Link View -->
-      <div id="magic-link-view" class="space-y-4">
+      <section id="magic-link-view" class="space-y-4">
         <!-- Two buttons side by side -->
         <div class="grid grid-cols-2 gap-3">
           <button type="button" class="btn-secondary" id="resend-btn">
@@ -103,15 +103,15 @@
         </div>
 
         <!-- Use Different Email link below -->
-        <div class="text-center">
-          <a href="../1-gated-landing.html" class="link-primary text-sm">
+        <nav class="text-center">
+          <a href="/" class="link-primary text-sm">
             Use Different Email
           </a>
-        </div>
-      </div>
+        </nav>
+      </section>
 
       <!-- Verification Code View (hidden by default) -->
-      <div id="code-view" class="space-y-6" style="display: none;">
+      <section id="code-view" class="space-y-6 hidden">
         <!-- 6-Digit Code Input Boxes -->
         <div class="verification-code-container" id="verification-code-container">
           <input type="text" class="verification-code-digit" maxlength="1" pattern="[0-9]" inputmode="numeric" data-index="0" autocomplete="off" />
@@ -128,15 +128,16 @@
           </button>
         </div>
 
-        <div class="text-center">
-          <button type="button" class="link-primary text-sm" id="back-to-link-btn" style="background: none; border: none; cursor: pointer;">
+        <nav class="text-center">
+          <button type="button" class="btn-text" id="back-to-link-btn">
             Back to Sign-in Link
           </button>
-        </div>
-      </div>
-    </div>
+        </nav>
+      </section>
+    </article>
   </main>
 
+  <script src="../js/components.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/magic-link.js"></script>
   <script src="../js/verification-code.js"></script>
@@ -148,7 +149,7 @@
     const email = getSession('authEmail');
 
     if (!pendingLink || !email) {
-      window.location.href = '../1-gated-landing.html';
+      window.location.href = '/';
     }
 
     document.getElementById('sent-email').textContent = email;
@@ -233,15 +234,15 @@
     // Switch to verification code view
     useCodeBtn.addEventListener('click', () => {
       // Hide magic link elements
-      magicLinkView.style.display = 'none';
-      instructionsCard.style.display = 'none';
+      magicLinkView.classList.add('hidden');
+      instructionsCard.classList.add('hidden');
 
       // Update title and description
       pageTitle.textContent = 'Enter verification code';
       mainDescription.textContent = 'We sent a 6-digit code to';
 
       // Show code view
-      codeView.style.display = 'block';
+      codeView.classList.remove('hidden');
 
       // Initialize verification code handler if not already initialized
       if (!verificationCodeInput) {
@@ -262,9 +263,9 @@
     // Switch back to magic link view
     backToLinkBtn.addEventListener('click', () => {
       // Show magic link elements
-      codeView.style.display = 'none';
-      magicLinkView.style.display = 'block';
-      instructionsCard.style.display = 'block';
+      codeView.classList.add('hidden');
+      magicLinkView.classList.remove('hidden');
+      instructionsCard.classList.remove('hidden');
 
       // Restore original title and description
       pageTitle.textContent = 'Check your email';
@@ -304,6 +305,9 @@
         window.location.href = 'verify.html?method=code';
       }, 800);
     }
+
+    // Initialize auth footer
+    initAuthFooter();
   </script>
 </body>
 </html>

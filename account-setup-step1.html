@@ -11,8 +11,64 @@
   <link rel="stylesheet" href="css/jade.css">
   <style>
     /* Page-specific styles */
+
+    /* Value Highlights - Gray cards matching form width */
+    .value-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-3);
+      margin-bottom: var(--spacing-6);
+    }
+
+    @media (max-width: 768px) {
+      .value-highlights {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-2);
+      }
+    }
+
+    .value-highlight {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+      padding: var(--spacing-4);
+      background: var(--gray-125);
+      border-radius: var(--radius);
+    }
+
+    .value-highlight-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--primary-50);
+      color: var(--primary);
+    }
+
+    .value-highlight-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .value-highlight-title {
+      font-family: var(--font-serif);
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      color: var(--foreground);
+      margin-bottom: var(--spacing-0-5);
+    }
+
+    .value-highlight-desc {
+      font-size: var(--text-xs);
+      color: var(--muted-foreground);
+      line-height: var(--spacing-4);
+    }
+
     .section-spacing {
-      margin-bottom: 24px;
+      margin-bottom: var(--spacing-6);
     }
 
     /* Helper text for form fields */
@@ -100,10 +156,10 @@
     @media (min-width: 1024px) {
       .builder-sidebar {
         position: sticky;
-        top: 2rem;
+        top: var(--spacing-8);
         height: 100%;
         min-height: 600px;
-        max-height: calc(100vh - 4rem);
+        max-height: calc(100vh - var(--spacing-16));
       }
     }
 
@@ -130,7 +186,7 @@
       border: none;
       cursor: pointer;
       padding: 0;
-      transition: opacity 0.2s;
+      transition: opacity var(--transition-base);
     }
 
     .builder-clear:hover {
@@ -161,7 +217,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 3rem 1rem;
+      padding: var(--spacing-12) var(--spacing-4);
       text-align: center;
       width: 100%;
     }
@@ -229,15 +285,15 @@
       display: inline-flex;
       align-items: center;
       gap: var(--spacing-2);
-      padding: 0.25rem 0.625rem;
+      padding: var(--spacing-1) var(--spacing-2-5);
       background-color: var(--muted);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       color: var(--foreground);
       font-size: var(--text-sm);
       font-weight: var(--font-medium);
-      transition: all 200ms ease;
-      animation: pillFadeIn 200ms ease;
+      transition: all var(--transition-base) var(--ease-in-out);
+      animation: pillFadeIn var(--transition-base) var(--ease-in-out);
     }
 
     .builder-pill:hover {
@@ -250,11 +306,11 @@
       align-items: center;
       justify-content: center;
       color: var(--muted-foreground);
-      font-weight: 500;
-      font-size: 1.125rem;
-      line-height: 1;
-      transition: color 150ms ease;
-      margin-left: 0.25rem;
+      font-weight: var(--font-medium);
+      font-size: var(--text-lg);
+      line-height: var(--leading-none);
+      transition: color var(--transition-fast) var(--ease-in-out);
+      margin-left: var(--spacing-1);
     }
 
     .builder-pill-remove:hover {
@@ -298,12 +354,12 @@
     <div class="max-w-5xl mx-auto fade-in">
 
       <!-- Logo -->
-      <div class="text-center mb-8">
+      <header class="text-center mb-6">
         <img src="jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto" />
-      </div>
+      </header>
 
       <!-- Stepper -->
-      <div class="stepper" style="max-width: 42rem; margin-left: auto; margin-right: auto;">
+      <nav class="stepper" aria-label="Account setup progress">
         <div class="stepper-item active">
           <div class="stepper-circle">1</div>
           <div class="stepper-label">Alert Preferences</div>
@@ -312,28 +368,64 @@
           <div class="stepper-circle">2</div>
           <div class="stepper-label">Profile Setup</div>
         </div>
-      </div>
+      </nav>
 
-      <!-- Header -->
-      <div class="text-center mb-8">
-        <h1 class="text-3xl sm:text-4xl font-bold mb-3 font-serif leading-tight">
-          Set up your alerts
+      <!-- Engaging Header -->
+      <header class="text-center mb-8">
+        <h1 class="text-2xl sm:text-3xl font-bold page-title">
+          Never miss a judgment that matters to you
         </h1>
-        <p class="text-base jade-text-muted max-w-xl mx-auto">
-          Get daily email updates on decisions and topics of interest to you. You can turn off these alerts at any time.
-        </p>
-      </div>
+      </header>
+
+      <!-- Value Highlights -->
+      <section class="value-highlights">
+        <div class="value-highlight">
+          <div class="value-highlight-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+          </div>
+          <div class="value-highlight-content">
+            <h3 class="value-highlight-title">Monitor what matters</h3>
+            <p class="value-highlight-desc">Track specific courts, jurisdictions, or practice areas relevant to your work.</p>
+          </div>
+        </div>
+
+        <div class="value-highlight">
+          <div class="value-highlight-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+          </div>
+          <div class="value-highlight-content">
+            <h3 class="value-highlight-title">Stay ahead of precedent</h3>
+            <p class="value-highlight-desc">Get notified when key cases are cited or overruled across all jurisdictions.</p>
+          </div>
+        </div>
+
+        <div class="value-highlight">
+          <div class="value-highlight-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"/>
+            </svg>
+          </div>
+          <div class="value-highlight-content">
+            <h3 class="value-highlight-title">Your preferred delivery</h3>
+            <p class="value-highlight-desc">Choose daily digest emails or real-time notifications to match your workflow.</p>
+          </div>
+        </div>
+      </section>
 
       <!-- Two-column layout with builder -->
-      <div class="content-with-builder">
+      <section class="content-with-builder">
         <!-- Main Content Column -->
         <div>
       <!-- Alert Selection Card -->
-      <div class="section-container">
-        <!-- Section Header -->
-        <div class="section-header">
-          <h3 class="section-title">Alert Settings</h3>
-        </div>
+      <section class="section-container">
 
         <!-- Preset Checkboxes -->
         <div class="preset-checkbox-grid">
@@ -364,7 +456,7 @@
         <!-- Select by Jurisdiction -->
         <div class="section-spacing">
           <label class="section-label">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-primary">
               <circle cx="12" cy="12" r="10"/>
               <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
               <path d="M2 12h20"/>
@@ -378,10 +470,10 @@
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
-            <span class="searchable-select-counter" id="jurisdiction-counter" style="display: none;">0</span>
+            <span class="searchable-select-counter hidden" id="jurisdiction-counter">0</span>
             <div class="searchable-select-dropdown" id="jurisdiction-dropdown">
               <div class="searchable-select-search">
-                <div style="position: relative;">
+                <div class="relative">
                   <input
                     type="text"
                     class="searchable-select-input"
@@ -403,7 +495,7 @@
         <!-- Select by Court -->
         <div class="section-spacing">
           <label class="section-label">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-primary">
               <path d="M10 18v-7" />
               <path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z" />
               <path d="M14 18v-7" />
@@ -420,10 +512,10 @@
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
-            <span class="searchable-select-counter" id="court-counter" style="display: none;">0</span>
+            <span class="searchable-select-counter hidden" id="court-counter">0</span>
             <div class="searchable-select-dropdown" id="court-dropdown">
               <div class="searchable-select-search">
-                <div style="position: relative;">
+                <div class="relative">
                   <input
                     type="text"
                     class="searchable-select-input"
@@ -445,10 +537,10 @@
         <!-- Additional Requirements Text Box -->
         <div class="section-spacing">
           <label for="additional-requirements" class="section-label">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-primary">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
             </svg>
-            Any other requirements? <span style="color: var(--muted-foreground); font-weight: var(--font-normal); font-size: var(--text-sm);">(Optional)</span>
+            Any other requirements? <span class="jade-text-muted font-normal text-sm">(Optional)</span>
           </label>
           <textarea
             id="additional-requirements"
@@ -460,7 +552,7 @@
           ></textarea>
           <p class="helper-text">Our team will reach out to help with your requirements</p>
         </div>
-      </div>
+      </section>
 
         </div>
         <!-- End Main Content Column -->
@@ -494,11 +586,12 @@
           </div>
         </aside>
         <!-- End Builder Sidebar -->
-      </div>
+      </section>
       <!-- End content-with-builder -->
     </div>
   </main>
 
+  <script src="js/components.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/searchable-select.js"></script>
   <script>
@@ -510,7 +603,7 @@
 
     if (!isAuthenticated || !userEmail) {
       // Not authenticated, redirect to login
-      window.location.href = '1-gated-landing.html';
+      window.location.href = '/';
     }
 
     // Court data - organized by categories
@@ -1187,6 +1280,9 @@
 
     // Initialize builder on page load
     updateBuilder();
+
+    // Initialize auth footer
+    initAuthFooter();
   </script>
 </body>
 </html>

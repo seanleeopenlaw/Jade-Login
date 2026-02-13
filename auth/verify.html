@@ -12,21 +12,21 @@
 </head>
 <body class="jade-theme">
   <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="max-w-md w-full text-center">
+    <article class="max-w-md w-full text-center">
       <!-- Logo -->
       <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto mb-8" />
 
       <!-- Loading State -->
-      <div id="loading-state" class="fade-in">
+      <section id="loading-state" class="fade-in">
         <div class="spinner mb-6"></div>
         <h1 class="text-2xl font-bold mb-3 font-serif" id="loading-title">
           Verifying your sign-in link...
         </h1>
         <p class="jade-text-muted" id="loading-subtitle">Please wait a moment</p>
-      </div>
+      </section>
 
       <!-- Success State -->
-      <div id="success-state" style="display: none;" class="fade-in">
+      <section id="success-state" class="fade-in hidden">
         <div class="success-icon status-icon mb-6">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
@@ -37,10 +37,10 @@
           Sign-in successful!
         </h1>
         <p class="jade-text-muted mb-4" id="success-subtitle">Redirecting you to JADE...</p>
-      </div>
+      </section>
 
       <!-- Error State -->
-      <div id="error-state" style="display: none;" class="fade-in">
+      <section id="error-state" class="fade-in hidden">
         <div class="error-icon status-icon mb-6">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
@@ -53,14 +53,15 @@
         <p class="jade-text-muted mb-6" id="error-message">
           This link may have expired or is invalid
         </p>
-        <a href="../1-gated-landing.html" class="btn-primary inline-block">
+        <a href="/" class="btn-primary inline-block">
           Request a new sign-in link
         </a>
-      </div>
+      </section>
 
-    </div>
+    </article>
   </main>
 
+  <script src="../js/components.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/loading-states.js"></script>
   <script src="../js/magic-link.js"></script>
@@ -89,9 +90,9 @@
     }
 
     async function showError(message) {
-      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('loading-state').classList.add('hidden');
       errorMessage.textContent = message;
-      document.getElementById('error-state').style.display = 'block';
+      document.getElementById('error-state').classList.remove('hidden');
 
       // Animate error icon
       await delay(100);
@@ -155,8 +156,8 @@
       }
 
       // Show success state with animation
-      document.getElementById('loading-state').style.display = 'none';
-      document.getElementById('success-state').style.display = 'block';
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('success-state').classList.remove('hidden');
 
       // Animate success icon
       await delay(100);
@@ -171,6 +172,9 @@
 
     // Start verification
     verifyAndLogin();
+
+    // Initialize auth footer
+    initAuthFooter();
   </script>
 </body>
 </html>

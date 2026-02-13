@@ -529,19 +529,19 @@
     <div class="max-w-6xl w-full fade-in">
 
       <!-- Welcome Header -->
-      <div class="text-center mb-8">
+      <header class="text-center mb-8">
         <img src="jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto mb-8" />
 
-        <h1 class="text-4xl sm:text-5xl font-bold mb-4" style="font-family: var(--font-serif); line-height: 1.2;">
+        <h1 class="text-4xl sm:text-5xl font-bold mb-4 page-title">
           You're all set, <span id="user-first-name">there</span>!
         </h1>
         <p class="text-lg jade-text-muted max-w-2xl mx-auto">
           Your account is ready. Here's what you can do with JADE:
         </p>
-      </div>
+      </header>
 
       <!-- Feature Grid -->
-      <div class="feature-grid">
+      <section class="feature-grid">
 
         <!-- Feature 1: Search & Citator -->
         <div class="feature-card">
@@ -690,16 +690,16 @@
             <a href="#" class="feature-link">Join waitlist →</a>
           </div>
           <div class="tier-details">
-            <div class="tier-toggle" style="cursor: default;">
+            <div class="tier-toggle cursor-default">
               <span>Coming in 2025</span>
             </div>
           </div>
         </div>
 
-      </div>
+      </section>
 
       <!-- Value Proposition Bar -->
-      <div class="value-bar">
+      <aside class="value-bar">
         <div class="value-item">
           <strong>Free:</strong> Perfect for getting started
         </div>
@@ -707,10 +707,10 @@
           <strong>Pro:</strong> For serious researchers ($58/mo)
         </div>
         <a href="#" class="feature-link" id="compare-link">Compare plans →</a>
-      </div>
+      </aside>
 
       <!-- Promotional Card -->
-      <div class="promo-card">
+      <section class="promo-card">
         <div class="promo-badge">
           ⚡ Limited Time: 30% Off JADE Professional
         </div>
@@ -749,14 +749,14 @@
           </button>
         </div>
 
-        <div class="testimonial">
+        <blockquote class="testimonial">
           "I used the free version for a week and realized I needed Pro for my practice."
-          <div class="testimonial-author">— Sarah K., Barrister</div>
-        </div>
-      </div>
+          <cite class="testimonial-author">— Sarah K., Barrister</cite>
+        </blockquote>
+      </section>
 
       <!-- Primary CTA Section -->
-      <div class="cta-section">
+      <section class="cta-section">
         <h2 class="cta-title">Ready to start researching?</h2>
 
         <div class="cta-buttons">
@@ -771,23 +771,24 @@
         <p class="reassurance">
           You can always upgrade later
         </p>
-      </div>
+      </section>
 
       <!-- Footer -->
-      <div class="help-footer">
+      <footer class="help-footer">
         <h3 class="help-title">Need help getting started?</h3>
-        <div class="help-links">
+        <nav class="help-links">
           <a href="#" class="help-link">Browse Help Center</a>
           <span class="jade-text-muted">•</span>
           <a href="#" class="help-link">Watch Getting Started Guide</a>
           <span class="jade-text-muted">•</span>
           <a href="#" class="help-link">Contact Support</a>
-        </div>
-      </div>
+        </nav>
+      </footer>
 
     </div>
   </main>
 
+  <script src="js/components.js"></script>
   <script src="js/utils.js"></script>
 
   <script>
@@ -799,7 +800,7 @@
     const onboardingData = getOnboardingData();
 
     if (!isAuthenticated || !userEmail) {
-      window.location.href = '1-gated-landing.html';
+      window.location.href = '/';
     }
 
     // Personalize welcome message
@@ -872,6 +873,9 @@
         }
       });
     });
+
+    // Initialize auth footer
+    initAuthFooter();
   </script>
 </body>
 </html>

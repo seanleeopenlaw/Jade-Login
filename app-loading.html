@@ -54,7 +54,7 @@
     const userEmail = getSession('userEmail');
 
     if (!isAuthenticated || !userEmail) {
-      window.location.href = '1-gated-landing.html';
+      window.location.href = '/';
     }
 
     async function loadApp() {

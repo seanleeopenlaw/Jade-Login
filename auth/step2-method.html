@@ -12,19 +12,19 @@
 </head>
 <body class="jade-theme">
   <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="max-w-md w-full fade-in">
-      <div class="text-center mb-8">
+    <article class="max-w-md w-full fade-in">
+      <header class="text-center mb-8">
         <!-- Logo -->
         <img src="../jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto mb-8" />
-        <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3 page-title">
           Sign in to JADE
         </h1>
         <p class="text-base jade-text-muted mb-2" id="sso-message">This email is managed by your organization.</p>
         <p class="text-base font-semibold text-foreground mb-2" id="user-email-display"></p>
-        <a href="../1-gated-landing.html" class="text-sm link-primary">Use Different Email</a>
-      </div>
+        <a href="/" class="text-sm link-primary">Use Different Email</a>
+      </header>
 
-      <div class="card p-6 sm:p-8">
+      <section class="card p-6 sm:p-8">
         <div id="error-message" class="error-message" role="alert" aria-live="assertive">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
@@ -34,7 +34,7 @@
         </div>
 
         <!-- SSO Options (shown if available) -->
-        <div id="sso-options" style="display: none;">
+        <section id="sso-options" class="hidden">
           <button type="button" class="btn-secondary mb-3" id="google-sso-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -45,7 +45,7 @@
             Sign in with Google
           </button>
 
-          <button type="button" class="btn-secondary mb-3" id="microsoft-sso-btn" style="display: none;">
+          <button type="button" class="btn-secondary mb-3 hidden" id="microsoft-sso-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path fill="#f25022" d="M0 0h11v11H0z"/>
               <path fill="#00a4ef" d="M12 0h11v11H12z"/>
@@ -56,10 +56,10 @@
           </button>
 
           <div class="divider">or</div>
-        </div>
+        </section>
 
         <!-- Magic Link Option -->
-        <div id="magic-link-section">
+        <section id="magic-link-section">
           <button type="button" class="btn-secondary" id="magic-link-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="4" width="20" height="16" rx="2" stroke="#00A676" stroke-width="2"/>
@@ -70,11 +70,12 @@
           <p class="text-xs jade-text-muted mt-3 text-center">
             We'll send you a secure sign-in link
           </p>
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </article>
   </main>
 
+  <script src="../js/components.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/sso-config.js"></script>
   <script src="../js/magic-link.js"></script>
@@ -87,7 +88,7 @@
     const email = getSession('authEmail');
 
     if (!email || !authMethods) {
-      window.location.href = '../1-gated-landing.html';
+      window.location.href = '/';
     }
 
     // Display user email
@@ -96,14 +97,14 @@
     // Show SSO options if available
     if (authMethods.hasSSO) {
       const ssoOptions = document.getElementById('sso-options');
-      ssoOptions.style.display = 'block';
+      ssoOptions.classList.remove('hidden');
 
       // Show appropriate SSO buttons
       if (authMethods.providers.includes('google')) {
-        document.getElementById('google-sso-btn').style.display = 'flex';
+        document.getElementById('google-sso-btn').classList.remove('hidden');
       }
       if (authMethods.providers.includes('microsoft')) {
-        document.getElementById('microsoft-sso-btn').style.display = 'flex';
+        document.getElementById('microsoft-sso-btn').classList.remove('hidden');
       }
     }
 
@@ -162,6 +163,9 @@
       // Redirect to confirmation screen
       window.location.href = 'magic-link-sent.html';
     });
+
+    // Initialize auth footer
+    initAuthFooter();
   </script>
 </body>
 </html>

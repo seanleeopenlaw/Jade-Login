@@ -1,0 +1,71 @@
+/**
+ * Auth Footer Component
+ * Modern footer for sign-in flow pages
+ */
+
+.auth-footer {
+  width: 100%;
+  padding: var(--spacing-6) var(--spacing-4);
+  margin-top: auto;
+}
+
+.auth-footer-content {
+  max-width: 28rem; /* max-w-md */
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Logo */
+.auth-footer-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-4);
+}
+
+.auth-footer-logo svg {
+  height: 14px;
+  width: auto;
+  opacity: 0.5;
+}
+
+/* Links */
+.auth-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-1);
+  margin-bottom: var(--spacing-3);
+  font-size: var(--text-xs);
+}
+
+.auth-footer-links a {
+  color: var(--muted-foreground);
+  text-decoration: none;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast) var(--ease-in-out),
+              background-color var(--transition-fast) var(--ease-in-out);
+}
+
+.auth-footer-links a:hover {
+  color: var(--foreground);
+  background-color: var(--gray-100);
+}
+
+.auth-footer-links a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.auth-footer-divider {
+  color: var(--border);
+  user-select: none;
+}
+
+/* Copyright */
+.auth-footer-copyright {
+  font-size: 11px;
+  color: var(--muted-foreground);
+  opacity: 0.8;
+  line-height: var(--leading-relaxed);
+}

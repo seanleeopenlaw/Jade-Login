@@ -181,12 +181,12 @@
     <div class="max-w-2xl w-full fade-in">
 
       <!-- Logo -->
-      <div class="text-center mb-8">
+      <header class="text-center mb-8">
         <img src="jade_logo.svg" alt="JADE Legal Research" class="h-10 mx-auto" />
-      </div>
+      </header>
 
       <!-- Stepper -->
-      <div class="stepper">
+      <nav class="stepper" aria-label="Account setup progress">
         <div class="stepper-item completed">
           <div class="stepper-circle"></div>
           <div class="stepper-label">Alert Preferences</div>
@@ -195,24 +195,24 @@
           <div class="stepper-circle">2</div>
           <div class="stepper-label">Profile Setup</div>
         </div>
-      </div>
+      </nav>
 
       <!-- Header -->
-      <div class="text-center mb-8">
-        <h1 class="text-3xl sm:text-4xl font-bold mb-3 font-serif leading-tight">
+      <header class="text-center mb-8">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3 page-title">
           Tell us about yourself
         </h1>
         <p class="text-base jade-text-muted max-w-xl mx-auto">
           This helps JADE tailor your experience.
         </p>
-      </div>
+      </header>
 
     <!-- Profile Form Card -->
-    <div class="section-container">
+    <section class="section-container">
       <!-- Section Header -->
-      <div class="section-header">
+      <header class="section-header">
         <h3 class="section-title">Profile Information</h3>
-      </div>
+      </header>
 
       <form id="profile-form" novalidate>
         <div class="form-grid">
@@ -316,11 +316,12 @@
           </button>
         </div>
       </form>
-    </div>
+    </section>
     <!-- End Profile Form Card -->
     </div>
   </main>
 
+  <script src="js/components.js"></script>
   <script src="js/utils.js"></script>
   <script>
     /**
@@ -337,7 +338,7 @@
 
     if (!isAuthenticated || !userEmail) {
       // Not authenticated, redirect to login
-      window.location.href = '1-gated-landing.html';
+      window.location.href = '/';
     }
 
     const form = document.getElementById('profile-form');
@@ -498,6 +499,9 @@
 
     // Initial button state check
     updateSubmitButton();
+
+    // Initialize auth footer
+    initAuthFooter();
   </script>
 </body>
 </html>

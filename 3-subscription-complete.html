@@ -30,20 +30,20 @@
   <main id="main-content" class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <div class="max-w-2xl w-full">
       <!-- Success Icon -->
-      <div class="text-center mb-10 fade-in">
-        <div class="mx-auto mb-6" style="display: flex; align-items: center; justify-content: center;">
-          <img src="jade_logo.svg" alt="JADE" style="height: 50px; max-width: none !important; width: auto;" />
+      <header class="text-center mb-10 fade-in">
+        <div class="flex-center mx-auto mb-6">
+          <img src="jade_logo.svg" alt="JADE" class="h-12" />
         </div>
-        <h2 class="text-4xl sm:text-5xl font-bold mb-4 font-serif" style="line-height: 56px;">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-4 page-title">
           Thank you for joining JADE Professional
         </h2>
         <p class="text-lg jade-text-muted max-w-2xl mx-auto">
           You're now part of a community working to make legal research open and accessible for everyone.
         </p>
-      </div>
+      </header>
 
       <!-- Subscription Summary -->
-      <div class="card p-6 sm:p-8 mb-8 fade-in-delay">
+      <section class="card p-6 sm:p-8 mb-8 fade-in-delay">
         <h3 class="text-lg font-bold mb-6">Subscription Details</h3>
 
         <div class="mb-6 pb-6 border-b jade-border-color">
@@ -81,30 +81,18 @@
             Start Using JADE
           </button>
         </div>
-      </div>
+      </section>
 
       <!-- Support Link -->
-      <div class="text-center">
+      <nav class="text-center">
         <p class="text-sm jade-text-muted">
           Need help? <a href="#" class="jade-text-primary font-semibold hover:underline">Contact Support</a>
         </p>
-      </div>
+      </nav>
     </div>
   </main>
 
-  <footer class="border-t jade-border-color bg-white py-6 mt-12">
-    <div class="max-w-full px-4">
-      <div class="flex items-center justify-center gap-4 text-sm jade-text-muted">
-        <a href="#" class="link-primary">Terms</a>
-        <span>·</span>
-        <a href="#" class="link-primary">Privacy</a>
-        <span>·</span>
-        <a href="#" class="link-primary">Contact</a>
-      </div>
-      <p class="text-center text-xs jade-text-muted mt-3">© 2025 JADE. All rights reserved.</p>
-    </div>
-  </footer>
-
+  <script src="js/components.js"></script>
   <script src="js/utils.js"></script>
   <script>
     'use strict';
@@ -158,6 +146,9 @@
     document.getElementById('dashboard-btn').addEventListener('click', () => {
       window.location.href = 'app-loading.html?target=pro';
     });
+
+    // Initialize auth footer
+    initAuthFooter();
   </script>
 </body>
 </html>

@@ -17,7 +17,7 @@
     <div class="header-top">
       <div class="max-w-full px-4 flex items-center justify-between">
         <div class="flex items-center">
-          <img src="jade_logo.svg" alt="JADE" class="h-6" style="filter: brightness(0) invert(1);" />
+          <img src="jade_logo.svg" alt="JADE" class="h-6 logo-invert" />
         </div>
         <div class="flex items-center gap-3 text-sm">
           <span id="user-email">user@example.com</span>
@@ -34,7 +34,7 @@
         <div class="offer-badge mx-auto">
           🎁 Limited Time Offer
         </div>
-        <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3" class="page-title">
           Get <span class="jade-text-primary">30% off</span> JADE Professional
         </h1>
         <p class="text-lg font-semibold text-foreground">
@@ -44,7 +44,7 @@
 
       <!-- Plan Selection Header -->
       <div class="text-center mb-12 fade-in">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="font-family: var(--font-serif); line-height: 1.2;">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4" class="page-title">
           Choose your <span class="jade-text-primary">plan</span>
         </h2>
 
@@ -78,20 +78,20 @@
 
           <div class="mb-6">
             <div class="flex items-baseline gap-2 mb-1">
-              <span class="text-4xl font-bold jade-text-primary" style="font-family: var(--font-mono);">$0</span>
+              <span class="text-4xl font-bold jade-text-primary" class="font-mono">$0</span>
             </div>
             <p class="text-xs jade-text-muted">Always free</p>
           </div>
 
           <div class="mb-6">
-            <h4 class="text-xs font-bold jade-text-muted mb-2" style="text-transform: uppercase; letter-spacing: 0.05em;">Search</h4>
+            <h4 class="text-xs font-bold jade-text-muted mb-2" class="label-uppercase">Search</h4>
             <ul class="feature-list mb-4">
               <li>Advanced Search</li>
               <li>JADE Citator</li>
               <li>JADE Clips (case law)</li>
             </ul>
 
-            <h4 class="text-xs font-bold jade-text-muted mb-2" style="text-transform: uppercase; letter-spacing: 0.05em;">Library</h4>
+            <h4 class="text-xs font-bold jade-text-muted mb-2" class="label-uppercase">Library</h4>
             <ul class="feature-list">
               <li>JADE Alerts</li>
               <li>JADEmarks</li>
@@ -108,21 +108,21 @@
 
           <div class="mb-6">
             <div class="flex items-baseline gap-2 mb-1">
-              <span class="text-sm jade-text-muted line-through" style="font-family: var(--font-mono);" id="pro-original">$995</span>
-              <span class="text-4xl font-bold jade-text-primary" style="font-family: var(--font-mono);" id="pro-price">$695</span>
+              <span class="text-sm jade-text-muted line-through" class="font-mono" id="pro-original">$995</span>
+              <span class="text-4xl font-bold jade-text-primary" class="font-mono" id="pro-price">$695</span>
               <span class="jade-text-muted" id="pro-period">/year</span>
             </div>
             <p class="text-xs jade-text-muted" id="pro-savings">$695 for 1st year • Then $995/year</p>
           </div>
 
           <div class="mb-6">
-            <h4 class="text-xs font-bold jade-text-muted mb-2" style="text-transform: uppercase; letter-spacing: 0.05em;">Search</h4>
+            <h4 class="text-xs font-bold jade-text-muted mb-2" class="label-uppercase">Search</h4>
             <ul class="feature-list mb-4">
               <li>JADE Clips (legislation)</li>
               <li>Focus Matches</li>
             </ul>
 
-            <h4 class="text-xs font-bold jade-text-muted mb-2" style="text-transform: uppercase; letter-spacing: 0.05em;">Library</h4>
+            <h4 class="text-xs font-bold jade-text-muted mb-2" class="label-uppercase">Library</h4>
             <ul class="feature-list mb-4">
               <li>Export & Share</li>
               <li>Document Uploads</li>
@@ -130,7 +130,7 @@
               <li>Advanced JADE Alerts</li>
             </ul>
 
-            <h4 class="text-xs font-bold jade-text-muted mb-2" style="text-transform: uppercase; letter-spacing: 0.05em;">Visualisation</h4>
+            <h4 class="text-xs font-bold jade-text-muted mb-2" class="label-uppercase">Visualisation</h4>
             <ul class="feature-list">
               <li>Legislation Visualisations</li>
               <li>Similarity Tool</li>
@@ -147,7 +147,7 @@
 
           <div class="mb-6">
             <div class="flex items-baseline gap-2 mb-1">
-              <span class="text-4xl font-bold jade-text-primary" style="font-family: var(--font-mono);">Custom</span>
+              <span class="text-4xl font-bold jade-text-primary" class="font-mono">Custom</span>
             </div>
             <p class="text-xs jade-text-muted">Contact us for pricing</p>
           </div>
@@ -177,7 +177,7 @@
             <p class="text-sm jade-text-muted" id="summary-plan-name">JADE Professional Annual</p>
           </div>
           <div class="text-right">
-            <div class="text-2xl font-bold" style="font-family: var(--font-mono); color: var(--foreground);" id="summary-price">$695</div>
+            <div class="text-2xl font-bold font-mono" id="summary-price">$695</div>
             <p class="text-xs jade-text-muted" id="summary-period">for 1st year</p>
           </div>
         </div>
@@ -185,17 +185,17 @@
         <div class="space-y-3 mb-6 pb-4 border-b jade-border-color">
           <div class="flex items-center justify-between text-sm">
             <span class="jade-text-muted">Original price:</span>
-            <span class="line-through jade-text-muted" style="font-family: var(--font-mono);" id="breakdown-original">$995/year</span>
+            <span class="line-through jade-text-muted font-mono" id="breakdown-original">$995/year</span>
           </div>
-          <div class="flex items-center justify-between text-sm font-semibold" style="color: #dc2626;">
+          <div class="flex items-center justify-between text-sm font-semibold text-error">
             <span id="discount-label">1st year discount:</span>
-            <span style="font-family: var(--font-mono);" id="discount-amount">-$300</span>
+            <span class="font-mono" id="discount-amount">-$300</span>
           </div>
         </div>
 
         <div class="flex items-center justify-between mb-6">
           <span class="font-bold text-base">Total due today:</span>
-          <span class="text-3xl font-bold jade-text-primary" style="font-family: var(--font-mono);" id="total-price">$695</span>
+          <span class="text-3xl font-bold jade-text-primary font-mono" id="total-price">$695</span>
         </div>
 
         <button id="subscribe-btn" class="btn-primary">
@@ -203,8 +203,8 @@
         </button>
 
         <!-- Free Version Link (shown when Pro is selected) -->
-        <div id="free-version-link" class="text-center mt-4" style="display: none;">
-          <button id="continue-free-btn" class="jade-text-primary hover:opacity-80" style="background: none; border: none; cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: opacity 0.2s;">
+        <div id="free-version-link" class="text-center mt-4 hidden">
+          <button id="continue-free-btn" class="btn-text jade-text-primary">
             Not ready yet? Continue with Free version
           </button>
         </div>
@@ -217,19 +217,7 @@
     </div>
   </main>
 
-  <footer class="border-t jade-border-color bg-white py-6 mt-12">
-    <div class="max-w-full px-4">
-      <div class="flex items-center justify-center gap-4 text-sm jade-text-muted">
-        <a href="#" class="link-primary">Terms</a>
-        <span>·</span>
-        <a href="#" class="link-primary">Privacy</a>
-        <span>·</span>
-        <a href="#" class="link-primary">Contact</a>
-      </div>
-      <p class="text-center text-xs jade-text-muted mt-3">© 2025 JADE. All rights reserved.</p>
-    </div>
-  </footer>
-
+  <script src="js/components.js"></script>
   <script src="js/utils.js"></script>
   
   <script>
@@ -244,9 +232,8 @@
       document.getElementById('user-email').textContent = userEmail;
     }
 
-    // Show welcome section
+    // Welcome section is visible by default
     const welcomeSection = document.getElementById('welcome-section');
-    welcomeSection.style.display = 'block';
 
     // Clear new user flag if present
     if (isNewUser) {
@@ -338,10 +325,10 @@
 
       if (hasDiscount) {
         document.getElementById('pro-savings').textContent = `$${pricing.discounted} for 1st year • Then $${pricing.original}/year`;
-        document.getElementById('pro-original').style.display = 'inline';
+        document.getElementById('pro-original').classList.remove('hidden');
       } else {
         document.getElementById('pro-savings').textContent = 'Billed monthly';
-        document.getElementById('pro-original').style.display = 'none';
+        document.getElementById('pro-original').classList.add('hidden');
       }
     }
 
@@ -364,7 +351,7 @@
         document.getElementById('summary-period').textContent = 'forever';
 
         // Hide breakdown section
-        breakdownSection.style.display = 'none';
+        breakdownSection.classList.add('hidden');
 
         // Update total
         totalLabel.textContent = 'Total:';
@@ -374,7 +361,7 @@
         subscribeBtn.textContent = 'Continue with Free Version';
 
         // Hide free version link
-        freeVersionLink.style.display = 'none';
+        freeVersionLink.classList.add('hidden');
       } else {
         // Update for Professional plan
         document.getElementById('summary-plan-name').textContent = `JADE Professional ${periodCap}`;
@@ -387,7 +374,7 @@
         }
 
         // Show breakdown section
-        breakdownSection.style.display = 'block';
+        breakdownSection.classList.remove('hidden');
 
         // Update breakdown
         document.getElementById('breakdown-original').textContent = `$${pricing.original}/${period}`;
@@ -398,11 +385,11 @@
         const discountAmount = document.getElementById('discount-amount');
 
         if (hasDiscount) {
-          discountLabel.parentElement.style.display = 'flex';
+          discountLabel.parentElement.classList.remove('hidden');
           discountLabel.textContent = '1st year discount:';
           discountAmount.textContent = `-$${discount}`;
         } else {
-          discountLabel.parentElement.style.display = 'none';
+          discountLabel.parentElement.classList.add('hidden');
         }
 
         // Update total label
@@ -412,7 +399,7 @@
         subscribeBtn.textContent = 'Continue to Payment';
 
         // Show free version link
-        freeVersionLink.style.display = 'block';
+        freeVersionLink.classList.remove('hidden');
       }
     }
 
@@ -448,6 +435,9 @@
     // Initialize
     updatePricing();
     updateSummary();
+
+    // Initialize auth footer
+    initAuthFooter();
   </script>
 </body>
 </html>
