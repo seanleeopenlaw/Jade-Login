@@ -36,7 +36,7 @@
     </div>
 
     <!-- Navigation Menu -->
-    <div class="header-main">
+    <nav class="header-main" aria-label="Main navigation">
       <div class="max-w-full px-4 flex items-center">
         <a href="#" class="nav-link">Home</a>
         <a href="#" class="nav-link">Jade Browser</a>
@@ -48,11 +48,11 @@
         <div style="flex: 1;"></div>
         <a href="#" class="link-primary text-sm px-3 py-2">Talk to an editor</a>
       </div>
-    </div>
+    </nav>
   </header>
 
   <!-- Upgrade Banner -->
-  <div id="upgrade-banner" class="upgrade-banner">
+  <aside id="upgrade-banner" class="upgrade-banner" aria-label="Promotional offer">
     <div class="flex items-center flex-1">
       <span>🎁 <strong>Limited Time Offer:</strong> Get 30% off JADE Professional Annual. Expires December 31, 2025.</span>
     </div>
@@ -61,94 +61,100 @@
         Subscribe Now
       </button>
     </div>
-  </div>
+  </aside>
 
   <!-- Main Container -->
   <div id="main-content" class="main-container">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="sidebar-section">
-        <div class="sidebar-title">Browse collections</div>
+      <section class="sidebar-section">
+        <h2 class="sidebar-title">Browse collections</h2>
         <a href="#" class="sidebar-link active">Judgments</a>
         <a href="#" class="sidebar-link">By topic</a>
         <a href="#" class="sidebar-link">By citation</a>
         <a href="#" class="sidebar-link">By court</a>
         <a href="#" class="sidebar-link">By tag</a>
         <a href="#" class="sidebar-link">By cloud</a>
-      </div>
-      <div class="sidebar-section">
-        <div class="sidebar-title">Other</div>
+      </section>
+      <section class="sidebar-section">
+        <h2 class="sidebar-title">Other</h2>
         <a href="#" class="sidebar-link">Advanced</a>
         <a href="#" class="sidebar-link">Court documents</a>
-      </div>
+      </section>
     </aside>
 
     <!-- Main Content Area -->
     <main class="content-area">
       <!-- Results Header -->
-      <div class="results-header">
+      <header class="results-header">
         <div class="flex items-center justify-between mb-2">
           <h2 class="text-sm font-semibold">Search results</h2>
-          <div class="text-xs text-muted-foreground">
-            <span>You are on page 1 of 406 with 8112 results for: Court: HCA, Order by: Date (reverse)</span>
-          </div>
+          <p class="text-xs text-muted-foreground">
+            You are on page 1 of 406 with 8112 results for: Court: HCA, Order by: Date (reverse)
+          </p>
         </div>
         <div class="flex items-center gap-2 text-xs">
           <button class="link-primary">Edit this search</button>
           <span class="text-muted-foreground">•</span>
           <button class="link-primary">Hide year filters</button>
         </div>
-      </div>
+      </header>
 
       <!-- Search Results -->
-      <div class="result-item">
-        <a href="#" class="result-title">Plaintiff M27/2025 v Minister for Immigration and Multicultural Affairs</a>
-        <div class="result-meta">[2025] HCA 90 (15 October 2025) (Gageler CJ, Gordon and Beech-Jones JJ)</div>
+      <search-result>
+        <h3><a href="#" class="result-title">Plaintiff M27/2025 v Minister for Immigration and Multicultural Affairs</a></h3>
+        <p class="result-meta">[2025] HCA 90 (15 October 2025) (Gageler CJ, Gordon and Beech-Jones JJ)</p>
         <p class="result-excerpt">
           Immigration – Visas – Where plaintiff applied for protection (subclass 866) visa – Where document in application for visa included English text and images with Mandarin characters – Where Minister's delegate requested further information under s 56 of Migration Act 1958 (Cth) – Where plaintiff did not provide translation of content relied on – Where delegate refused application for protection visa...
         </p>
-      </div>
+      </search-result>
 
-      <div class="result-item">
-        <a href="#" class="result-title">El Global 12he 12iv Ltd v Commissioner of State Revenue</a>
-        <div class="result-meta">[2025] HCA 39 (15 October 2025) (Gageler CJ, Gordon, Edelman, Steward, Gleeson, Jagot and Beech-Jones JJ)</div>
+      <search-result>
+        <h3><a href="#" class="result-title">El Global 12he 12iv Ltd v Commissioner of State Revenue</a></h3>
+        <p class="result-meta">[2025] HCA 39 (15 October 2025) (Gageler CJ, Gordon, Edelman, Steward, Gleeson, Jagot and Beech-Jones JJ)</p>
         <p class="result-excerpt">
           Constitutional law (Cth) – Legislative power – Inconsistency between Commonwealth and State laws – External affairs – Acquisition of property on just terms – Where rate of land tax imposed by State law on non-residents and foreign-owned or controlled entities higher than rate of land tax imposed on other residents and entities – Where Commonwealth law would force of law to international agreements...
         </p>
-      </div>
+      </search-result>
 
-      <div class="result-item locked-overlay">
-        <a href="#" class="result-title">
-          Farmer v Minister for Home Affairs
-          <span class="locked-badge">🔒 PRO</span>
-        </a>
-        <div class="result-meta">[2025] HCA 38 (18 October 2025) (Gageler CJ, Gordon, Edelman, Steward, Gleeson, Jagot and Beech-Jones JJ)</div>
+      <search-result class="locked-overlay">
+        <h3>
+          <a href="#" class="result-title">
+            Farmer v Minister for Home Affairs
+            <span class="locked-badge">🔒 PRO</span>
+          </a>
+        </h3>
+        <p class="result-meta">[2025] HCA 38 (18 October 2025) (Gageler CJ, Gordon, Edelman, Steward, Gleeson, Jagot and Beech-Jones JJ)</p>
         <p class="result-excerpt">
           Constitutional law (Cth) – Legislative power – Inconsistency between Commonwealth and State laws – Where s 501(3A)(d)(iv) of the Migration Act 1958 (Cth) provides that person does not pass character test if risk they would, if allowed to enter Australia, "incite discord in the Australian community or in a segment of that community" – Where Minister for Home Affairs ("Minister") refused visa to controversial political commentator on basis of s 501(6)(d)(iv)...
         </p>
-      </div>
+      </search-result>
 
-      <div class="result-item locked-overlay">
-        <a href="#" class="result-title">
-          CD v The Commonwealth of Australia, CD v Director of Public Prosecutions (SA)
-          <span class="locked-badge">🔒 PRO</span>
-        </a>
-        <div class="result-meta">[2025] HCA 37 (04 October 2025) (Gageler CJ, Gordon, Edelman, Steward, Gleeson, Jagot and Beech-Jones JJ)</div>
+      <search-result class="locked-overlay">
+        <h3>
+          <a href="#" class="result-title">
+            CD v The Commonwealth of Australia, CD v Director of Public Prosecutions (SA)
+            <span class="locked-badge">🔒 PRO</span>
+          </a>
+        </h3>
+        <p class="result-meta">[2025] HCA 37 (04 October 2025) (Gageler CJ, Gordon, Edelman, Steward, Gleeson, Jagot and Beech-Jones JJ)</p>
         <p class="result-excerpt">
           Constitutional law (Cth) – Judicial power of Commonwealth – Admissibility of evidence – Where information and records obtained pursuant to warrants – Where Surveillance Legislation (Confirmation of Application) Act 2024 (Cth) ("Confirmation of Application Act") deems information and records obtained under specified warrants to have been lawfully obtained...
         </p>
-      </div>
+      </search-result>
 
-      <div class="result-item locked-overlay">
-        <a href="#" class="result-title">
-          Plaintiff S22/2025 v Minister for Immigration and Multicultural Affairs
-          <span class="locked-badge">🔒 PRO</span>
-        </a>
-        <div class="result-meta">[2025] HCA 36 (03 September 2025) (Gageler CJ, Edelman and Jagot JJ)</div>
+      <search-result class="locked-overlay">
+        <h3>
+          <a href="#" class="result-title">
+            Plaintiff S22/2025 v Minister for Immigration and Multicultural Affairs
+            <span class="locked-badge">🔒 PRO</span>
+          </a>
+        </h3>
+        <p class="result-meta">[2025] HCA 36 (03 September 2025) (Gageler CJ, Edelman and Jagot JJ)</p>
         <p class="result-excerpt">
           Immigration – Visas – Cancellation of visa – Where plaintiff TPV mandatorily cancelled under s 501(3A) of the Migration Act 1968 (Cth) ("Act") following conviction and imprisonment for offence – Whether plaintiff released from immigration detention – Whether plaintiff released when...
         </p>
-      </div>
+      </search-result>
     </main>
   </div>
 

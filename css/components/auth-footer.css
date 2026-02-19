@@ -1,7 +1,191 @@
 /**
  * Auth Footer Component
  * Modern footer for sign-in flow pages
+ * Uses semantic custom elements
  */
+
+/* ==========================================================================
+   Footer Container
+   ========================================================================== */
+
+.ui2-footer {
+  width: 100%;
+  padding: var(--spacing-6) var(--spacing-4);
+  margin-top: auto;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Logo */
+.ui2-footer svg {
+  display: block;
+  height: 14px;
+  width: auto;
+  opacity: 0.5;
+  margin: 0 auto var(--spacing-4);
+}
+
+/* Navigation Links */
+.ui2-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-3);
+  font-size: var(--text-xs);
+}
+
+.ui2-footer nav a {
+  color: var(--muted-foreground);
+  text-decoration: none;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast) var(--ease-in-out),
+              background-color var(--transition-fast) var(--ease-in-out);
+}
+
+.ui2-footer nav a:hover {
+  color: var(--foreground);
+  background-color: var(--gray-100);
+}
+
+.ui2-footer nav a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Copyright - Custom Element */
+.ui2-footer copyright {
+  display: block;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  opacity: 0.8;
+  line-height: var(--leading-relaxed);
+}
+
+/* ==========================================================================
+   Error Alert - Custom Element
+   ========================================================================== */
+
+error-alert {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--error-bg, #fef2f2);
+  border: 1px solid var(--error-border, #fecaca);
+  border-radius: var(--radius-md);
+  color: var(--error, #dc2626);
+  font-size: var(--text-sm);
+  margin-bottom: var(--spacing-4);
+}
+
+error-alert.visible {
+  display: flex;
+}
+
+error-alert svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+/* ==========================================================================
+   Page Header - Custom Element
+   ========================================================================== */
+
+page-header {
+  display: block;
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+page-header img {
+  height: 2.5rem;
+  margin: 0 auto var(--spacing-8);
+}
+
+page-header h1 {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  font-family: var(--font-serif);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-3);
+}
+
+@media (min-width: 640px) {
+  page-header h1 {
+    font-size: var(--text-4xl);
+  }
+}
+
+page-header p {
+  font-size: var(--text-base);
+  color: var(--muted-foreground);
+}
+
+/* ==========================================================================
+   Form Card - Custom Element
+   ========================================================================== */
+
+form-card {
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+form-card.p-6 {
+  padding: var(--spacing-6);
+}
+
+form-card.sm\:p-8 {
+  padding: var(--spacing-6);
+}
+
+@media (min-width: 640px) {
+  form-card.sm\:p-8 {
+    padding: var(--spacing-8);
+  }
+}
+
+/* ==========================================================================
+   Search Result - Custom Element
+   ========================================================================== */
+
+search-result {
+  display: block;
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--transition-fast);
+}
+
+search-result:hover {
+  background-color: var(--gray-50);
+}
+
+search-result h3 {
+  margin: 0 0 var(--spacing-2);
+}
+
+search-result .result-meta {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-2);
+}
+
+search-result .result-excerpt {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  line-height: var(--leading-relaxed);
+}
+
+/* ==========================================================================
+   Backward Compatibility (deprecated - will be removed)
+   ========================================================================== */
 
 .auth-footer {
   width: 100%;
@@ -10,12 +194,11 @@
 }
 
 .auth-footer-content {
-  max-width: 28rem; /* max-w-md */
+  max-width: 28rem;
   margin: 0 auto;
   text-align: center;
 }
 
-/* Logo */
 .auth-footer-logo {
   display: flex;
   justify-content: center;
@@ -28,7 +211,6 @@
   opacity: 0.5;
 }
 
-/* Links */
 .auth-footer-links {
   display: flex;
   flex-wrap: wrap;
@@ -52,20 +234,38 @@
   background-color: var(--gray-100);
 }
 
-.auth-footer-links a:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
 .auth-footer-divider {
   color: var(--border);
   user-select: none;
 }
 
-/* Copyright */
 .auth-footer-copyright {
   font-size: 11px;
   color: var(--muted-foreground);
   opacity: 0.8;
   line-height: var(--leading-relaxed);
+}
+
+/* Backward compatibility for error-message class */
+.error-message {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--error-bg, #fef2f2);
+  border: 1px solid var(--error-border, #fecaca);
+  border-radius: var(--radius-md);
+  color: var(--error, #dc2626);
+  font-size: var(--text-sm);
+  margin-bottom: var(--spacing-4);
+}
+
+.error-message.visible {
+  display: flex;
+}
+
+.error-message svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }

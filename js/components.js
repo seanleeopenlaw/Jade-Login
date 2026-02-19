@@ -7,13 +7,13 @@
 
 /**
  * Create error message container
+ * Uses semantic <error-alert> custom element
  * @param {string} containerId - ID for the container (default: 'error-message')
  * @returns {HTMLElement} Error message element
  */
 function createErrorMessage(containerId = 'error-message') {
-  const container = document.createElement('div');
+  const container = document.createElement('error-alert');
   container.id = containerId;
-  container.className = 'error-message';
   container.setAttribute('role', 'alert');
   container.setAttribute('aria-live', 'assertive');
 
@@ -22,7 +22,7 @@ function createErrorMessage(containerId = 'error-message') {
       <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
       <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
-    <span class="error-text"></span>
+    <span></span>
   `;
 
   return container;
@@ -30,6 +30,7 @@ function createErrorMessage(containerId = 'error-message') {
 
 /**
  * Create page header with logo and title
+ * Uses semantic <page-header> custom element
  * @param {Object} options - Configuration
  * @param {string} options.logoSrc - Path to logo image
  * @param {string} options.logoAlt - Alt text for logo
@@ -47,23 +48,18 @@ function createPageHeader(options = {}) {
     showLogo = true
   } = options;
 
-  const header = document.createElement('div');
-  header.className = 'text-center mb-8';
+  const header = document.createElement('page-header');
 
   let html = '';
 
   if (showLogo) {
-    html += `<img src="${logoSrc}" alt="${logoAlt}" class="h-10 mx-auto mb-8" />`;
+    html += `<img src="${logoSrc}" alt="${logoAlt}" />`;
   }
 
-  html += `
-    <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: var(--font-serif); line-height: 1.2;">
-      ${title}
-    </h1>
-  `;
+  html += `<h1>${title}</h1>`;
 
   if (subtitle) {
-    html += `<p class="text-base jade-text-muted">${subtitle}</p>`;
+    html += `<p>${subtitle}</p>`;
   }
 
   header.innerHTML = html;
@@ -72,13 +68,14 @@ function createPageHeader(options = {}) {
 
 /**
  * Create form card container
+ * Uses semantic <form-card> custom element
  * @param {string} content - HTML content or empty string
  * @param {string} padding - Padding class (default: 'p-6 sm:p-8')
  * @returns {HTMLElement} Card element
  */
 function createFormCard(content = '', padding = 'p-6 sm:p-8') {
-  const card = document.createElement('div');
-  card.className = `card ${padding}`;
+  const card = document.createElement('form-card');
+  card.className = padding;
 
   if (content) {
     card.innerHTML = content;
@@ -172,6 +169,7 @@ function createButton(options = {}) {
 
 /**
  * Create auth footer with logo, links, and copyright
+ * Uses semantic custom elements for cleaner markup
  * @param {Object} options - Configuration
  * @param {string} options.basePath - Base path for links (default: '')
  * @returns {HTMLElement} Footer element
@@ -180,7 +178,7 @@ function createAuthFooter(options = {}) {
   const { basePath = '' } = options;
 
   const footer = document.createElement('footer');
-  footer.className = 'auth-footer';
+  footer.className = 'ui2-footer';
 
   // Monochrome JADE logo SVG (gray)
   const logoSvg = `<svg width="40" height="16" viewBox="0 0 40 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -188,21 +186,15 @@ function createAuthFooter(options = {}) {
   </svg>`;
 
   footer.innerHTML = `
-    <div class="auth-footer-content">
-      <div class="auth-footer-logo">
-        ${logoSvg}
-      </div>
-      <nav class="auth-footer-links" aria-label="Footer links">
-        <a href="mailto:help@jade.io">Contact</a>
-        <span class="auth-footer-divider" aria-hidden="true">|</span>
-        <a href="https://jade.io/t/privacy_policy.html" target="_blank" rel="noopener">Privacy Policy</a>
-        <span class="auth-footer-divider" aria-hidden="true">|</span>
-        <a href="https://jade.io/t/terms_of_use.html" target="_blank" rel="noopener">Terms of Use</a>
-      </nav>
-      <p class="auth-footer-copyright">
-        &copy; 2002 - ${new Date().getFullYear()} BarNetwork Pty Limited (ABN 32 092 121 198). All rights reserved.
-      </p>
-    </div>
+    ${logoSvg}
+    <nav aria-label="Footer links">
+      <a href="mailto:help@jade.io">Contact</a>
+      <a href="https://jade.io/t/privacy_policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+      <a href="https://jade.io/t/terms_of_use.html" target="_blank" rel="noopener">Terms of Use</a>
+    </nav>
+    <copyright>
+      &copy; 2002 - ${new Date().getFullYear()} BarNetwork Pty Limited (ABN 32 092 121 198). All rights reserved.
+    </copyright>
   `;
 
   return footer;
